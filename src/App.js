@@ -1,25 +1,19 @@
+import React from "react"
+import { BrowserRouter as Router, Route } from "react-router-dom"
 import "./App.css"
-import Button from "@material-ui/core/Button"
-import SaveIcon from "@material-ui/icons/Save"
 import SignUpIn from "./components/SignUpIn"
+import Accueil from "./components/Accueil"
 
 function App() {
   return (
-    <div className="App">
-      App
-      {/* <Button
-        startIcon={<SaveIcon></SaveIcon>}
-        endIcon={<SaveIcon></SaveIcon>}
-        variant="contained"
-        size="small"
-        style={{ fontSize: 50 }}
-        href="#"
-        color="primary"
-      >
-        material UI
-      </Button> */}
-      <SignUpIn></SignUpIn>
-    </div>
+    <Router>
+      <div className="App">
+        App
+        <Route path="/" component={SignUpIn} exact></Route>
+        <Route path="/accueil" component={Accueil}></Route>
+        {/* DO NOT FORGET TO CHANGE <a href> to <Link to=""> to avoid refreshing the page  */}
+      </div>
+    </Router>
   )
 }
 

@@ -1,0 +1,7 @@
+.dis-flex {
+  display: flex;
+}
+.dff {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,6 @@
+.footer {
+  position: relative;
+  z-index: 99999;
+  bottom: 0;
+  text-align: center;
+}

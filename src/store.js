@@ -1,8 +1,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux"
 import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension"
+import { userListReducer } from "./reducers/userReducers"
 
-const reducer = combineReducers({})
+const reducer = combineReducers({
+  // userList is what's gonna show as a piece of state
+  userList: userListReducer,
+})
 
 const initialState = {}
 

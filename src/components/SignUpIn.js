@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import React, { useState } from "react"
+// import { Link } from "react-router-dom"
+// import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
-import TextField from "@material-ui/core/TextField"
 import "../SignUpIn.css"
 import SignDrawer from "./fixed/SignDrawer"
 
-import Grid from "@material-ui/core/Grid"
-import AccountCircle from "@material-ui/icons/AccountCircle"
-import PasswordIcon from "@material-ui/icons/Keyboard"
-// import Message from "../components/Message"
-// import Loader from "../components/Loader"
-// import { login } from "../actions/usersActions"
 /////////////////////////
-import {
-  FormControlLabel,
-  Checkbox,
-  FormControl,
-  FormHelperText,
-} from "@material-ui/core"
 
-import { useForm } from "react-hook-form"
+import SignUp from "./screens/SignUp"
+import SignIn from "./screens/SignIn"
 
 const useStyles = makeStyles((theme) => ({
   //////////////////
@@ -71,167 +59,61 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SignUpIn = () => {
+const SignUpIn = ({ location, history }) => {
   const classes = useStyles()
-  //////////////////////////
-  const { register, handleSubmit, errors } = useForm()
-  const onSubmit = (data) => console.log(data)
-  //////////////////////////////
+
+  // const [email, setEmail] = useState("")
+  // const [password, setPassword] = useState("")
+  // const [name, setName] = useState("")
+  // const [phoneNumber, setPhoneNumber] = useState("")
+  // const [conditions, setConditions] = useState(false)
+
+  // const dispatch = useDispatch()
+
+  // const userLogin = useSelector((state) => state.userLogin)
+  // const { loading, error, userInfo } = userLogin
+
+  // // to get URL query string and take the right of = sign
+  // const redirect = location.search ? location.search.split("=")[1] : "/"
+
+  // useEffect(() => {
+  //   // we should not be able to go to Login Screen if we're already logged in
+  //   // if userInfo exist = we're already logged in
+  //   if (userInfo) {
+  //     history.push(redirect)
+  //   }
+  // }, [history, userInfo, redirect])
+
+  // const handleSubmitLogin = (e) => {
+  //   e.preventDefault()
+  //   dispatch(login(email, password))
+  // }
+
+  // const submitHandler = (e) => {
+  //   e.preventDefault()
+  //   console.log(name)
+  //   console.log(phoneNumber)
+  //   console.log(conditions)
+  // }
 
   const [isActive, setActive] = useState("false")
   const handleToggle = () => {
     setActive(!isActive)
   }
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-
   return (
     <div className={classes.root}>
       <div className="signcontainer">
         <SignDrawer></SignDrawer>
+        {/* formulaire */}
         <div
           style={isActive ? { top: "10%" } : { top: "25%" }}
           class="formcontainer"
         >
-          {isActive ? (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {/* 2) TextField */}
-              <TextField
-                placeholder="Enter Your  Name"
-                label=" Name"
-                variant="outlined"
-                fullWidth
-                className={classes.inputField}
-                name="Name"
-                inputRef={register({
-                  required: " Name is required.",
-                })}
-                error={Boolean(errors.Name)}
-                helperText={errors.Name?.message}
-              />
-
-              {/* 3) TextField */}
-              <TextField
-                placeholder="Enter Your E-mail Address"
-                label="E-mail"
-                variant="outlined"
-                fullWidth
-                className={classes.inputField}
-                name="email"
-                inputRef={register({
-                  required: "E-mail Address is required.",
-                })}
-                error={Boolean(errors.email)}
-                helperText={errors.email?.message}
-              />
-
-              {/* 4) TextField */}
-              <TextField
-                placeholder="Enter Your Phone Number"
-                label="Phone"
-                variant="outlined"
-                fullWidth
-                className={classes.inputField}
-                name="phone"
-                inputRef={register({
-                  required: "Phone Number is required.",
-                })}
-                error={Boolean(errors.phone)}
-                helperText={errors.phone?.message}
-              />
-
-              {/* 1) password */}
-              <TextField
-                placeholder="Enter Your password"
-                label="Password"
-                variant="outlined"
-                fullWidth
-                className={classes.inputField}
-                name="password"
-                type="password"
-                inputRef={register({
-                  required: "Password is required.",
-                })}
-                error={Boolean(errors.password)}
-                helperText={errors.password?.message}
-              />
-
-              {/* Checkbox */}
-              <FormControl
-                error={Boolean(errors.tnc)}
-                style={{ display: "block", marginBottom: 15 }}
-              >
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="tnc"
-                      inputRef={register({
-                        required: "please aggree our terms and condtions",
-                      })}
-                    />
-                  }
-                  label="I aggree all terms and conditions"
-                />
-                <FormHelperText>{errors.tnc?.message}</FormHelperText>
-              </FormControl>
-
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                className={classes.radius}
-              >
-                créer un compte
-              </Button>
-            </form>
-          ) : (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {/* 3) TextField */}
-              <TextField
-                placeholder="Enter Your E-mail Address"
-                label="E-mail"
-                variant="outlined"
-                fullWidth
-                className={classes.inputField}
-                name="email"
-                inputRef={register({
-                  required: "E-mail Address is required.",
-                })}
-                error={Boolean(errors.email)}
-                helperText={errors.email?.message}
-              />
-
-              <TextField
-                placeholder="Enter Your password"
-                label="Password"
-                variant="outlined"
-                fullWidth
-                className={classes.inputField}
-                name="password"
-                type="password"
-                inputRef={register({
-                  required: "Password is required.",
-                })}
-                error={Boolean(errors.password)}
-                helperText={errors.password?.message}
-              />
-
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                className={classes.radius}
-              >
-                se connecter
-              </Button>
-            </form>
-          )}
+          {isActive ? <SignUp></SignUp> : <SignIn></SignIn>}
         </div>
 
-        {/* </div> */}
-        {/* <div className="container sign-up-mode">
-        <div class="panels-container"> */}
+        {/* ecriture */}
         <div>
           <div className="panelcontainer">
             {isActive ? (

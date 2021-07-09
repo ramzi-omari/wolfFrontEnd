@@ -1,21 +1,29 @@
-import { createStore, combineReducers, applyMiddleware } from "redux"
-import thunk from "redux-thunk"
-import { composeWithDevTools } from "redux-devtools-extension"
-import { userListReducer } from "./reducers/userReducers"
+// import { createStore, combineReducers, applyMiddleware } from "redux"
+// import thunk from "redux-thunk"
+// import { composeWithDevTools } from "redux-devtools-extension"
+// // import { userListReducer } from "./reducers/userReducers"
+// import { userLoginReducer } from "./reducers/userReducers"
 
-const reducer = combineReducers({
-  // userList is what's gonna show as a piece of state
-  userList: userListReducer,
-})
+// const reducer = combineReducers({
+//   // userList is what's gonna show as a piece of state
+//   // userList: userListReducer,
+//   userLogin: userLoginReducer,
+// })
 
-const initialState = {}
+// const userInfoFromStorage = localStorage.getItem("userInfo")
+//   ? JSON.stringify(localStorage.getItem("userInfo"))
+//   : null
 
-const middleware = [thunk]
+// const initialState = {
+//   userLogin: { userInfo: userInfoFromStorage },
+// }
 
-const store = createStore(
-  reducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
-)
+// const middleware = [thunk]
 
-export default store
+// const store = createStore(
+//   reducer,
+//   initialState,
+//   composeWithDevTools(applyMiddleware(...middleware))
+// )
+
+// export default store

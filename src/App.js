@@ -9,9 +9,8 @@ function App() {
     <Router>
       {/* DO NOT FORGET TO CHANGE <a href> to <Link to=""> to avoid refreshing the page  */}
 
+      <Route path="/" component={SignUpIn} exact></Route>
       <Switch>
-        <Route path="/sign" component={SignUpIn}></Route>
-
         <Route path="/accueil">
           <Accueil />
         </Route>

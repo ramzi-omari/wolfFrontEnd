@@ -14,7 +14,14 @@ input {
 .container {
   position: relative;
   width: 100%;
-  background-color: rgb(21, 20, 20);
+  /* background-color: rgb(21, 20, 20); */
+  /* background-image: url(./img/jake-weirick-Q_RBVFFXR_g-unsplash.jpg); */
+  /* background-image: url(./img/dino-reichmuth-d6yDSisNi4w-unsplash.jpg); */
+  background-image: url(./img/marek-szturc-8Ou3EZmTMWA-unsplash.jpg); /* wolf */
+  /* background-image: url(./img/sven-scheuermeier-tqzqzH8hb5A-unsplash.jpg); pas mal vers le bleu */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   min-height: 100vh;
   overflow: hidden;
 }
@@ -63,7 +70,7 @@ form.sign-in-form {
 }
 
 .title {
-  font-size: 2.2rem;
+  font-size: 2rem;
   color: #fff;
   margin-bottom: 10px;
 }
@@ -103,7 +110,7 @@ form.sign-in-form {
   color: #aaa;
   font-weight: 500;
 }
-
+/* 
 .social-text {
   padding: 0.7rem 0;
   font-size: 1rem;
@@ -132,11 +139,11 @@ form.sign-in-form {
 .social-icon:hover {
   color: #4481eb;
   border-color: #4481eb;
-}
+} */
 
 .btn {
   width: 150px;
-  background-color: #5995fd;
+  background-color: darkslategray;
   border: none;
   outline: none;
   height: 49px;
@@ -150,16 +157,16 @@ form.sign-in-form {
 }
 
 .btn:hover {
-  background-color: #4d84e2;
+  background-color: rgba(47, 79, 79, 0.314);
 }
 .panels-container {
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: 40%;
   top: 0;
-  left: 0;
+  right: 15px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-columns: repeat(2, 1fr); */
 }
 
 .container:before {
@@ -176,6 +183,7 @@ form.sign-in-form {
   transition: 1.8s ease-in-out;
   border-radius: 50%;
   z-index: 6;
+  opacity: 0.3;
 }
 
 .image {
@@ -258,7 +266,7 @@ form.sign-in-form {
 }
 
 .container.sign-up-mode form.sign-in-form {
-  opacity: 0;
+  /* opacity: 0; */
   z-index: 1;
 }
 
@@ -403,4 +411,49 @@ form.sign-in-form {
     bottom: 62%;
     left: 50%;
   }
+}
+.signflex {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+/* ////////////////// */
+
+.signcontainer {
+  display: flex;
+  position: relative;
+  width: 100%;
+  /* background-color: rgb(21, 20, 20); */
+  /* background-image: url(./img/jake-weirick-Q_RBVFFXR_g-unsplash.jpg); */
+  /* background-image: url(./img/dino-reichmuth-d6yDSisNi4w-unsplash.jpg); */
+  background-image: url(./img/marek-szturc-8Ou3EZmTMWA-unsplash.jpg); /* wolf */
+  /* background-image: url(./img/sven-scheuermeier-tqzqzH8hb5A-unsplash.jpg); pas mal vers le bleu */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.formcontainer {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.514);
+  width: max-content;
+  padding: 1rem;
+  border-radius: 50px;
+  top: 10%;
+  left: 10%;
+}
+
+.panelcontainer {
+  position: absolute;
+  height: 100%;
+  width: 40%;
+  top: 094px;
+  right: 15px;
+  display: grid;
+}
+
+.PrivateNotchedOutline-legendLabelled-10 > span {
+  color: black !important;
 }

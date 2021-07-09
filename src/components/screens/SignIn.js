@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
@@ -7,6 +7,7 @@ import TextField from "@material-ui/core/TextField"
 import Message from "../../components/utile/Message"
 import Loader from "../../components/utile/Loader"
 import { login } from "../../actions/usersActions"
+import { Link } from "@material-ui/core"
 /////////////////////////
 
 const useStyles = makeStyles((theme) => ({
@@ -57,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SignIn = () => {
+const SignIn = ({ location, history }) => {
   const classes = useStyles()
 
   //HACENE track our states
@@ -69,6 +70,17 @@ const SignIn = () => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
+
+  // to get URL query string and take the right of = sign
+  const redirect = location.search ? location.search.split("=")[1] : "/"
+
+  useEffect(() => {
+    // we should not be able to go to Login Screen if we're already logged in
+    // if userInfo exist = we're already logged in
+    if (userInfo) {
+      history.push(redirect)
+    }
+  }, [history, userInfo, redirect])
 
   //HACENE dispatch en onSubmit form --- use 'login' from usersAction
   const handleSubmitLogin = (e) => {

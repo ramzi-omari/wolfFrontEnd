@@ -62,40 +62,6 @@ const useStyles = makeStyles((theme) => ({
 const SignUpIn = ({ location, history }) => {
   const classes = useStyles()
 
-  // const [email, setEmail] = useState("")
-  // const [password, setPassword] = useState("")
-  // const [name, setName] = useState("")
-  // const [phoneNumber, setPhoneNumber] = useState("")
-  // const [conditions, setConditions] = useState(false)
-
-  // const dispatch = useDispatch()
-
-  // const userLogin = useSelector((state) => state.userLogin)
-  // const { loading, error, userInfo } = userLogin
-
-  // // to get URL query string and take the right of = sign
-  // const redirect = location.search ? location.search.split("=")[1] : "/"
-
-  // useEffect(() => {
-  //   // we should not be able to go to Login Screen if we're already logged in
-  //   // if userInfo exist = we're already logged in
-  //   if (userInfo) {
-  //     history.push(redirect)
-  //   }
-  // }, [history, userInfo, redirect])
-
-  // const handleSubmitLogin = (e) => {
-  //   e.preventDefault()
-  //   dispatch(login(email, password))
-  // }
-
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-  //   console.log(name)
-  //   console.log(phoneNumber)
-  //   console.log(conditions)
-  // }
-
   const [isActive, setActive] = useState("false")
   const handleToggle = () => {
     setActive(!isActive)
@@ -110,7 +76,11 @@ const SignUpIn = ({ location, history }) => {
           style={isActive ? { top: "10%" } : { top: "25%" }}
           class="formcontainer"
         >
-          {isActive ? <SignUp></SignUp> : <SignIn></SignIn>}
+          {isActive ? (
+            <SignUp location={location} history={history}></SignUp>
+          ) : (
+            <SignIn location={location} history={history}></SignIn>
+          )}
         </div>
 
         {/* ecriture */}

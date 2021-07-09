@@ -1,4 +1,5 @@
 import React from "react"
+import { useDispatch, useSelector } from "react-redux"
 import "./Accueil.css"
 import {
   BrowserRouter as Router,
@@ -15,6 +16,9 @@ import Footer from "./Footer"
 
 const Accueil = () => {
   let { path } = useRouteMatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin
 
   return (
     <Router>

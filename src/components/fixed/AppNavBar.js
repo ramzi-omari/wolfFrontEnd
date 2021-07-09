@@ -1,4 +1,5 @@
 import React from "react"
+import { useDispatch } from "react-redux"
 import { fade, makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
@@ -14,6 +15,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle"
 import MailIcon from "@material-ui/icons/Mail"
 import NotificationsIcon from "@material-ui/icons/Notifications"
 import MoreIcon from "@material-ui/icons/MoreVert"
+import { logout } from "../../actions/usersActions"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -85,6 +87,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppNavBar() {
   const classes = useStyles()
+
+  const dispatch = useDispatch()
+
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
 
@@ -93,6 +98,10 @@ export default function AppNavBar() {
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget)
+  }
+
+  const logingout = () => {
+    dispatch(logout())
   }
 
   const handleMobileMenuClose = () => {
@@ -197,7 +206,7 @@ export default function AppNavBar() {
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
-                <MailIcon />
+                <MailIcon onClick={logingout} />
               </Badge>
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">

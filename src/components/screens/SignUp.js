@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
@@ -58,23 +58,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const SignUp = () => {
+const SignUp = ({ location, history }) => {
   const classes = useStyles()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [name, setName] = useState("")
+  const [firstname, setFirstName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [conditions, setConditions] = useState(false)
 
   const dispatch = useDispatch()
 
-  const userRegister = useSelector((state) => state.userRegister)
-  const { loading, error, userInfo } = userRegister
+  // SHOULD CHANGE THIS TO userRegister AFTER FIXING REGISTER BUG
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin
+
+  const redirect = location.search ? location.search.split("=")[1] : "/"
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect)
+    }
+  }, [history, userInfo, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(register(name, email, password))
+    dispatch(register(firstname, name, email, password, phoneNumber))
   }
 
   return (
@@ -93,6 +103,16 @@ const SignUp = () => {
           onChange={(e) => setName(e.target.value)}
           value={name}
           name="name"
+        />
+        <TextField
+          placeholder="Enter Your  FirstName"
+          label="FirstName"
+          variant="outlined"
+          fullWidth
+          className={classes.inputField}
+          onChange={(e) => setFirstName(e.target.value)}
+          value={firstname}
+          name="firstname"
         />
 
         {/* 3) TextField */}

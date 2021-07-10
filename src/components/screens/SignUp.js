@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
-
+import Select from "@material-ui/core/Select"
+import Box from "@material-ui/core/Box"
+import MenuItem from "@material-ui/core/MenuItem"
 import Message from "../../components/utile/Message"
 import Loader from "../../components/utile/Loader"
 import { register } from "../../actions/usersActions"
@@ -67,6 +69,11 @@ const SignUp = ({ location, history }) => {
   const [firstname, setFirstName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [conditions, setConditions] = useState(false)
+  const [type, setType] = useState("CONSULTANT")
+
+  const handleChange = (event) => {
+    setType(event.target.value)
+  }
 
   const dispatch = useDispatch()
 
@@ -84,7 +91,7 @@ const SignUp = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(register(firstname, name, email, password, phoneNumber))
+    dispatch(register(firstname, name, email, password, phoneNumber, type))
   }
 
   return (
@@ -152,21 +159,32 @@ const SignUp = ({ location, history }) => {
           value={password}
         />
 
-        {/* Checkbox */}
-        <FormControl style={{ display: "block", marginBottom: 15 }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={conditions}
-                onChange={(e) => setConditions(e.target.checked)}
-                name="conditions"
-                color="primary"
-              />
-            }
-            label="Primary"
-          />
-        </FormControl>
-
+        <Box display="flex" flexDirection="row" flex="1 0 50%" p={1} m={1}>
+          {/* Checkbox */}
+          <FormControl style={{ display: "block", marginBottom: 15 }}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={conditions}
+                  onChange={(e) => setConditions(e.target.checked)}
+                  name="conditions"
+                  color="primary"
+                />
+              }
+              label="Conditions d'utilisation"
+            />
+          </FormControl>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={type}
+            onChange={handleChange}
+          >
+            <MenuItem value={"INVESTOR"}>Investisseur</MenuItem>
+            <MenuItem value={"ENTREPRISE"}>Chef d'entreprise</MenuItem>
+            <MenuItem value={"CONSULTANT"}>Consultant</MenuItem>
+          </Select>
+        </Box>
         <Button
           variant="contained"
           color="primary"

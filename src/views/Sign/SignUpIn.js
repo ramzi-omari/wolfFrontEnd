@@ -71,7 +71,7 @@ const SignUpIn = ({ location, history }) => {
         {/* formulaire */}
         <div
           style={isActive ? { top: "10%" } : { top: "25%" }}
-          class="formcontainer"
+          className="formcontainer"
         >
           {isActive ? (
             <SignUp location={location} history={history}></SignUp>
@@ -84,8 +84,8 @@ const SignUpIn = ({ location, history }) => {
         <div>
           <div className="panelcontainer">
             {isActive ? (
-              <div class="panel">
-                <div class="content">
+              <div className="panel">
+                <div className="content">
                   <h3>New here ?</h3>
                   <p>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
@@ -101,11 +101,11 @@ const SignUpIn = ({ location, history }) => {
                     Sign up
                   </Button>
                 </div>
-                <img src="img/log.svg" class="image" alt="" />
+                <img src="img/log.svg" className="image" alt="" />
               </div>
             ) : (
-              <div class="panel">
-                <div class="content">
+              <div className="panel">
+                <div className="content">
                   <h3>One of us ?</h3>
                   <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -121,7 +121,7 @@ const SignUpIn = ({ location, history }) => {
                     Sign in
                   </Button>
                 </div>
-                <img src="img/register.svg" class="image" alt="" />
+                <img src="img/register.svg" className="image" alt="" />
               </div>
             )}
           </div>

@@ -1,8 +1,5 @@
-import React from "react"
-import { useDispatch } from "react-redux"
-// import { useHistory } from "react-router-dom" // version 5.2.0
-// import createBrowserHistory from "history/createBrowserHistory"
-
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { alpha, makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
@@ -93,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function AppNavBar() {
+export default function AppNavBar({ history }) {
   const classes = useStyles()
 
   const dispatch = useDispatch()
@@ -108,16 +105,21 @@ export default function AppNavBar() {
     setAnchorEl(event.currentTarget)
   }
 
-  // const history = createBrowserHistory({ forceRefresh: true })
-  const history = require("history").createBrowserHistory()
-  // let history = useHistory()
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin
+  console.log("userinfo selector: " + userInfo)
+
+  useEffect(() => {
+    // if we are not logged in redirect to /sign
+    if (!userInfo) {
+      history.push("/sign")
+    }
+  }, [history, userInfo])
 
   const logingout = () => {
+    console.log("userinfo before loginout: " + userInfo)
+
     dispatch(logout())
-    console.log("logout fait")
-    console.log("settimeout fait")
-    history.push("/sign")
-    console.log("historypush fait")
   }
 
   const handleMobileMenuClose = () => {
@@ -240,8 +242,8 @@ export default function AppNavBar() {
             >
               <AccountCircle />
             </IconButton>
-            <IconButton color="inherit">
-              <ExitToAppIcon onClick={logingout} />
+            <IconButton onClick={logingout} color="inherit">
+              <ExitToAppIcon />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>

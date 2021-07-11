@@ -9,7 +9,6 @@ import MenuItem from "@material-ui/core/MenuItem"
 import Message from "../utile/Message"
 import Loader from "../utile/Loader"
 import { register } from "../../actions/usersActions"
-/////////////////////////
 import { FormControlLabel, Checkbox, FormControl } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({

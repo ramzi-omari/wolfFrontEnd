@@ -17,7 +17,7 @@ input {
   /* background-color: rgb(21, 20, 20); */
   /* background-image: url(./img/jake-weirick-Q_RBVFFXR_g-unsplash.jpg); */
   /* background-image: url(./img/dino-reichmuth-d6yDSisNi4w-unsplash.jpg); */
-  background-image: url(./img/marek-szturc-8Ou3EZmTMWA-unsplash.jpg); /* wolf */
+  background-image: url(../../img/marek-szturc-8Ou3EZmTMWA-unsplash.jpg); /* wolf */
   /* background-image: url(./img/sven-scheuermeier-tqzqzH8hb5A-unsplash.jpg); pas mal vers le bleu */
   background-repeat: no-repeat;
   background-position: center;
@@ -178,7 +178,7 @@ form.sign-in-form {
   right: 20%;
   transform: translateY(-50%);
   /* background-image: linear-gradient(-45deg, #4481eb 0%, #04befe 100%); */
-  background-image: url(./neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png);
+  background-image: url(../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png);
   background-size: cover;
   transition: 1.8s ease-in-out;
   border-radius: 50%;
@@ -426,7 +426,7 @@ form.sign-in-form {
   /* background-color: rgb(21, 20, 20); */
   /* background-image: url(./img/jake-weirick-Q_RBVFFXR_g-unsplash.jpg); */
   /* background-image: url(./img/dino-reichmuth-d6yDSisNi4w-unsplash.jpg); */
-  background-image: url(./img/marek-szturc-8Ou3EZmTMWA-unsplash.jpg); /* wolf */
+  background-image: url(../../img/marek-szturc-8Ou3EZmTMWA-unsplash.jpg); /* wolf */
   /* background-image: url(./img/sven-scheuermeier-tqzqzH8hb5A-unsplash.jpg); pas mal vers le bleu */
   background-repeat: no-repeat;
   background-position: center;

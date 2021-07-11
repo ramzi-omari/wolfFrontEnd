@@ -3,13 +3,10 @@ import React, { useState } from "react"
 // import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
-import "../SignUpIn.css"
-import SignDrawer from "./fixed/SignDrawer"
-
-/////////////////////////
-
-import SignUp from "./screens/SignUp"
-import SignIn from "./screens/SignIn"
+import SignDrawer from "../../components/fixed/SignDrawer"
+import SignUp from "../../components/SignForms/SignUp"
+import SignIn from "../../components/SignForms/SignIn"
+import "./SignUpIn.css"
 
 const useStyles = makeStyles((theme) => ({
   //////////////////

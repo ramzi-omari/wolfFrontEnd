@@ -4,8 +4,8 @@ import { makeStyles } from "@material-ui/core/styles"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 
-import Message from "../../components/utile/Message"
-import Loader from "../../components/utile/Loader"
+import Message from "../utile/Message"
+import Loader from "../utile/Loader"
 import { login } from "../../actions/usersActions"
 import { Link } from "@material-ui/core"
 /////////////////////////

@@ -8,11 +8,11 @@ import {
   useRouteMatch,
 } from "react-router-dom"
 
-import Tst from "./tst"
-import Tst2 from "./tst2"
-import AppNavBar from "./fixed/AppNavBar"
-import DrawerSide from "./fixed/DrawerSide"
-import Footer from "./Footer"
+import Tst from "../../components/tst"
+import Tst2 from "../../components/tst2"
+import AppNavBar from "../../components/fixed/AppNavBar/AppNavBar"
+import DrawerSide from "../../components/fixed/DrawerSide"
+import Footer from "../../components/fixed/Footer/Footer"
 
 const Accueil = () => {
   let { path } = useRouteMatch()

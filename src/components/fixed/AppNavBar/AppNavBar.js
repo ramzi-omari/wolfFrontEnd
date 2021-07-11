@@ -1,5 +1,8 @@
 import React from "react"
 import { useDispatch } from "react-redux"
+// import { useHistory } from "react-router-dom" // version 5.2.0
+// import createBrowserHistory from "history/createBrowserHistory"
+
 import { alpha, makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
@@ -15,7 +18,9 @@ import AccountCircle from "@material-ui/icons/AccountCircle"
 import MailIcon from "@material-ui/icons/Mail"
 import NotificationsIcon from "@material-ui/icons/Notifications"
 import MoreIcon from "@material-ui/icons/MoreVert"
-import { logout } from "../../actions/usersActions"
+import { logout } from "../../../actions/usersActions"
+import ExitToAppIcon from "@material-ui/icons/ExitToApp"
+import "./AppNavBar.css"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -36,10 +41,11 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.35),
+    backgroundColor: alpha(theme.palette.common.white, 1),
     "&:hover": {
       backgroundColor: alpha(theme.palette.common.white, 0.45),
     },
+
     marginRight: theme.spacing(2),
     marginLeft: 0,
     width: "100%",
@@ -57,9 +63,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    color: "black",
   },
   inputRoot: {
-    color: "inherit",
+    color: "black",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -71,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
       width: "20ch",
     },
   },
+
   sectionDesktop: {
     display: "none",
     [theme.breakpoints.up("md")]: {
@@ -100,8 +108,16 @@ export default function AppNavBar() {
     setAnchorEl(event.currentTarget)
   }
 
+  // const history = createBrowserHistory({ forceRefresh: true })
+  const history = require("history").createBrowserHistory()
+  // let history = useHistory()
+
   const logingout = () => {
     dispatch(logout())
+    console.log("logout fait")
+    console.log("settimeout fait")
+    history.push("/sign")
+    console.log("historypush fait")
   }
 
   const handleMobileMenuClose = () => {
@@ -206,7 +222,7 @@ export default function AppNavBar() {
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
-                <MailIcon onClick={logingout} />
+                <MailIcon />
               </Badge>
             </IconButton>
             <IconButton aria-label="show 17 new notifications" color="inherit">
@@ -223,6 +239,9 @@ export default function AppNavBar() {
               color="inherit"
             >
               <AccountCircle />
+            </IconButton>
+            <IconButton color="inherit">
+              <ExitToAppIcon onClick={logingout} />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>

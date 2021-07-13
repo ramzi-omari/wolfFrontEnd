@@ -1,16 +1,11 @@
 import React from "react"
+import News from "./News/News"
 
 const RightSideBar = () => {
   return (
     <div>
-      <h2>Rightsidebar</h2>
-      <h2>Rightsidebar</h2>
-      <h2>Rightsidebar</h2>
-      <h2>Rightsidebar</h2>
-      <h2>Rightsidebar</h2>
-      <h2>Rightsidebar</h2>
-      <h2>Rightsidebar</h2>
-      <h2>Rightsidebar</h2>
+      <News></News>
+      <News></News>
     </div>
   )
 }

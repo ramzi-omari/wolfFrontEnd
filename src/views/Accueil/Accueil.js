@@ -76,14 +76,15 @@ const Accueil = ({ history }) => {
               overflow: "hidden",
               position: "fixed",
               right: 0,
-              backgroundColor: "red",
               width: "22%",
             }}
           >
             <Paper
               className={classes.paper}
               style={{
-                backgroundColor: "green",
+                backgroundColor: "#a2a2a226",
+                paddingTop: "10px",
+                paddinBottom: "10px",
               }}
             >
               <RightSideBar></RightSideBar>

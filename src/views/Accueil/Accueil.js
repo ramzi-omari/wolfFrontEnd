@@ -17,6 +17,9 @@ import RightSideBar from "../../components/RightSideBar/RightSideBar"
 import { makeStyles } from "@material-ui/core/styles"
 import Paper from "@material-ui/core/Paper"
 import Grid from "@material-ui/core/Grid"
+import Journal from "../../components/Journal/Journal"
+import Profil from "../../components/Profil/Profil"
+import Wallet from "../../components/Wallet/Wallet"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,29 +42,43 @@ const Accueil = ({ history }) => {
 
       <div className="dis-flex">
         <DrawerSide></DrawerSide>
-        <Grid container>
+        <Grid
+          container
+          style={
+            {
+              // backgroundColor: "rgba(0, 0, 0, 0.2)",
+              // backgroundImage:
+              //   "url(../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png)",
+            }
+          }
+        >
           <Grid item xs={8} sm={9}>
             <Paper
               className={classes.paper}
               style={{
-                backgroundColor: "rgba(0, 0, 0, 0.9)",
+                backgroundColor: "rgba(0, 0, 0, 0.2)",
+                // backgroundImage: url(
+                //   "../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png"
+                // ),
+                minHeight: "87vh",
               }}
             >
               <div className="accueil-center">
                 <HeaderImg></HeaderImg>
-                <Link to={"/Tst2"}>
+                <Link to={"/Profil"}>
                   <button type="button">Click Me!</button>
                 </Link>
-                <Link to={"/Tst"}>
+                <Link to={"/Wallet"}>
                   <button type="button">home!</button>
                 </Link>
 
                 <Switch>
-                  <Route path="/Tst2">
-                    <Tst2></Tst2>
+                  <Route exact path="/" component={Journal}></Route>
+                  <Route path="/Profil">
+                    <Profil></Profil>
                   </Route>
-                  <Route path="/Tst">
-                    <Tst></Tst>
+                  <Route path="/Wallet">
+                    <Wallet></Wallet>
                   </Route>
                 </Switch>
               </div>

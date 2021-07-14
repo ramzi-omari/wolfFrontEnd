@@ -8,6 +8,7 @@ import {
   Grid,
   Modal,
   Paper,
+  TextField,
 } from "@material-ui/core"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
@@ -21,16 +22,24 @@ const useStyles = makeStyles((theme) => ({
     "& > *": {
       margin: theme.spacing(1),
     },
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "40ch",
+    },
   },
   large: {
     width: "150px",
     height: "150px",
   },
   buttons: {
+    color: "white",
+    fontWeight: "505",
     borderColor: "black",
     width: "8rem",
+    backgroundColor: "darkslategray",
     "&:hover": {
-      backgroundColor: "#8080803d",
+      backgroundColor: "rgba(47, 79, 79, 0.514)",
+      borderColor: "transparent",
     },
   },
   modal: {
@@ -59,7 +68,7 @@ const Profil = () => {
     setOpen(false)
   }
 
-  // firstname lastname profilePicture email birthdate Address city phone password description
+  // firstname lastname profilePicture email birthdate Address city phone password confirm typePosition description
   return (
     <Grid className={classes.root}>
       <Paper style={{ borderRadius: "30px", width: "100%" }}>
@@ -81,12 +90,17 @@ const Profil = () => {
               <h5>Address: 25,avenue des avenues, Paris</h5>
               <h5>City: Algiers</h5>
               <h5>Phone: +213555555555</h5>
-              <textarea
-                placeholder=" Description"
-                rows="4"
-                cols="50"
-                value="Description Description Description Description Description"
-              ></textarea>
+              <h5>Consultant</h5>
+              <TextField
+                id="outlined-multiline-static"
+                label="Description"
+                className={classes.txtfield}
+                multiline
+                disabled
+                rows={3}
+                defaultValue="Description"
+                variant="outlined"
+              />
             </Box>
             <Box
               display="flex"

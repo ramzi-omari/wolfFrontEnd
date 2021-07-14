@@ -1,0 +1,18 @@
+.modal-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+#transition-modal-title {
+  text-align: center;
+}
+
+.MuiFormControl-marginNormal {
+  margin: 0 !important;
+}
+
+.MuiBox-root-38 {
+  margin: 0 !important;
+  padding: 0 !important;
+}

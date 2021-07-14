@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 const Accueil = ({ history }) => {
   const classes = useStyles()
 
-  let { path, url } = useRouteMatch()
+  let { path } = useRouteMatch()
 
   return (
     <Router>

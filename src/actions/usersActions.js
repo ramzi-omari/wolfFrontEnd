@@ -8,6 +8,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_LOGOUT,
+  USER_DETAILS_REQUEST,
+  USER_DETAILS_FAIL,
+  USER_DETAILS_SUCCESS,
 } from "../constants/userConstants"
 import axios from "axios"
 
@@ -99,4 +102,49 @@ export const register =
 export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo")
   dispatch({ type: USER_LOGOUT })
+}
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+  // getState to get the token from userInfo
+  try {
+    dispatch({
+      type: USER_DETAILS_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      // to pass the token with protected routes
+      // send in the headers content type of application/json
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `bearer ${userInfo.token}`,
+      },
+    }
+    console.log("get user info call1")
+
+    // make request
+    const { data } = await axios.get(
+      `https://wolfap.herokuapp.com/api/auth/users/${id}`,
+      config
+    )
+    console.log("get user info call2")
+
+    dispatch({
+      type: USER_DETAILS_SUCCESS,
+      payload: data,
+    })
+
+    console.log("get user info success")
+  } catch (error) {
+    dispatch({
+      type: USER_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
 }

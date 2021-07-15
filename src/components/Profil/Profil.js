@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Grid,
-  Modal,
   Paper,
   TextField,
 } from "@material-ui/core"

@@ -83,13 +83,9 @@ const Profil = ({ history }) => {
     // if userInfo !exist then we won't be able to access this page
     if (!userInfo) {
       // and we send it to login page
-      console.log("avant history:  ")
-
       history.push("/login")
     } else {
       if (!user.user) {
-        console.log("avant dispatch:  ")
-
         dispatch(getUserDetails(id))
         console.log("dispatch done")
       } else {
@@ -107,6 +103,7 @@ const Profil = ({ history }) => {
       }
     }
   }, [user.user])
+
   return (
     <Grid className={classes.root}>
       <Paper style={{ borderRadius: "30px", width: "100%" }}>

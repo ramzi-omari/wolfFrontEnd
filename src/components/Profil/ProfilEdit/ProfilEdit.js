@@ -77,19 +77,25 @@ const useStyles = makeStyles((theme) => ({
 const ProfilEdit = () => {
   const classes = useStyles()
 
-  const [open, setOpen] = useState(false)
-  const [email, setEmail] = useState("")
+  const dispatch = useDispatch()
+  const userDetails = useSelector((state) => state.userDetails)
+  const { loading, error, user } = userDetails
+  // extract data from redux store and set it to UI
   const [password, setPassword] = useState("")
   const [confirmpassword, setConfirmPassword] = useState("")
-  const [name, setName] = useState("")
-  const [firstname, setFirstName] = useState("")
-  const [phoneNumber, setPhoneNumber] = useState("")
-  const [type, setType] = useState("CONSULTANT")
-  const [address, setAddress] = useState("")
-  const [city, setCity] = useState("")
+  const [email, setEmail] = useState(user.user["email"])
+  const [name, setName] = useState(user.user["last_name"])
+  const [firstname, setFirstName] = useState(user.user["first_name"])
+  const [phoneNumber, setPhoneNumber] = useState(user.user["phone"])
+  const [type, setType] = useState(user.user["type"])
+  const [address, setAddress] = useState(user.user["address"])
+  const [city, setCity] = useState(user.user["city"])
+  const [description, setDescription] = useState(user.user["description"])
   const [birthday, setBirthDay] = React.useState(
     new Date("2021-08-18T21:11:54")
   )
+
+  const [open, setOpen] = useState(false)
 
   const handleDateChange = (date) => {
     setBirthDay(date)
@@ -98,16 +104,19 @@ const ProfilEdit = () => {
   const handleChange = (event) => {
     setType(event.target.value)
   }
-  const submitHandler = (e) => {
-    e.preventDefault()
-  }
 
+  // handle modal button open
   const handleOpen = () => {
     setOpen(true)
   }
-
+  // handle modal button close
   const handleClose = () => {
     setOpen(false)
+  }
+
+  // handle form data change
+  const submitHandler = (e) => {
+    e.preventDefault()
   }
 
   return (
@@ -302,6 +311,8 @@ const ProfilEdit = () => {
                       multiline
                       rows={3}
                       defaultValue="Description"
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
                       variant="outlined"
                       className={classes.inputField}
                     />

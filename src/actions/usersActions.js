@@ -27,9 +27,9 @@ export const login = (email, password) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     }
-
+    console.log("api" + process.env.REACT_APP_API_KEY)
     const { data } = await axios.post(
-      "https://wolfap.herokuapp.com/api/auth/signin",
+      `${process.env.REACT_APP_API_KEY}/auth/signin`,
       { email, password },
       config
     )
@@ -69,7 +69,7 @@ export const register =
 
       // make request
       const { data } = await axios.post(
-        "https://wolfap.herokuapp.com/api/auth/signup",
+        `${process.env.REACT_APP_API_KEY}/auth/signup`,
         { first_name, last_name, email, password, phone, type },
         config
       )
@@ -120,22 +120,23 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       // send in the headers content type of application/json
       headers: {
         "Content-Type": "application/json",
-        Authorization: `bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.token}`,
       },
     }
     console.log("get user info call1")
-
     // make request
     const { data } = await axios.get(
-      `https://wolfap.herokuapp.com/api/auth/users/${id}`,
+      `${process.env.REACT_APP_API_KEY}/users/${id}`,
       config
     )
     console.log("get user info call2")
-
-    dispatch({
-      type: USER_DETAILS_SUCCESS,
-      payload: data,
-    })
+    console.log("data after dist " + data.user["first_name"])
+    if (data) {
+      dispatch({
+        type: USER_DETAILS_SUCCESS,
+        payload: data,
+      })
+    }
 
     console.log("get user info success")
   } catch (error) {

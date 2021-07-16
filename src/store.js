@@ -15,7 +15,7 @@ const reducer = combineReducers({
 })
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
-  ? JSON.stringify(localStorage.getItem("userInfo"))
+  ? JSON.parse(localStorage.getItem("userInfo"))
   : null
 
 const initialState = {

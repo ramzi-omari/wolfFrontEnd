@@ -23,6 +23,8 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
+import { updateUserProfile } from "../../../actions/usersActions"
+import Message from "../../utile/Message"
 import "./ProfilEdit.css"
 
 const useStyles = makeStyles((theme) => ({
@@ -77,23 +79,28 @@ const useStyles = makeStyles((theme) => ({
 const ProfilEdit = () => {
   const classes = useStyles()
 
+  const [message, setMessage] = useState(null)
+
   const dispatch = useDispatch()
+
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
+  console.log("avant set")
   // extract data from redux store and set it to UI
   const [password, setPassword] = useState("")
-  const [confirmpassword, setConfirmPassword] = useState("")
-  const [email, setEmail] = useState(user.user["email"])
-  const [name, setName] = useState(user.user["last_name"])
-  const [firstname, setFirstName] = useState(user.user["first_name"])
-  const [phoneNumber, setPhoneNumber] = useState(user.user["phone"])
-  const [type, setType] = useState(user.user["type"])
-  const [address, setAddress] = useState(user.user["address"])
-  const [city, setCity] = useState(user.user["city"])
-  const [description, setDescription] = useState(user.user["description"])
+  const [confirmPassword, setConfirmPassword] = useState("")
+  const [email, setEmail] = useState("")
+  const [name, setName] = useState("")
+  const [firstname, setFirstName] = useState("")
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [type, setType] = useState("")
+  const [address, setAddress] = useState("")
+  const [city, setCity] = useState("")
+  const [description, setDescription] = useState("")
   const [birthday, setBirthDay] = React.useState(
     new Date("2021-08-18T21:11:54")
   )
+  console.log("apres set firstname " + firstname)
 
   const [open, setOpen] = useState(false)
 
@@ -108,16 +115,56 @@ const ProfilEdit = () => {
   // handle modal button open
   const handleOpen = () => {
     setOpen(true)
+    console.log("avant setName in useeffect")
+
+    // if we have the user we set the form field
+    setName(user.user["last_name"])
+    setEmail(user.user["email"])
+    setFirstName(user.user["first_name"])
+    setPhoneNumber(user.user["phone"])
+    setType(user.user["type"])
+    // 4 infos indispo dans l'API
+    setAddress(user.user["address"])
+    setCity(user.user["city"])
+    // setBirthDay(user.user["birthDate"])
+    setDescription(user.user["description"])
+    console.log("after useeffect")
   }
   // handle modal button close
   const handleClose = () => {
     setOpen(false)
   }
 
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+  const { success } = userUpdateProfile
+
   // handle form data change
   const submitHandler = (e) => {
     e.preventDefault()
+    // condition
+    if (password !== confirmPassword) {
+      setMessage("Passwords do not match")
+    } else {
+      // we pass in the new data(from state) we want to update
+      dispatch(updateUserProfile({ id: user.user._id, name, email, password }))
+    }
   }
+
+  // useEffect(() => {
+  //   if () {
+  // setName(user.user["last_name"])
+  // setEmail(user.user["email"])
+  // setFirstName(user.user["first_name"])
+  // setPhoneNumber(user.user["phone"])
+  // setType(user.user["type"])
+  // // 4 infos indispo dans l'API
+  // setAddress(user.user["address"])
+  // setCity(user.user["city"])
+  // // setBirthDay(user.user["birthDate"])
+  // setDescription(user.user["description"])
+  // console.log("after useeffect")
+  //   }
+  // }, [user.user])
 
   return (
     <>
@@ -145,6 +192,8 @@ const ProfilEdit = () => {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Edit Profil</h2>
+            {message && <Message severity="error">{message}</Message>}
+            {success && <Message severity="success">Profile Updated</Message>}
             <div className="modal-form">
               <form onSubmit={submitHandler}>
                 {/* 2) TextField */}
@@ -303,7 +352,7 @@ const ProfilEdit = () => {
                       name="confirmpassword"
                       type="confirmpassword"
                       onChange={(e) => setConfirmPassword(e.target.value)}
-                      value={confirmpassword}
+                      value={confirmPassword}
                     />
                     <TextField
                       id="outlined-multiline-static"

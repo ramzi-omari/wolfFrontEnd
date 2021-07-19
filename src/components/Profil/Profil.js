@@ -76,33 +76,33 @@ const Profil = ({ history }) => {
   // check if the user isn't logged in
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-
-  const id = "60f0a7f5362bd90033b8e5d9"
+  // console.log("history: " + history.location)
+  // console.log("locat : " + window.location)
 
   useEffect(() => {
     // if userInfo !exist then we won't be able to access this page
-    if (!userInfo) {
-      // and we send it to login page
-      history.push("/login")
+    // we handle loggout everywhere in appnavbar
+    // and we send it to login page
+    // TOMPORARY SOLUTION, when we are located in /profil we can redirect to /profile/sig without bug
+    // window.location.reload()
+    // const newloc = history.push("/login")
+
+    if (!user.user) {
+      dispatch(getUserDetails())
     } else {
-      if (!user.user) {
-        dispatch(getUserDetails(id))
-        console.log("dispatch done")
-      } else {
-        // if we have the user we set the form field
-        setLastName(user.user["last_name"])
-        setEmail(user.user["email"])
-        setFirstName(user.user["first_name"])
-        setPhoneNumber(user.user["phone"])
-        setType(user.user["type"])
-        // 4 infos indispo dans l'API
-        setAddress(user.user["address"])
-        setCity(user.user["city"])
-        // setBirthDay(user.user["birthDate"])
-        setDescription(user.user["description"])
-      }
+      // if we have the user we set the form field
+      setLastName(user.user["last_name"])
+      setEmail(user.user["email"])
+      setFirstName(user.user["first_name"])
+      setPhoneNumber(user.user["phone"])
+      setType(user.user["type"])
+      // 4 infos indispo dans l'API
+      setAddress(user.user["address"])
+      setCity(user.user["city"])
+      // setBirthDay(user.user["birthDate"])
+      setDescription(user.user["description"])
     }
-  }, [user.user])
+  }, [userInfo, user.user])
 
   return (
     <Grid className={classes.root}>

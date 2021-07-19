@@ -107,7 +107,7 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_LOGOUT })
 }
 
-export const getUserDetails = (id) => async (dispatch, getState) => {
+export const getUserDetails = () => async (dispatch, getState) => {
   // getState to get the token from userInfo
   try {
     dispatch({
@@ -129,11 +129,11 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
     console.log("get user info call1")
     // make request
     const { data } = await axios.get(
-      `${process.env.REACT_APP_API_KEY}/users/${id}`,
+      `${process.env.REACT_APP_API_KEY}/users/`,
       config
     )
     console.log("get user info call2")
-    console.log("data after dist " + data.user["first_name"])
+    console.log("data after api call " + data)
     if (data) {
       dispatch({
         type: USER_DETAILS_SUCCESS,
@@ -177,8 +177,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     // make PUT request
     // user contains the data we want to update with (passed in params from UI)
     const { data } = await axios.put(
-      // /users/${id}`, VERIFY ROUTE
-      `${process.env.REACT_APP_API_KEY}/users/profile`,
+      `${process.env.REACT_APP_API_KEY}/users/`,
       user,
       config
     )

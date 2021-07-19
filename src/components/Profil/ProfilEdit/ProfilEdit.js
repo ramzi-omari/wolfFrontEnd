@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "81vh",
+    height: "84vh",
     width: "55rem",
     marginTop: "2.5rem",
   },
@@ -85,13 +85,12 @@ const ProfilEdit = () => {
 
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
-  console.log("avant set")
   // extract data from redux store and set it to UI
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [email, setEmail] = useState("")
-  const [name, setName] = useState("")
-  const [firstname, setFirstName] = useState("")
+  const [last_name, setName] = useState("")
+  const [first_name, setFirstName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
   const [type, setType] = useState("")
   const [address, setAddress] = useState("")
@@ -100,22 +99,12 @@ const ProfilEdit = () => {
   const [birthday, setBirthDay] = React.useState(
     new Date("2021-08-18T21:11:54")
   )
-  console.log("apres set firstname " + firstname)
 
   const [open, setOpen] = useState(false)
-
-  const handleDateChange = (date) => {
-    setBirthDay(date)
-  }
-
-  const handleChange = (event) => {
-    setType(event.target.value)
-  }
 
   // handle modal button open
   const handleOpen = () => {
     setOpen(true)
-    console.log("avant setName in useeffect")
 
     // if we have the user we set the form field
     setName(user.user["last_name"])
@@ -128,11 +117,18 @@ const ProfilEdit = () => {
     setCity(user.user["city"])
     // setBirthDay(user.user["birthDate"])
     setDescription(user.user["description"])
-    console.log("after useeffect")
   }
   // handle modal button close
   const handleClose = () => {
     setOpen(false)
+  }
+
+  const handleDateChange = (date) => {
+    setBirthDay(date)
+  }
+
+  const handleChange = (event) => {
+    setType(event.target.value)
   }
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
@@ -146,25 +142,21 @@ const ProfilEdit = () => {
       setMessage("Passwords do not match")
     } else {
       // we pass in the new data(from state) we want to update
-      dispatch(updateUserProfile({ id: user.user._id, name, email, password }))
+      setMessage(null)
+      dispatch(
+        updateUserProfile({
+          last_name,
+          first_name,
+          phoneNumber,
+          city,
+          description,
+          address,
+        })
+      )
+      // dispatch(updateUserProfile({name, email, firstname, phoneNumber, city, description, type, address,birthday}))
+      console.log("dispatch done front")
     }
   }
-
-  // useEffect(() => {
-  //   if () {
-  // setName(user.user["last_name"])
-  // setEmail(user.user["email"])
-  // setFirstName(user.user["first_name"])
-  // setPhoneNumber(user.user["phone"])
-  // setType(user.user["type"])
-  // // 4 infos indispo dans l'API
-  // setAddress(user.user["address"])
-  // setCity(user.user["city"])
-  // // setBirthDay(user.user["birthDate"])
-  // setDescription(user.user["description"])
-  // console.log("after useeffect")
-  //   }
-  // }, [user.user])
 
   return (
     <>
@@ -215,7 +207,7 @@ const ProfilEdit = () => {
                       fullWidth
                       className={classes.inputField}
                       onChange={(e) => setName(e.target.value)}
-                      value={name}
+                      value={last_name}
                       //   style={{ padding: "12.5px 14px" }}
                       name="name"
                     />
@@ -227,7 +219,7 @@ const ProfilEdit = () => {
                       fullWidth
                       className={classes.inputField}
                       onChange={(e) => setFirstName(e.target.value)}
-                      value={firstname}
+                      value={first_name}
                       name="firstname"
                     />
 

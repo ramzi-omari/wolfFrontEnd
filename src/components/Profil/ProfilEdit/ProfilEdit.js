@@ -23,7 +23,10 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
-import { updateUserProfile } from "../../../actions/usersActions"
+import {
+  updateUserProfile,
+  getUserDetails,
+} from "../../../actions/usersActions"
 import Message from "../../utile/Message"
 import "./ProfilEdit.css"
 
@@ -80,12 +83,8 @@ const ProfilEdit = () => {
   const classes = useStyles()
 
   const [message, setMessage] = useState(null)
+  const [open, setOpen] = useState(false)
 
-  const dispatch = useDispatch()
-
-  const userDetails = useSelector((state) => state.userDetails)
-  const { loading, error, user } = userDetails
-  // extract data from redux store and set it to UI
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [email, setEmail] = useState("")
@@ -96,35 +95,52 @@ const ProfilEdit = () => {
   const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
   const [description, setDescription] = useState("")
-  const [birthday, setBirthDay] = React.useState(
-    new Date("2021-08-18T21:11:54")
-  )
+  const [birthday, setBirthDay] = useState(new Date("2021-08-18T21:11:54"))
 
-  const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
+
+  const userDetails = useSelector((state) => state.userDetails)
+  const { loading, error, user } = userDetails
+
+  useEffect(() => {
+    if (!user.user) {
+      dispatch(getUserDetails())
+    } else {
+      // if we have the user we set the form field
+      setName(user.user["last_name"])
+      setEmail(user.user["email"])
+      setFirstName(user.user["first_name"])
+      setPhoneNumber(user.user["phone"])
+      setType(user.user["type"])
+      // 4 infos indispo dans l'API
+      setAddress(user.user["address"])
+      setCity(user.user["city"])
+      // setBirthDay(user.user["birthDate"])
+      setDescription(user.user["description"])
+    }
+  }, [dispatch, user.user])
 
   // handle modal button open
   const handleOpen = () => {
     setOpen(true)
-
-    // if we have the user we set the form field
-    setName(user.user["last_name"])
-    setEmail(user.user["email"])
-    setFirstName(user.user["first_name"])
-    setPhoneNumber(user.user["phone"])
-    setType(user.user["type"])
-    // 4 infos indispo dans l'API
-    setAddress(user.user["address"])
-    setCity(user.user["city"])
-    // setBirthDay(user.user["birthDate"])
-    setDescription(user.user["description"])
   }
   // handle modal button close
   const handleClose = () => {
     setOpen(false)
   }
 
+  // to Deal with Date picker
   const handleDateChange = (date) => {
-    setBirthDay(date)
+    var dateObj = new Date()
+    var month = dateObj.getUTCMonth() + 1
+    var day = dateObj.getUTCDate()
+    var year = dateObj.getUTCFullYear()
+
+    const newdate = year + "/" + month + "/" + day
+    console.log("newdate in handle: " + newdate)
+
+    setBirthDay(newdate)
+    console.log("state in clicl: " + birthday)
   }
 
   const handleChange = (event) => {

@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Drawer from "@material-ui/core/Drawer"
+import { Link } from "react-router-dom"
 import Toolbar from "@material-ui/core/Toolbar"
 import List from "@material-ui/core/List"
 import Divider from "@material-ui/core/Divider"
@@ -35,6 +36,20 @@ const useStyles = makeStyles((theme) => ({
 const DrawerSide = () => {
   const classes = useStyles()
 
+  const [clicked, setClicked] = useState("")
+
+  const handleNavButtons = (e) => {
+    console.log("clicked: " + e)
+    // <Link to={"/Profil"}>
+    //               <button type="button">Click Me!</button>
+    // </Link>
+  }
+  const handleclicked = (text) => {
+    console.log("handlclicked: " + text)
+
+    return `/${text}`
+  }
+
   return (
     <div>
       <Drawer
@@ -47,8 +62,17 @@ const DrawerSide = () => {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem button key={text}>
+            {["Accueil", "Profil", "Wallet", "Profil"].map((text, index) => (
+              <ListItem
+                button
+                component={Link}
+                to={text}
+                // to={() => {
+                //   handleclicked(text)
+                // }}
+                // onClick={() => handleNavButtons(text)}
+                key={text}
+              >
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>

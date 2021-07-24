@@ -102,7 +102,7 @@ const Profil = ({ history }) => {
       // setBirthDay(user.user["birthDate"])
       setDescription(user.user["description"])
     }
-  }, [userInfo, user.user])
+  }, [dispatch, userInfo, user.user])
 
   return (
     <Grid className={classes.root}>

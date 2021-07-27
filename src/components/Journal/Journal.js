@@ -10,7 +10,14 @@ import "./Journal.css"
 const Journal = () => {
   return (
     <Grid>
-      <Paper style={{ backgroundColor: "#80808024", borderRadius: "30px" }}>
+      <Paper
+        style={{
+          backgroundColor: "#80808024",
+          borderRadius: "30px",
+          width: "90%",
+          margin: "auto",
+        }}
+      >
         <div className="post">
           <div className="post__top">
             <Avatar

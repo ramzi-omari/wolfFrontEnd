@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 100000,
     position: "sticky",
     top: 0,
+    height: "10vh",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -194,7 +195,7 @@ export default function AppNavBar({ history }) {
 
   return (
     <div className={classes.grow}>
-      <AppBar style={{ backgroundColor: "black" }} position="static">
+      <AppBar style={{ backgroundColor: "#202020" }} position="static">
         <Toolbar>
           <IconButton
             edge="start"

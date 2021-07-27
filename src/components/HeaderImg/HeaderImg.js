@@ -12,7 +12,7 @@ const HeaderImg = () => {
     setOpen(!open)
   }
   return (
-    <>
+    <div style={{ position: "relative" }}>
       <div className="collapsebutton" onClick={handleClick}>
         {open ? <ExpandLess /> : <ExpandMore />}
       </div>
@@ -21,7 +21,7 @@ const HeaderImg = () => {
           <img src={img} alt="" />
         </div>
       ) : null}
-    </>
+    </div>
   )
 }
 

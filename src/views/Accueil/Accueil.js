@@ -52,7 +52,7 @@ const Accueil = ({ history }) => {
             }
           }
         >
-          <Grid item xs={8} sm={9}>
+          <Grid item xs={8} sm={9} style={{ maxWidth: "70%" }}>
             <Paper
               className={classes.paper}
               style={{
@@ -60,7 +60,8 @@ const Accueil = ({ history }) => {
                 // backgroundImage: url(
                 //   "../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png"
                 // ),
-                minHeight: "87vh",
+                minHeight: "85.6vh",
+                marginBottom: "4vh",
               }}
             >
               <div className="accueil-center">
@@ -89,11 +90,11 @@ const Accueil = ({ history }) => {
             xs={4}
             sm={3}
             style={{
-              height: "86.2vh",
+              height: "86vh",
               overflow: "hidden",
               position: "fixed",
               right: 0,
-              width: "22%",
+              maxWidth: "24%",
             }}
           >
             <Paper
@@ -102,6 +103,10 @@ const Accueil = ({ history }) => {
                 backgroundColor: "#a2a2a226",
                 paddingTop: "10px",
                 paddinBottom: "10px",
+                height: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <RightSideBar></RightSideBar>

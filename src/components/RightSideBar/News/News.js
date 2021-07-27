@@ -36,7 +36,7 @@ const News = () => {
           paddingLeft: "5px",
           paddingRight: "5px",
           margin: "16px 0",
-          height: "230px",
+          height: "35vh",
           overflowY: "scroll",
           scrollbarColor: "#171717 white",
 

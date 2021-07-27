@@ -7,11 +7,14 @@ const Footer = () => {
     <div className="footer">
       <Grid
         style={{
-          height: "20px",
+          height: "4vh",
           position: "fixed",
           bottom: 0,
           backgroundColor: "blue",
           width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         COPYRIGHT

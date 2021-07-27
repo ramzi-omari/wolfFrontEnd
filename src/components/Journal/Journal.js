@@ -58,10 +58,10 @@ const Journal = () => {
               <p>Comment</p>
             </div>
 
-            <div className="post__option">
+            {/* <div className="post__option">
               <NearMeIcon />
               <p>Share</p>
-            </div>
+            </div> */}
 
             <div className="post__option">
               <AccountCircleIcon />

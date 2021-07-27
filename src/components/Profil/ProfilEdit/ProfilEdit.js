@@ -55,8 +55,8 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    height: "84vh",
-    width: "55rem",
+    height: "auto",
+    width: "60%",
     marginTop: "2.5rem",
   },
   radius: {
@@ -87,16 +87,12 @@ const ProfilEdit = () => {
   const [message, setMessage] = useState(null)
   const [open, setOpen] = useState(false)
 
-  const [password, setPassword] = useState("")
-  const [confirmPassword, setConfirmPassword] = useState("")
-  const [email, setEmail] = useState("")
   const [last_name, setName] = useState("")
   const [first_name, setFirstName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
-  const [type, setType] = useState("")
-  const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
   const [description, setDescription] = useState("")
+
   const [birthday, setBirthDay] = useState(new Date("2021-08-18T21:11:54"))
 
   const dispatch = useDispatch()
@@ -110,12 +106,8 @@ const ProfilEdit = () => {
     } else {
       // if we have the user we set the form field
       setName(user.user["last_name"])
-      setEmail(user.user["email"])
       setFirstName(user.user["first_name"])
       setPhoneNumber(user.user["phone"])
-      setType(user.user["type"])
-      // 4 infos indispo dans l'API
-      setAddress(user.user["address"])
       setCity(user.user["city"])
       // setBirthDay(user.user["birthDate"])
       setDescription(user.user["description"])
@@ -145,35 +137,25 @@ const ProfilEdit = () => {
     console.log("state in clicl: " + birthday)
   }
 
-  const handleChange = (event) => {
-    setType(event.target.value)
-  }
-
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
   // handle form data change
   const submitHandler = (e) => {
     e.preventDefault()
-    // condition
-    if (password !== confirmPassword) {
-      setMessage("Passwords do not match")
-    } else {
-      // we pass in the new data(from state) we want to update
-      setMessage(null)
-      dispatch(
-        updateUserProfile({
-          last_name,
-          first_name,
-          phoneNumber,
-          city,
-          description,
-          address,
-        })
-      )
-      // dispatch(updateUserProfile({name, email, firstname, phoneNumber, city, description, type, address,birthday}))
-      console.log("dispatch done front")
-    }
+    // we pass in the new data(from state) we want to update
+    setMessage(null)
+    dispatch(
+      updateUserProfile({
+        last_name,
+        first_name,
+        phoneNumber,
+        city,
+        description,
+      })
+    )
+    // dispatch(updateUserProfile({name, email, firstname, phoneNumber, city, description,birthday}))
+    console.log("dispatch done front")
   }
 
   return (
@@ -205,9 +187,19 @@ const ProfilEdit = () => {
             {message && <Message severity="error">{message}</Message>}
             {success && <Message severity="success">Profile Updated</Message>}
             <div className="modal-form">
-              <form onSubmit={submitHandler}>
+              <form
+                onSubmit={submitHandler}
+                style={{ gap: "1rem", margin: "1rem", padding: "0rem" }}
+              >
                 {/* 2) TextField */}
-                <Box display="flex" style={{ gap: "1rem" }}>
+                <Box
+                  display="flex"
+                  style={{
+                    gap: "1rem",
+                    width: "100%",
+                    justifyContent: "center",
+                  }}
+                >
                   <Box
                     display="flex"
                     style={{
@@ -215,6 +207,7 @@ const ProfilEdit = () => {
                       gap: "1rem",
                       flexDirection: "column",
                       height: "max-content",
+                      width: "50%",
                     }}
                   >
                     <TextField
@@ -241,19 +234,6 @@ const ProfilEdit = () => {
                       name="firstname"
                     />
 
-                    {/* 3) TextField */}
-                    <TextField
-                      placeholder="Enter Your E-mail Address"
-                      label="E-mail"
-                      variant="outlined"
-                      fullWidth
-                      size="small"
-                      className={classes.inputField}
-                      name="email"
-                      onChange={(e) => setEmail(e.target.value)}
-                      value={email}
-                    />
-
                     {/* 4) TextField */}
                     <TextField
                       placeholder="Enter Your Phone Number"
@@ -266,7 +246,28 @@ const ProfilEdit = () => {
                       onChange={(e) => setPhoneNumber(e.target.value)}
                       value={phoneNumber}
                     />
-
+                    <TextField
+                      placeholder="Enter Your  City"
+                      label="City"
+                      variant="outlined"
+                      fullWidth
+                      size="small"
+                      className={classes.inputField}
+                      onChange={(e) => setCity(e.target.value)}
+                      value={city}
+                      name="city"
+                    />
+                  </Box>
+                  <Box
+                    display="flex"
+                    style={{
+                      padding: "1rem",
+                      gap: "1rem",
+                      flexDirection: "column",
+                      height: "max-content",
+                      width: "50%",
+                    }}
+                  >
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
                       <Grid container justifyContent="space-around">
                         <KeyboardDatePicker
@@ -285,85 +286,6 @@ const ProfilEdit = () => {
                       </Grid>
                     </MuiPickersUtilsProvider>
 
-                    <Box
-                      display="flex"
-                      flexDirection="row"
-                      flex="1 0 50%"
-                      p={1}
-                      m={1}
-                    >
-                      <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={type}
-                        onChange={handleChange}
-                      >
-                        <MenuItem value={"INVESTOR"}>Investisseur</MenuItem>
-                        <MenuItem value={"ENTREPRISE"}>
-                          Chef d'entreprise
-                        </MenuItem>
-                        <MenuItem value={"CONSULTANT"}>Consultant</MenuItem>
-                      </Select>
-                    </Box>
-                  </Box>
-                  <Box
-                    display="flex"
-                    style={{
-                      padding: "1rem",
-                      gap: "1rem",
-                      flexDirection: "column",
-                      height: "max-content",
-                    }}
-                  >
-                    <TextField
-                      placeholder="Enter Your  Address"
-                      label="Address"
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                      className={classes.inputField}
-                      onChange={(e) => setAddress(e.target.value)}
-                      value={address}
-                      name="address"
-                    />
-                    <TextField
-                      placeholder="Enter Your  City"
-                      label="City"
-                      variant="outlined"
-                      fullWidth
-                      size="small"
-                      className={classes.inputField}
-                      onChange={(e) => setCity(e.target.value)}
-                      value={city}
-                      name="city"
-                    />
-
-                    {/* 1) password */}
-                    <TextField
-                      placeholder="Enter Your password"
-                      label="Password"
-                      variant="outlined"
-                      fullWidth
-                      size="small"
-                      className={classes.inputField}
-                      name="password"
-                      type="password"
-                      onChange={(e) => setPassword(e.target.value)}
-                      value={password}
-                    />
-                    {/* 1) password */}
-                    <TextField
-                      placeholder="Enter New password"
-                      label="Confirme Password"
-                      variant="outlined"
-                      fullWidth
-                      size="small"
-                      className={classes.inputField}
-                      name="confirmpassword"
-                      type="confirmpassword"
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      value={confirmPassword}
-                    />
                     <TextField
                       id="outlined-multiline-static"
                       label="Description"

@@ -39,7 +39,6 @@ const News = () => {
           height: "35vh",
           overflowY: "scroll",
           scrollbarColor: "#171717 white",
-
           scrollbarWidth: "thin",
         }}
       >

@@ -167,7 +167,7 @@ const Profil = ({ history }) => {
                 </Button>
               </Tooltip>
               <Button className={classes.buttons} variant="outlined">
-                Default
+                Mot de passe
               </Button>
             </Box>
           </Box>

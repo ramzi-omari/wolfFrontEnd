@@ -76,21 +76,22 @@ const SignUp = ({ location, history }) => {
 
   const dispatch = useDispatch()
 
-  // SHOULD CHANGE THIS TO userRegister AFTER FIXING REGISTER BUG
-  const userLogin = useSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  // const userLogin = useSelector((state) => state.userLogin)
+  const LSuserinfo = localStorage.getItem("userInfo")
+  console.log("LSuserinfo " + LSuserinfo)
 
-  const redirect = location.search ? location.search.split("=")[1] : "/"
-
-  useEffect(() => {
-    if (userInfo) {
-      history.push(redirect)
-    }
-  }, [history, userInfo, redirect])
+  const userRegister = useSelector((state) => state.userRegister)
+  const { loading, error, userInfo } = userRegister
+  console.log("errrr " + error)
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(register(firstname, name, email, password, phoneNumber, type))
+    // HANDLE ELEMENTS MANQUANTS
+    if (!conditions) {
+      alert("règlement")
+    } else {
+      dispatch(register(firstname, name, email, password, phoneNumber, type))
+    }
   }
 
   return (

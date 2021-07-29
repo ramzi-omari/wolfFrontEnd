@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     },
     "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: "120%",
+      width: "105%",
     },
   },
   large: {
@@ -36,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     fontWeight: "505",
     borderColor: "black",
-    width: "8em",
+    width: "10.1em",
+    padding: "7px 0px",
     // backgroundColor: "darkslategray",
     backgroundColor: "#202020",
     "&:hover": {

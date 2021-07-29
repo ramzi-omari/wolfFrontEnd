@@ -44,13 +44,11 @@ const Accueil = ({ history }) => {
         <DrawerSide></DrawerSide>
         <Grid
           container
-          style={
-            {
-              // backgroundColor: "rgba(0, 0, 0, 0.2)",
-              // backgroundImage:
-              //   "url(../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png)",
-            }
-          }
+          style={{
+            backgroundColor: "rgba(20,20,20)",
+            // backgroundImage:
+            //   "url(../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png)",
+          }}
         >
           <Grid item xs={8} sm={9} style={{ maxWidth: "70%" }}>
             <Paper

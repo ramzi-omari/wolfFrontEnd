@@ -71,16 +71,16 @@ const SignIn = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
-  // to get URL query string and take the right of = sign
-  const redirect = location.search ? location.search.split("=")[1] : "/"
+  // // to get URL query string and take the right of = sign
+  // const redirect = location.search ? location.search.split("=")[1] : "/"
 
-  useEffect(() => {
-    // we should not be able to go to Login Screen if we're already logged in
-    // if userInfo exist = we're already logged in
-    if (userInfo) {
-      history.push(redirect)
-    }
-  }, [history, userInfo, redirect])
+  // useEffect(() => {
+  //   // we should not be able to go to Login Screen if we're already logged in
+  //   // if userInfo exist = we're already logged in
+  //   if (userInfo) {
+  //     history.push(redirect)
+  //   }
+  // }, [history, userInfo, redirect])
 
   //HACENE dispatch en onSubmit form --- use 'login' from usersAction
   const handleSubmitLogin = (e) => {

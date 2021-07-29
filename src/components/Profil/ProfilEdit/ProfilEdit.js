@@ -35,7 +35,8 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     fontWeight: "505",
     borderColor: "black",
-    width: "8em",
+    width: "10.1em",
+    padding: "7px 0px",
     // backgroundColor: "darkslategray",
     backgroundColor: "#202020",
     "&:hover": {

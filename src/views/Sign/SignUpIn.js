@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 // import { Link } from "react-router-dom"
 // import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
@@ -7,6 +7,7 @@ import SignDrawer from "../../components/fixed/SignDrawer"
 import SignUp from "../../components/SignForms/SignUp"
 import SignIn from "../../components/SignForms/SignIn"
 import "./SignUpIn.css"
+import { useSelector } from "react-redux"
 
 const useStyles = makeStyles((theme) => ({
   //////////////////
@@ -63,6 +64,17 @@ const SignUpIn = ({ location, history }) => {
   const handleToggle = () => {
     setActive(!isActive)
   }
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin
+
+  const redirect = location.search ? location.search.split("=")[1] : "/"
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push(redirect)
+    }
+  }, [history, userInfo, redirect])
 
   return (
     <div className={classes.root}>

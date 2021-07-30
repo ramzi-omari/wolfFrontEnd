@@ -19,10 +19,10 @@ import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
   KeyboardDatePicker,
 } from "@material-ui/pickers"
-import DateFnsUtils from "@date-io/date-fns"
+import MomentUtils from "@date-io/moment"
+import moment from "moment"
 import {
   updateUserProfile,
   getUserDetails,
@@ -93,8 +93,21 @@ const ProfilEdit = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [city, setCity] = useState("")
   const [description, setDescription] = useState("")
+  //
+  const [selectedDate, setDate] = useState(moment())
+  const [birthDate, setBirthDate] = useState(moment().format("YYYY-MM-DD"))
 
-  const [birthday, setBirthDay] = useState(new Date("2021-08-18T21:11:54"))
+  const onDateChange = (date, value) => {
+    setDate(date)
+    setBirthDate(value)
+    console.log("setbirthdate: " + setBirthDate)
+    console.log("setDate: " + setDate)
+    console.log("date: " + date)
+    console.log("value: " + value)
+  }
+  const dateFormatter = (str) => {
+    return str
+  }
 
   const dispatch = useDispatch()
 
@@ -110,7 +123,7 @@ const ProfilEdit = () => {
       setFirstName(user.user["first_name"])
       setPhoneNumber(user.user["phone"])
       setCity(user.user["city"])
-      // setBirthDay(user.user["birthDate"])
+      setBirthDate(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
       setDescription(user.user["description"])
     }
   }, [dispatch, user.user])
@@ -122,20 +135,6 @@ const ProfilEdit = () => {
   // handle modal button close
   const handleClose = () => {
     setOpen(false)
-  }
-
-  // to Deal with Date picker
-  const handleDateChange = (date) => {
-    var dateObj = new Date()
-    var month = dateObj.getUTCMonth() + 1
-    var day = dateObj.getUTCDate()
-    var year = dateObj.getUTCFullYear()
-
-    const newdate = year + "/" + month + "/" + day
-    console.log("newdate in handle: " + newdate)
-
-    setBirthDay(newdate)
-    console.log("state in clicl: " + birthday)
   }
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
@@ -150,12 +149,12 @@ const ProfilEdit = () => {
       updateUserProfile({
         last_name,
         first_name,
+        birthDate,
         phoneNumber,
         city,
         description,
       })
     )
-    // dispatch(updateUserProfile({name, email, firstname, phoneNumber, city, description,birthday}))
     console.log("dispatch done front")
   }
 
@@ -269,22 +268,23 @@ const ProfilEdit = () => {
                       width: "50%",
                     }}
                   >
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <Grid container justifyContent="space-around">
-                        <KeyboardDatePicker
-                          disableToolbar
-                          variant="inline"
-                          format="MM/dd/yyyy"
-                          margin="normal"
-                          id="date-picker-inline"
-                          label="Birthday"
-                          value={birthday}
-                          onChange={handleDateChange}
-                          KeyboardButtonProps={{
-                            "aria-label": "change date",
-                          }}
-                        />
-                      </Grid>
+                    <MuiPickersUtilsProvider
+                      libInstance={moment}
+                      utils={MomentUtils}
+                    >
+                      <KeyboardDatePicker
+                        //disableToolbar
+                        //margin="normal"
+
+                        label="Birthday"
+                        autoOk={true}
+                        showTodayButton={true}
+                        value={selectedDate}
+                        format="YYYY-MM-DD"
+                        inputValue={birthDate}
+                        onChange={onDateChange}
+                        rifmFormatter={dateFormatter}
+                      />
                     </MuiPickersUtilsProvider>
 
                     <TextField

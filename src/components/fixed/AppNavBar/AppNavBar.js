@@ -108,7 +108,6 @@ export default function AppNavBar({ history }) {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
-  console.log("userinfo selector: " + userInfo)
 
   useEffect(() => {
     // if we are not logged in redirect to /sign

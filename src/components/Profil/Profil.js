@@ -16,6 +16,7 @@ import Tooltip from "@material-ui/core/Tooltip"
 import "./Profil.css"
 import ProfilEdit from "./ProfilEdit/ProfilEdit"
 import { getUserDetails } from "../../actions/usersActions"
+import moment from "moment"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -66,11 +67,10 @@ const Profil = ({ history }) => {
   const [lastname, setLastName] = useState("")
   const [firstname, setFirstName] = useState("")
   const [phoneNumber, setPhoneNumber] = useState("")
-  const [type, setType] = useState("CONSULTANT")
   const [description, setDescription] = useState("")
-  const [address, setAddress] = useState("")
+  const [type, setType] = useState("")
   const [city, setCity] = useState("")
-  const [birthday, setBirthDay] = useState("2021-08-18")
+  const [birthday, setBirthDay] = useState(moment().format("YYYY-MM-DD"))
 
   const dispatch = useDispatch()
   const userDetails = useSelector((state) => state.userDetails)
@@ -83,13 +83,6 @@ const Profil = ({ history }) => {
   // console.log("locat : " + window.location)
 
   useEffect(() => {
-    // if userInfo !exist then we won't be able to access this page
-    // we handle loggout everywhere in appnavbar
-    // and we send it to login page
-    // TOMPORARY SOLUTION, when we are located in /profil we can redirect to /profile/sig without bug
-    // window.location.reload()
-    // const newloc = history.push("/login")
-
     if (!user.user) {
       dispatch(getUserDetails())
     } else {
@@ -98,11 +91,11 @@ const Profil = ({ history }) => {
       setEmail(user.user["email"])
       setFirstName(user.user["first_name"])
       setPhoneNumber(user.user["phone"])
-      setType(user.user["type"])
       // 4 infos indispo dans l'API
-      setAddress(user.user["address"])
       setCity(user.user["city"])
-      // setBirthDay(user.user["birthDate"])
+      setType(user.user["type"])
+      setBirthDay(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
+
       setDescription(user.user["description"])
     }
   }, [dispatch, userInfo, user.user])
@@ -134,7 +127,6 @@ const Profil = ({ history }) => {
               }}
             >
               <h5>{email}</h5>
-              <h5>Address: {address}</h5>
               <h5>City: {city}</h5>
               <h5>Phone: {phoneNumber}</h5>
               <h5>{type}</h5>

@@ -45,7 +45,8 @@ const Accueil = ({ history }) => {
         <Grid
           container
           style={{
-            backgroundColor: "rgba(20,20,20)",
+            // backgroundColor: "rgba(0, 0, 0, 0.2)",
+            backgroundColor: "rgba(20,20,20)", // black background
             // backgroundImage:
             //   "url(../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png)",
           }}

@@ -5,7 +5,7 @@ import {
   POSTS_LIST_FAIL,
 } from "../constants/journalConstants"
 
-export const listProducts = () => async (dispatch) => {
+export const listPosts = () => async (dispatch) => {
   //redux thunk allow us to use function inside function
   try {
     dispatch({ type: POSTS_LIST_REQUEST })

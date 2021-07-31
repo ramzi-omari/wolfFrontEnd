@@ -4,7 +4,7 @@ import {
   POSTS_LIST_FAIL,
 } from "../constants/journalConstants"
 
-export const productListReducer = (state = { posts: [] }, action) => {
+export const postsListReducer = (state = { posts: [] }, action) => {
   switch (action.type) {
     case POSTS_LIST_REQUEST:
       return { loading: true, posts: [] }

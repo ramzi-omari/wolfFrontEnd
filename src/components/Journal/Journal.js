@@ -1,13 +1,22 @@
+import React, { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Avatar, Grid, Paper } from "@material-ui/core"
-import React from "react"
 import ThumbUpIcon from "@material-ui/icons/ThumbUp"
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline"
 import AccountCircleIcon from "@material-ui/icons/AccountCircle"
 import NearMeIcon from "@material-ui/icons/NearMe"
 import { ExpandMoreOutlined } from "@material-ui/icons"
+import { getListPosts } from "../../actions/journalActions"
+
 import "./Journal.css"
 
 const Journal = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getListPosts())
+  }, [dispatch])
+
   return (
     <Grid>
       <Paper

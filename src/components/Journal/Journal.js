@@ -11,10 +11,22 @@ import { getListPosts } from "../../actions/journalActions"
 import "./Journal.css"
 
 const Journal = () => {
+  const [publications, setPublications] = useState("")
+
   const dispatch = useDispatch()
+  const postsList = useSelector((state) => state.postsList)
+  const { loading, error, posts } = postsList
+  console.log("posts: " + posts.publications)
+  console.log("pubs " + publications)
 
   useEffect(() => {
-    dispatch(getListPosts())
+    if (!posts.publications) {
+      console.log("no posts")
+      dispatch(getListPosts())
+    } else {
+      setPublications(posts.publications)
+    }
+    // dispatch(getListPosts())
   }, [dispatch])
 
   return (

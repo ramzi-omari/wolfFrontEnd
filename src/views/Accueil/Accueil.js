@@ -1,4 +1,5 @@
-import React, { useEffect } from "react"
+import React, { useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
 import "./Accueil.css"
 import {
   BrowserRouter as Router,
@@ -20,6 +21,7 @@ import Grid from "@material-ui/core/Grid"
 import Journal from "../../components/Journal/Journal"
 import Profil from "../../components/Profil/Profil"
 import Wallet from "../../components/Wallet/Wallet"
+import { getUserDetails } from "../../actions/usersActions"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +37,12 @@ const Accueil = ({ history }) => {
   const classes = useStyles()
 
   let { path } = useRouteMatch()
+
+  const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   dispatch(getUserDetails())
+  // }, [dispatch])
 
   return (
     <Router>

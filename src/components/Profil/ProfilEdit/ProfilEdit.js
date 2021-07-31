@@ -155,7 +155,7 @@ const ProfilEdit = () => {
         description,
       })
     )
-    console.log("dispatch done front")
+    // dispatch(getUserDetails()) // not good solution to recall api // should think about combine updateReducer & getdetailReducer
   }
 
   return (

@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    top: "10vh",
+    // "& div": {
+    //   minHeight: "0px",
+    // },
   },
   drawerContainer: {
     overflow: "auto",
@@ -59,7 +63,7 @@ const DrawerSide = () => {
           paper: classes.drawerPaper,
         }}
       >
-        <Toolbar />
+        {/* <Toolbar /> */}
         <div className={classes.drawerContainer}>
           <List>
             {["Accueil", "Profil", "Wallet", "Profil"].map((text, index) => (

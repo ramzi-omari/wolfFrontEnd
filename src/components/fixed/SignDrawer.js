@@ -6,14 +6,14 @@ import ListItemText from "@material-ui/core/ListItemText"
 import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
 import ImageIcon from "@material-ui/icons/Image"
-import WorkIcon from "@material-ui/icons/Work"
+import ContactMail from "@material-ui/icons/ContactMail"
 import BeachAccessIcon from "@material-ui/icons/BeachAccess"
 
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "50px",
     // backgroundColor: theme.palette.background.paper,
-    backgroundColor: "darkslategray",
+    backgroundColor: "#6b6b6b",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme) => ({
   LIpadding: {
     paddingLeft: "6px",
     paddingRight: "6px",
+  },
+  primary: {
+    color: "primary",
   },
 }))
 
@@ -40,14 +43,14 @@ export default function SignDrawer() {
       <ListItem className={classes.LIpadding}>
         <ListItemAvatar>
           <Avatar>
-            <WorkIcon />
+            <ContactMail color="primary" />
           </Avatar>
         </ListItemAvatar>
       </ListItem>
       <ListItem className={classes.LIpadding}>
         <ListItemAvatar>
-          <Avatar>
-            <BeachAccessIcon />
+          <Avatar className={classes.primary}>
+            <BeachAccessIcon className={classes.primary} />
           </Avatar>
         </ListItemAvatar>
       </ListItem>

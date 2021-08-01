@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "2rem",
     color: "#f1f1f1",
     fontWeight: 600,
-    backgroundColor: "darkslategray",
+    backgroundColor: "#202020",
     // borderWidth: "2px",
     "&:hover": {
       backgroundColor: "rgba(47, 79, 79, 0.514)",

@@ -19,16 +19,16 @@ const Journal = () => {
   const dispatch = useDispatch()
   const postsList = useSelector((state) => state.postsList)
   const { loading, error, posts } = postsList
-  console.log("posts: " + posts.publications)
-  console.log("pubs " + publications)
 
-  // console.log(
-  //   publications.map((publication) => {
-  //     return publication
-  //   })
-  // )
+  // IMPORTANT !!!!!!!!!
+  // force useeffect(postsList) to rerender when user is different (to avoid show posts not concerned)
+  // maybe it'll work with combine reducer fixes
 
-  // console.log("posts3: " + publications[(e) => e["content"]])
+  // const userLogin = useSelector((state) => state.userLogin)
+  // const { userInfo } = userLogin
+
+  // const info = window.localStorage.getItem("userInfo")
+  // const localinfo = JSON.stringify(info)
 
   useEffect(() => {
     if (!posts.publications) {
@@ -37,7 +37,6 @@ const Journal = () => {
     } else {
       setPublications(posts.publications)
     }
-    // dispatch(getListPosts())
   }, [dispatch, posts.publications])
 
   return (
@@ -50,26 +49,13 @@ const Journal = () => {
           margin: "auto",
         }}
       >
-        {/* {loading && <Loader />} */}
-        {/* {!publications
-          ? error && 
-          : ""} */}
-
-        {/* {publications
-          ? publications.map((post) => <h2>ça marche</h2>)
-          : error && <Message severity="error">No content</Message>} */}
-
-        {/* {publications.map((publication) => {
-          return <h2>{publication["content"]}</h2>
-        })} */}
+        {loading && <Loader />}
 
         {publications.length === 0 ? (
           <h2>Posts is empty</h2>
         ) : (
           <div>
             {publications.map((item) => (
-              // <h2>{item.content}</h2>
-
               <div className="post">
                 <div className="post__top">
                   <Avatar
@@ -78,12 +64,7 @@ const Journal = () => {
                   />
                   <div className="post__topInfo">
                     <h3>username</h3>
-                    <p>
-                      {/* {new Date(timestamp?.toDate()).toUTCString()} */}
-                      {moment(item.created_at).format("YYYY-MM-DD LT")}
-
-                      {/* {timestamp} created_at  */}
-                    </p>
+                    <p>{moment(item.created_at).format("YYYY-MM-DD LT")}</p>
                   </div>
                 </div>
                 <div className="post__bottom">

@@ -22,10 +22,10 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: "2rem",
     color: "#f1f1f1",
     fontWeight: 600,
-    backgroundColor: "darkslategray",
+    backgroundColor: "#6b6b6b",
     // borderWidth: "2px",
     "&:hover": {
-      backgroundColor: "rgba(47, 79, 79, 0.514)",
+      backgroundColor: "rgba(70, 70, 70, 0.514)",
       borderColor: "transparent",
     },
   },
@@ -78,7 +78,7 @@ const SignUpIn = ({ location, history }) => {
 
   return (
     <div className={classes.root}>
-      <div className="signcontainer">
+      <div className="signcontainer container">
         <SignDrawer></SignDrawer>
         {/* formulaire */}
         <div

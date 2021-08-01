@@ -55,7 +55,8 @@ export const login = (email, password) => async (dispatch) => {
 }
 
 export const register =
-  (first_name, last_name, email, password, phone, type) => async (dispatch) => {
+  (first_name, last_name, email, birthDate, password, phone, type) =>
+  async (dispatch) => {
     try {
       dispatch({
         type: USER_REGISTER_REQUEST,
@@ -73,7 +74,7 @@ export const register =
       // make request
       const { data } = await axios.post(
         `${process.env.REACT_APP_API_KEY}/auth/signup`,
-        { first_name, last_name, email, password, phone, type },
+        { first_name, last_name, email, birthDate, password, phone, type },
         config
       )
       console.log("register call2")

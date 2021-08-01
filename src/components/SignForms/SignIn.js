@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#202020",
     // borderWidth: "2px",
     "&:hover": {
-      backgroundColor: "rgba(47, 79, 79, 0.514)",
+      backgroundColor: "rgba(20, 20, 20, 0.514)",
       borderColor: "transparent",
     },
   },

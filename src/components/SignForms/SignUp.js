@@ -6,6 +6,12 @@ import TextField from "@material-ui/core/TextField"
 import Select from "@material-ui/core/Select"
 import Box from "@material-ui/core/Box"
 import MenuItem from "@material-ui/core/MenuItem"
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers"
+import MomentUtils from "@date-io/moment"
+import moment from "moment"
 import Message from "../utile/Message"
 import Loader from "../utile/Loader"
 import { register } from "../../actions/usersActions"
@@ -27,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#202020",
     // borderWidth: "2px",
     "&:hover": {
-      backgroundColor: "rgba(47, 79, 79, 0.514)",
+      backgroundColor: "rgba(20, 20, 20, 0.514)",
       borderColor: "transparent",
     },
   },
@@ -69,6 +75,20 @@ const SignUp = ({ location, history }) => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [conditions, setConditions] = useState(false)
   const [type, setType] = useState("CONSULTANT")
+  const [selectedDate, setDate] = useState(moment())
+  const [birthDate, setBirthDate] = useState(moment().format("YYYY-MM-DD"))
+
+  const onDateChange = (date, value) => {
+    setDate(date)
+    setBirthDate(value)
+    console.log("setbirthdate: " + setBirthDate)
+    console.log("setDate: " + setDate)
+    console.log("date: " + date)
+    console.log("value: " + value)
+  }
+  const dateFormatter = (str) => {
+    return str
+  }
 
   const handleChange = (event) => {
     setType(event.target.value)
@@ -90,7 +110,9 @@ const SignUp = ({ location, history }) => {
     if (!conditions) {
       alert("règlement")
     } else {
-      dispatch(register(firstname, name, email, password, phoneNumber, type))
+      dispatch(
+        register(firstname, name, email, birthDate, password, phoneNumber, type)
+      )
     }
   }
 
@@ -159,21 +181,27 @@ const SignUp = ({ location, history }) => {
           value={password}
         />
 
-        <Box display="flex" flexDirection="row" flex="1 0 50%" p={1} m={1}>
-          {/* Checkbox */}
-          <FormControl style={{ display: "block", marginBottom: 15 }}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={conditions}
-                  onChange={(e) => setConditions(e.target.checked)}
-                  name="conditions"
-                  color="primary"
-                />
-              }
-              label="Conditions d'utilisation"
+        <Box
+          display="flex"
+          flexDirection="row"
+          flex="1 0 50%"
+          m={1}
+          style={{ gap: "1rem" }}
+        >
+          <MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+            <KeyboardDatePicker
+              //disableToolbar
+              margin="normal"
+              label="Birthday"
+              autoOk={true}
+              showTodayButton={true}
+              value={selectedDate}
+              format="YYYY-MM-DD"
+              inputValue={birthDate}
+              onChange={onDateChange}
+              rifmFormatter={dateFormatter}
             />
-          </FormControl>
+          </MuiPickersUtilsProvider>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -185,6 +213,20 @@ const SignUp = ({ location, history }) => {
             <MenuItem value={"CONSULTANT"}>Consultant</MenuItem>
           </Select>
         </Box>
+        {/* Checkbox */}
+        <FormControl style={{ display: "block" }}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={conditions}
+                onChange={(e) => setConditions(e.target.checked)}
+                name="conditions"
+                color="primary"
+              />
+            }
+            label="Conditions d'utilisation"
+          />
+        </FormControl>
         <Button
           variant="contained"
           color="primary"

@@ -7,7 +7,8 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar"
 import Avatar from "@material-ui/core/Avatar"
 import ImageIcon from "@material-ui/icons/Image"
 import ContactMail from "@material-ui/icons/ContactMail"
-import BeachAccessIcon from "@material-ui/icons/BeachAccess"
+import Twitter from "@material-ui/icons/Twitter"
+import { Tooltip } from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,23 +36,29 @@ export default function SignDrawer() {
     <List className={classes.root}>
       <ListItem className={classes.LIpadding}>
         <ListItemAvatar>
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
+          <Tooltip title="Qui somme nous">
+            <Avatar>
+              <ImageIcon style={{ color: "black", cursor: "pointer" }} />
+            </Avatar>
+          </Tooltip>
         </ListItemAvatar>
       </ListItem>
       <ListItem className={classes.LIpadding}>
         <ListItemAvatar>
-          <Avatar>
-            <ContactMail color="primary" />
-          </Avatar>
+          <Tooltip title="Nos réseaux sociaux">
+            <Avatar>
+              <ContactMail style={{ color: "black", cursor: "pointer" }} />
+            </Avatar>
+          </Tooltip>
         </ListItemAvatar>
       </ListItem>
       <ListItem className={classes.LIpadding}>
         <ListItemAvatar>
-          <Avatar className={classes.primary}>
-            <BeachAccessIcon className={classes.primary} />
-          </Avatar>
+          <Tooltip title="Contact">
+            <Avatar>
+              <Twitter style={{ color: "black", cursor: "pointer" }} />
+            </Avatar>
+          </Tooltip>
         </ListItemAvatar>
       </ListItem>
     </List>

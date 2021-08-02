@@ -114,7 +114,7 @@ export default function AppNavBar({ history }) {
     if (!userInfo) {
       history.push("/sign")
     }
-  }, [history, userInfo])
+  }, [history, userInfo, logout])
 
   const logingout = () => {
     console.log("userinfo before loginout: " + userInfo)

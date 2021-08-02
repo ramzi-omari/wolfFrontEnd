@@ -20,24 +20,15 @@ const Journal = () => {
   const postsList = useSelector((state) => state.postsList)
   const { loading, error, posts } = postsList
 
-  // IMPORTANT !!!!!!!!!
-  // force useeffect(postsList) to rerender when user is different (to avoid show posts not concerned)
-  // maybe it'll work with combine reducer fixes
-
-  // const userLogin = useSelector((state) => state.userLogin)
-  // const { userInfo } = userLogin
-
-  // const info = window.localStorage.getItem("userInfo")
-  // const localinfo = JSON.stringify(info)
+  useEffect(() => {
+    dispatch(getListPosts())
+  }, [])
 
   useEffect(() => {
-    if (!posts.publications) {
-      console.log("no posts")
-      dispatch(getListPosts())
-    } else {
+    if (posts.publications) {
       setPublications(posts.publications)
     }
-  }, [dispatch, posts.publications])
+  }, [dispatch, postsList])
 
   return (
     <Grid>

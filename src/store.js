@@ -24,6 +24,7 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
+  // userUpdateProfile: [],
 }
 
 const middleware = [thunk]

@@ -10,6 +10,13 @@ import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 import InboxIcon from "@material-ui/icons/MoveToInbox"
 import MailIcon from "@material-ui/icons/Mail"
+import {
+  AccountBalance,
+  AccountBox,
+  Business,
+  Home,
+  Work,
+} from "@material-ui/icons"
 
 const drawerWidth = "16vw"
 
@@ -66,34 +73,85 @@ const DrawerSide = () => {
         {/* <Toolbar /> */}
         <div className={classes.drawerContainer}>
           <List>
-            {["Accueil", "Profil", "Wallet", "Profil"].map((text, index) => (
-              <ListItem
-                button
-                component={Link}
-                to={text}
-                // to={() => {
-                //   handleclicked(text)
-                // }}
-                // onClick={() => handleNavButtons(text)}
-                key={text}
-              >
+            {["Accueil"].map((text, index) => (
+              <ListItem button component={Link} to={"/"} key={text}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <Home /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
           </List>
           <Divider />
+
           <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            {/* {["Profil", "Wallet", "Entreprises", "Consultants"].map(
+              (text, index) => ( */}
+            <ListItem
+              button
+              component={Link}
+              to={"Profil"}
+              // to={() => {
+              //   handleclicked(text)
+              // }}
+              // onClick={() => handleNavButtons(text)}
+              key={"Profil"}
+            >
+              <ListItemIcon>
+                <AccountBox />
+              </ListItemIcon>
+              <ListItemText primary={"Profil"} />
+            </ListItem>
+
+            <ListItem
+              button
+              component={Link}
+              to={"Wallet"}
+              // to={() => {
+              //   handleclicked(text)
+              // }}
+              // onClick={() => handleNavButtons(text)}
+              key={"Wallet"}
+            >
+              <ListItemIcon>
+                <AccountBalance />
+              </ListItemIcon>
+              <ListItemText primary={"Wallet"} />
+            </ListItem>
+
+            <ListItem
+              button
+              component={Link}
+              to={"Entreprises"}
+              // to={() => {
+              //   handleclicked(text)
+              // }}
+              // onClick={() => handleNavButtons(text)}
+              key={"Entreprises"}
+            >
+              <ListItemIcon>
+                <Business />
+              </ListItemIcon>
+              <ListItemText primary={"Entreprises"} />
+            </ListItem>
+
+            <ListItem
+              button
+              component={Link}
+              to={"Consultants"}
+              // to={() => {
+              //   handleclicked(text)
+              // }}
+              // onClick={() => handleNavButtons(text)}
+              key={"Consultants"}
+            >
+              <ListItemIcon>
+                <Work />
+              </ListItemIcon>
+              <ListItemText primary={"Consultants"} />
+            </ListItem>
+            {/* )
+             )} */}
           </List>
         </div>
       </Drawer>

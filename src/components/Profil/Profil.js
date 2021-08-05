@@ -102,7 +102,14 @@ const Profil = ({ history }) => {
 
   return (
     <Grid className={classes.root}>
-      <Paper style={{ borderRadius: "30px", width: "90%", margin: "auto" }}>
+      <Paper
+        style={{
+          borderRadius: "30px",
+          width: "90%",
+          margin: "auto",
+          marginTop: "15px",
+        }}
+      >
         <div className="profil">
           <Box display="flex" style={{ padding: "1rem", gap: "1rem" }}>
             <Box

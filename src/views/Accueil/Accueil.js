@@ -22,6 +22,8 @@ import Journal from "../../components/Journal/Journal"
 import Profil from "../../components/Profil/Profil"
 import Wallet from "../../components/Wallet/Wallet"
 import { getUserDetails } from "../../actions/usersActions"
+import Entreprises from "..//Entreprises/Entreprises"
+import Consultants from "../Consultants/Consultants"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -87,6 +89,12 @@ const Accueil = ({ history }) => {
                   </Route>
                   <Route path="/Wallet">
                     <Wallet></Wallet>
+                  </Route>
+                  <Route path="/Entreprises">
+                    <Entreprises></Entreprises>
+                  </Route>
+                  <Route path="/Consultants">
+                    <Consultants></Consultants>
                   </Route>
                 </Switch>
               </div>

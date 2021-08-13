@@ -195,7 +195,7 @@ export default function AppNavBar({ history }) {
   return (
     <div className={classes.grow}>
       <AppBar style={{ backgroundColor: "#202020" }} position="static">
-        <Toolbar>
+        <Toolbar style={{ minHeight: "unset" }}>
           <IconButton
             edge="start"
             className={classes.menuButton}

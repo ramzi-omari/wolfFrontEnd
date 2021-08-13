@@ -8,8 +8,7 @@ import {
   useRouteMatch,
   Link,
 } from "react-router-dom"
-import Tst from "../../components/tst"
-import Tst2 from "../../components/tst2"
+
 import AppNavBar from "../../components/fixed/AppNavBar/AppNavBar"
 import DrawerSide from "../../components/fixed/DrawerSide"
 import Footer from "../../components/fixed/Footer/Footer"
@@ -25,6 +24,7 @@ import { getUserDetails } from "../../actions/usersActions"
 import Entreprises from "..//Entreprises/Entreprises"
 import Consultants from "../Consultants/Consultants"
 import Investor from "../Investor/Investor"
+import ChatScreen from "../Chat/ChatScreen"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Accueil = ({ history }) => {
   const classes = useStyles()
+  const [open, setOpen] = useState(false)
 
   let { path } = useRouteMatch()
 
@@ -47,12 +48,16 @@ const Accueil = ({ history }) => {
   //   dispatch(getUserDetails())
   // }, [dispatch])
 
+  // const handleClick = () => {
+  //   setOpen(!open)
+  // }
+
   return (
     <Router>
       <AppNavBar history={history}></AppNavBar>
 
       <div className="dis-flex">
-        <DrawerSide></DrawerSide>
+        <DrawerSide setOpen={setOpen}></DrawerSide>
         <Grid
           container
           style={{
@@ -62,7 +67,12 @@ const Accueil = ({ history }) => {
             //   "url(../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png)",
           }}
         >
-          <Grid item xs={8} sm={9} style={{ maxWidth: "70%" }}>
+          <Grid
+            item
+            xs={8}
+            sm={9}
+            style={{ maxWidth: "72.2%", flexBasis: "70%" }}
+          >
             <Paper
               className={classes.paper}
               style={{
@@ -78,9 +88,6 @@ const Accueil = ({ history }) => {
                 <HeaderImg></HeaderImg>
                 <Link to={"/Profil"}>
                   <button type="button">Click Me!</button>
-                </Link>
-                <Link to={"/Wallet"}>
-                  <button type="button">home!</button>
                 </Link>
 
                 <Switch>
@@ -100,6 +107,9 @@ const Accueil = ({ history }) => {
                   <Route path="/Investor">
                     <Investor></Investor>
                   </Route>
+                  <Route path="/Chat">
+                    <ChatScreen></ChatScreen>
+                  </Route>
                 </Switch>
               </div>
             </Paper>
@@ -113,7 +123,7 @@ const Accueil = ({ history }) => {
               overflow: "hidden",
               position: "fixed",
               right: 0,
-              maxWidth: "24%",
+              width: "25vw",
             }}
           >
             <Paper
@@ -128,7 +138,7 @@ const Accueil = ({ history }) => {
                 justifyContent: "center",
               }}
             >
-              <RightSideBar></RightSideBar>
+              {!open ? <RightSideBar></RightSideBar> : <div>TEST</div>}
             </Paper>
           </Grid>
         </Grid>

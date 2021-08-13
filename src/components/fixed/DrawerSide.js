@@ -45,16 +45,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const DrawerSide = () => {
+const DrawerSide = ({ setOpen }) => {
   const classes = useStyles()
 
   const [clicked, setClicked] = useState("")
 
   const handleNavButtons = (e) => {
     console.log("clicked: " + e)
-    // <Link to={"/Profil"}>
-    //               <button type="button">Click Me!</button>
-    // </Link>
   }
   const handleclicked = (text) => {
     console.log("handlclicked: " + text)
@@ -96,6 +93,9 @@ const DrawerSide = () => {
               //   handleclicked(text)
               // }}
               // onClick={() => handleNavButtons(text)}
+              onClick={() => {
+                setOpen(false)
+              }}
               key={"Profil"}
             >
               <ListItemIcon>
@@ -112,6 +112,9 @@ const DrawerSide = () => {
               //   handleclicked(text)
               // }}
               // onClick={() => handleNavButtons(text)}
+              onClick={() => {
+                setOpen(false)
+              }}
               key={"Wallet"}
             >
               <ListItemIcon>
@@ -128,6 +131,9 @@ const DrawerSide = () => {
               //   handleclicked(text)
               // }}
               // onClick={() => handleNavButtons(text)}
+              onClick={() => {
+                setOpen(false)
+              }}
               key={"Entreprises"}
             >
               <ListItemIcon>
@@ -144,6 +150,9 @@ const DrawerSide = () => {
               //   handleclicked(text)
               // }}
               // onClick={() => handleNavButtons(text)}
+              onClick={() => {
+                setOpen(false)
+              }}
               key={"Consultants"}
             >
               <ListItemIcon>
@@ -160,12 +169,35 @@ const DrawerSide = () => {
               //   handleclicked(text)
               // }}
               // onClick={() => handleNavButtons(text)}
+              onClick={() => {
+                setOpen(false)
+              }}
               key={"Investor"}
             >
               <ListItemIcon>
                 <GroupAddIcon />
               </ListItemIcon>
               <ListItemText primary={"Investisseurs"} />
+            </ListItem>
+
+            <ListItem
+              button
+              component={Link}
+              to={"Chat"}
+              // to={() => {
+              //   handleclicked(text)
+              // }}
+              // onClick={() => handleNavButtons(text)}
+              // onClick={handleClick}
+              onClick={() => {
+                setOpen(true)
+              }}
+              key={"Messagerie"}
+            >
+              <ListItemIcon>
+                <GroupAddIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Messagerie"} />
             </ListItem>
           </List>
         </div>

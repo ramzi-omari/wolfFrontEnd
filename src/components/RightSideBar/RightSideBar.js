@@ -3,7 +3,7 @@ import News from "./News/News"
 
 const RightSideBar = () => {
   return (
-    <div style={{}}>
+    <div style={{ width: "22vw" }}>
       <News></News>
       <News></News>
     </div>

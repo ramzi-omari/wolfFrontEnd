@@ -1,9 +1,31 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import MemberCard from "../../components/MemberCard/MemberCard"
 import { Avatar, Grid, Paper, Typography } from "@material-ui/core"
+import { getUsersDetail } from "../../actions/getUsersAction"
+import Loader from "../../components/utile/Loader"
+
 import "./Consultants.css"
 
 const Consultants = () => {
+  const [data, setData] = useState("")
+  const dispatch = useDispatch()
+
+  const getConsultant = useSelector((state) => state.getConsultant)
+  const { loading, error, users } = getConsultant
+
+  useEffect(() => {
+    if (!users.users) {
+      dispatch(getUsersDetail("CONSULTANT"))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (users.users) {
+      setData(users.users)
+    }
+  }, [users.users])
+
   return (
     <div className="consultants">
       <Grid>
@@ -27,11 +49,19 @@ const Consultants = () => {
             justifyContent="center"
             columns={{ xs: 4, sm: 8, md: 12 }}
           >
-            {Array.from(Array(6)).map((_, index) => (
-              <Grid item xs={12} sm={6} md={6} key={index}>
-                <MemberCard></MemberCard>
-              </Grid>
-            ))}
+            {loading && <Loader />}
+
+            {data.length === 0 ? (
+              <h2>Users is empty</h2>
+            ) : (
+              <>
+                {Array.from(data).map((item, index) => (
+                  <Grid item xs={12} sm={6} md={6} key={index}>
+                    <MemberCard item={item}></MemberCard>
+                  </Grid>
+                ))}
+              </>
+            )}
           </Grid>
           <h2>LOOL</h2>
         </Paper>

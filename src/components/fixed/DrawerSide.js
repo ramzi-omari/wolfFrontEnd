@@ -10,6 +10,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 import InboxIcon from "@material-ui/icons/MoveToInbox"
 import MailIcon from "@material-ui/icons/Mail"
+import GroupAddIcon from "@material-ui/icons/GroupAdd"
 import {
   AccountBalance,
   AccountBox,
@@ -150,8 +151,22 @@ const DrawerSide = () => {
               </ListItemIcon>
               <ListItemText primary={"Consultants"} />
             </ListItem>
-            {/* )
-             )} */}
+
+            <ListItem
+              button
+              component={Link}
+              to={"Investor"}
+              // to={() => {
+              //   handleclicked(text)
+              // }}
+              // onClick={() => handleNavButtons(text)}
+              key={"Investor"}
+            >
+              <ListItemIcon>
+                <GroupAddIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Investisseurs"} />
+            </ListItem>
           </List>
         </div>
       </Drawer>

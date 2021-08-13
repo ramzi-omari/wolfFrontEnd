@@ -24,6 +24,7 @@ import Wallet from "../../components/Wallet/Wallet"
 import { getUserDetails } from "../../actions/usersActions"
 import Entreprises from "..//Entreprises/Entreprises"
 import Consultants from "../Consultants/Consultants"
+import Investor from "../Investor/Investor"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -95,6 +96,9 @@ const Accueil = ({ history }) => {
                   </Route>
                   <Route path="/Consultants">
                     <Consultants></Consultants>
+                  </Route>
+                  <Route path="/Investor">
+                    <Investor></Investor>
                   </Route>
                 </Switch>
               </div>

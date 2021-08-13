@@ -9,16 +9,14 @@ import Loader from "../../components/utile/Loader"
 
 const Entreprises = () => {
   const [data, setData] = useState("")
-  const [test, settest] = useState("")
   const dispatch = useDispatch()
 
-  const getEntreprise = useSelector((state) => state.getEntreprise)
-  const { loading, error, users } = getEntreprise
-  console.info("laaah " + data.length)
+  const getInvestor = useSelector((state) => state.getInvestor)
+  const { loading, error, users } = getInvestor
 
   useEffect(() => {
     if (!users.users) {
-      dispatch(getUsersDetail("ENTREPRISE"))
+      dispatch(getUsersDetail("INVESTOR"))
     }
   }, [])
 
@@ -44,7 +42,7 @@ const Entreprises = () => {
             component="h3"
             style={{ paddingTop: "1rem" }}
           >
-            Les Entreprises sur la plateforme
+            Les Investisseurs sur la plateforme
           </Typography>
           <Grid
             container

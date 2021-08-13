@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Card from "@material-ui/core/Card"
 import CardActions from "@material-ui/core/CardActions"
@@ -43,8 +43,10 @@ const useStyles = makeStyles({
   },
 })
 
-const MemberCard = () => {
+const MemberCard = ({ item }) => {
   const classes = useStyles()
+
+  useEffect(() => {}, [item])
   const bull = <span className={classes.bullet}>•</span>
   // INFOS : nom prenom city type
   return (
@@ -60,9 +62,13 @@ const MemberCard = () => {
             <Typography
               variant="h5"
               component="h6"
-              style={{ fontSize: "1rem " }}
+              style={{
+                fontSize: "0.7rem",
+                fontWeight: "501",
+                textTransform: "capitalize",
+              }}
             >
-              type
+              {item.type}
             </Typography>
           </div>
 
@@ -70,13 +76,14 @@ const MemberCard = () => {
             <Typography
               variant="h5"
               component="h3"
-              style={{ fontSize: "1.2rem" }}
+              style={{ fontSize: "1.2rem", textTransform: "capitalize" }}
             >
-              Nom prenom
+              {item.last_name} {""}
+              {item.first_name}
             </Typography>
 
             <Typography variant="body2" component="p">
-              city
+              {item.city}
             </Typography>
           </div>
         </CardContent>

@@ -8,6 +8,11 @@ import {
   userUpdateProfileReducer,
 } from "./reducers/userReducers"
 import { postsListReducer } from "./reducers/journalReducers"
+import {
+  getConsultantReducer,
+  getInvestorReducer,
+  getEntrepriseReducer,
+} from "./reducers/getUsersReducers"
 
 const reducer = combineReducers({
   // HACENE Combine all reducers here
@@ -16,6 +21,9 @@ const reducer = combineReducers({
   userDetails: userDetailsReducer,
   userUpdateProfile: userUpdateProfileReducer,
   postsList: postsListReducer,
+  getConsultant: getConsultantReducer,
+  getInvestor: getInvestorReducer,
+  getEntreprise: getEntrepriseReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

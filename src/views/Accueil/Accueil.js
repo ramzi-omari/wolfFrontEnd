@@ -25,6 +25,7 @@ import Entreprises from "..//Entreprises/Entreprises"
 import Consultants from "../Consultants/Consultants"
 import Investor from "../Investor/Investor"
 import ChatScreen from "../Chat/ChatScreen"
+import ConversationList from "../ConversationList/ConversationList"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -138,7 +139,11 @@ const Accueil = ({ history }) => {
                 justifyContent: "center",
               }}
             >
-              {!open ? <RightSideBar></RightSideBar> : <div>TEST</div>}
+              {!open ? (
+                <RightSideBar></RightSideBar>
+              ) : (
+                <ConversationList></ConversationList>
+              )}
             </Paper>
           </Grid>
         </Grid>

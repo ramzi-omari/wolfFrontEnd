@@ -20,10 +20,10 @@
 
 .chatBoxTop {
   height: 100%;
-  overflow-y: scroll;
   padding-right: 10px;
   padding-left: 10px;
   padding-bottom: 10px;
+  border-radius: 30px;
 }
 
 .chatBoxBottom {

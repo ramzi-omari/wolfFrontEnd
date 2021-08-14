@@ -4,8 +4,8 @@
   justify-content: start;
   padding: 10px;
   cursor: pointer;
-  margin-top: 5px;
   padding-left: 2rem;
+  border-bottom: 1px solid #80808057;
 }
 
 .conversation:hover {
@@ -22,6 +22,8 @@
 
 .conversationName {
   font-weight: 500;
+  width: 13vw;
+  text-align: left;
 }
 
 @media screen and (max-width: 768px) {

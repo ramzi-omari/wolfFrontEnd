@@ -28,6 +28,9 @@ const ChatScreen = () => {
                 <ChatMessage></ChatMessage>
                 <ChatMessage own={true}></ChatMessage>
                 <ChatMessage></ChatMessage>
+                <ChatMessage></ChatMessage>
+                <ChatMessage></ChatMessage>
+                <ChatMessage></ChatMessage>
               </div>
 
               {/* {currentChat ? (

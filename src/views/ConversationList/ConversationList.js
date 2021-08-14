@@ -9,14 +9,26 @@ const ConversationList = () => {
         <Paper
           style={{
             // backgroundColor: "#80808024",
-            borderRadius: "30px",
             width: "22vw",
             margin: "auto",
-            height: "82vh",
+            height: "83vh",
+            overflowY: "auto",
+            scrollbarColor: "#171717 white",
+            scrollbarWidth: "thin",
           }}
         >
           <ChatConversations></ChatConversations>
           <ChatConversations accepted={true}></ChatConversations>
+          <ChatConversations></ChatConversations>
+          <ChatConversations></ChatConversations>
+          <ChatConversations></ChatConversations>
+          <ChatConversations></ChatConversations>
+          <ChatConversations></ChatConversations>
+          <ChatConversations></ChatConversations>
+          <ChatConversations></ChatConversations>
+          <ChatConversations></ChatConversations>
+          <ChatConversations></ChatConversations>
+          <ChatConversations></ChatConversations>
           <ChatConversations></ChatConversations>
         </Paper>
       </Grid>

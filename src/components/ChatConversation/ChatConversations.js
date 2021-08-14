@@ -20,11 +20,7 @@ const ChatConversations = ({ accepted }) => {
         {/* {user?.username} */}
         Ramzi Ramzi
       </span>
-      {accepted ? (
-        <CheckIcon style={{ color: "green", marginLeft: "3vw" }} />
-      ) : (
-        <AccessTimeIcon style={{ marginLeft: "3vw" }} />
-      )}
+      {accepted ? <CheckIcon style={{ color: "green" }} /> : <AccessTimeIcon />}
     </div>
   )
 }

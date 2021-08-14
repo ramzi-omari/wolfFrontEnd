@@ -12,10 +12,11 @@ const ConversationList = () => {
             borderRadius: "30px",
             width: "22vw",
             margin: "auto",
+            height: "82vh",
           }}
         >
           <ChatConversations></ChatConversations>
-          <ChatConversations></ChatConversations>
+          <ChatConversations accepted={true}></ChatConversations>
           <ChatConversations></ChatConversations>
         </Paper>
       </Grid>

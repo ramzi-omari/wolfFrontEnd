@@ -1,7 +1,9 @@
 import React from "react"
+import AccessTimeIcon from "@material-ui/icons/AccessTime"
+import CheckIcon from "@material-ui/icons/Check"
 import "./ChatConversations.css"
 
-const ChatConversations = () => {
+const ChatConversations = ({ accepted }) => {
   return (
     <div className="conversation">
       <img
@@ -18,6 +20,11 @@ const ChatConversations = () => {
         {/* {user?.username} */}
         Ramzi Ramzi
       </span>
+      {accepted ? (
+        <CheckIcon style={{ color: "green", marginLeft: "3vw" }} />
+      ) : (
+        <AccessTimeIcon style={{ marginLeft: "3vw" }} />
+      )}
     </div>
   )
 }

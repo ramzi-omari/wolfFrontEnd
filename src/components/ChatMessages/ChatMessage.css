@@ -23,7 +23,7 @@
   border-radius: 20px;
   background-color: #1877f2;
   color: white;
-  max-width: 300px;
+  max-width: 50%;
 }
 
 .messageBottom {
@@ -38,4 +38,9 @@
 .message.own .messageText {
   background-color: rgb(245, 241, 241);
   color: black;
+}
+
+.message.own .messageTop {
+  display: flex;
+  justify-content: end;
 }

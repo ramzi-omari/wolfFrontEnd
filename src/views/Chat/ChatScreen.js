@@ -2,14 +2,24 @@ import { Grid, Paper } from "@material-ui/core"
 import React, { useState } from "react"
 import { useEffect } from "react"
 import ChatMessage from "../../components/ChatMessages/ChatMessage"
+import SendIcon from "@material-ui/icons/Send"
 import "./ChatScreen.css"
 // import { initialSocket } from "./ChatServices"
 
 const ChatScreen = () => {
   const [currentChat, setCurrentChat] = useState(null)
+  const [messages, setMessages] = useState([])
   // useEffect(() => {
   //   const mySocket = initialSocket("ramzi")
   // }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    // const message = {
+    //   sender: user._id,
+    //   text: newMessage,
+    //   conversationId: currentChat._id,
+  }
 
   return (
     <div className="ChatScreen">
@@ -27,10 +37,22 @@ const ChatScreen = () => {
               <div className="chatBoxTop">
                 <ChatMessage></ChatMessage>
                 <ChatMessage own={true}></ChatMessage>
-                <ChatMessage></ChatMessage>
-                <ChatMessage></ChatMessage>
-                <ChatMessage></ChatMessage>
-                <ChatMessage></ChatMessage>
+              </div>
+              <div className="chatBoxBottom">
+                <textarea
+                  className="chatMessageInput"
+                  placeholder="write something..."
+                  // onChange={(e) => setNewMessage(e.target.value)}
+                  // value={newMessage}
+                ></textarea>
+                <SendIcon
+                  style={{
+                    width: "9%",
+                    height: "34px",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleSubmit}
+                ></SendIcon>
               </div>
 
               {/* {currentChat ? (

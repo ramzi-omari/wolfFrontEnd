@@ -13,6 +13,7 @@ import {
   getInvestorReducer,
   getEntrepriseReducer,
 } from "./reducers/getUsersReducers"
+import { conversationsListReducer } from "./reducers/ChatReducers/conversationsReducers"
 
 const reducer = combineReducers({
   // HACENE Combine all reducers here
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   getConsultant: getConsultantReducer,
   getInvestor: getInvestorReducer,
   getEntreprise: getEntrepriseReducer,
+  conversationsList: conversationsListReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

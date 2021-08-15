@@ -11,7 +11,8 @@ const ChatMessage = ({ own }) => {
           alt=""
         />
         <p className="messageText">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit Lorem ipsum
+          dolor sit amet.
           {/* {message.text} */}
         </p>
       </div>

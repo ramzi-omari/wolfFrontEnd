@@ -24,6 +24,7 @@
   background-color: #202020;
   color: white;
   max-width: 50%;
+  text-align: start;
 }
 
 .messageBottom {

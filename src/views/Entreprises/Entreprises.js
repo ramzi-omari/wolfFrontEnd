@@ -9,12 +9,10 @@ import Loader from "../../components/utile/Loader"
 
 const Entreprises = () => {
   const [data, setData] = useState("")
-  const [test, settest] = useState("")
   const dispatch = useDispatch()
 
   const getEntreprise = useSelector((state) => state.getEntreprise)
   const { loading, error, users } = getEntreprise
-  console.info("laaah " + data.length)
 
   useEffect(() => {
     if (!users.users) {

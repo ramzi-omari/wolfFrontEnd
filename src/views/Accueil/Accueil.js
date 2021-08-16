@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const Accueil = ({ history }) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
+  const [conversationID, setConversationID] = useState("")
 
   let { path } = useRouteMatch()
 
@@ -109,7 +110,10 @@ const Accueil = ({ history }) => {
                     <Investor></Investor>
                   </Route>
                   <Route path="/Chat">
-                    <ChatScreen></ChatScreen>
+                    <ChatScreen
+                      setOpen={setOpen}
+                      conversationID={conversationID}
+                    ></ChatScreen>
                   </Route>
                 </Switch>
               </div>
@@ -142,7 +146,9 @@ const Accueil = ({ history }) => {
               {!open ? (
                 <RightSideBar></RightSideBar>
               ) : (
-                <ConversationList></ConversationList>
+                <ConversationList
+                  setConversationID={setConversationID}
+                ></ConversationList>
               )}
             </Paper>
           </Grid>

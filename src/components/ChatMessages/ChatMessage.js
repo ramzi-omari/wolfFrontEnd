@@ -1,7 +1,14 @@
-import React from "react"
+import React, { useState } from "react"
+import { useSelector } from "react-redux"
 import "./ChatMessage.css"
 
 const ChatMessage = ({ own }) => {
+  const [owwn, setOwn] = useState("")
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+  // check sender reciever id with userInfo to show Own
+
   return (
     <div className={own ? "message own" : "message"}>
       <div className="messageTop">

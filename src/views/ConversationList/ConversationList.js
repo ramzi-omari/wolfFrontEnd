@@ -5,7 +5,7 @@ import ChatConversations from "../../components/ChatConversation/ChatConversatio
 import { getConversations } from "../../actions/ChatActions.js/conversationActions"
 import Loader from "../../components/utile/Loader"
 
-const ConversationList = () => {
+const ConversationList = ({ setConversationID }) => {
   const [conversation, setconversation] = useState([])
 
   const dispatch = useDispatch()
@@ -13,15 +13,17 @@ const ConversationList = () => {
   const conversationsList = useSelector((state) => state.conversationsList)
   const { loading, error, conversations } = conversationsList
 
-  // console.info("co " + conversation["0"]["_id"])
-
   useEffect(() => {
     if (!conversations.conversation) {
       dispatch(getConversations())
     } else {
       setconversation(conversations.conversation)
     }
-  }, [dispatch])
+  }, [dispatch, conversations.conversation])
+
+  const handleClick = (id) => {
+    setConversationID(id)
+  }
 
   return (
     <div className="ConversationList">
@@ -42,7 +44,9 @@ const ConversationList = () => {
           ) : (
             <>
               {Array.from(conversation).map((item, index) => (
-                <ChatConversations item={item}></ChatConversations>
+                <div onClick={() => handleClick(item["_id"])}>
+                  <ChatConversations item={item}></ChatConversations>
+                </div>
               ))}
             </>
           )}

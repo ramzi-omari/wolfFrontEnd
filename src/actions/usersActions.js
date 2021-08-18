@@ -69,7 +69,6 @@ export const register =
           "Content-Type": "application/json",
         },
       }
-      console.log("register call1")
 
       // make request
       const { data } = await axios.post(
@@ -77,14 +76,12 @@ export const register =
         { first_name, last_name, email, birthDate, password, phone, type },
         config
       )
-      console.log("register call2")
 
       dispatch({
         type: USER_REGISTER_SUCCESS,
         payload: data,
       })
 
-      console.log("register success")
       // to log in the user directly after register
       dispatch({
         type: USER_LOGIN_SUCCESS,

@@ -1,9 +1,12 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import "./ChatMessage.css"
 
-const ChatMessage = ({ own }) => {
-  const [owwn, setOwn] = useState("")
+const ChatMessage = ({ item }) => {
+  const [own, setOwn] = useState(true)
+
+  console.info("itemm " + item["content"])
+  console.log("itemm 2")
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin

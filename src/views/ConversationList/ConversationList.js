@@ -21,6 +21,8 @@ const ConversationList = ({ setConversationID }) => {
     }
   }, [dispatch, conversations.conversation])
 
+  //  useEffect(() => {}, [conversation])
+
   const handleClick = (id) => {
     setConversationID(id)
   }

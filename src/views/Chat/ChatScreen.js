@@ -4,12 +4,14 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import ChatMessage from "../../components/ChatMessages/ChatMessage"
 import SendIcon from "@material-ui/icons/Send"
+import Loader from "../../components/utile/Loader"
 import { getConversations } from "../../actions/ChatActions.js/conversationActions"
 import "./ChatScreen.css"
+import { updateSeenConversation } from "../../actions/ChatActions.js/seenConversationAction"
 // import { initialSocket } from "./ChatServices"
 
 const ChatScreen = ({ setOpen, conversationID }) => {
-  // open conversations list bar
+  // open conversations list bartrue
   setOpen(true)
 
   const [conversation, setconversation] = useState([])
@@ -18,15 +20,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   // useEffect(() => {
   //   const mySocket = initialSocket("ramzi")
   // }, [])
-
-  console.info(conversation)
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    // const message = {
-    //   sender: user._id,
-    //   text: newMessage,
-    //   conversationId: currentChat._id,
-  }
 
   const dispatch = useDispatch()
 
@@ -47,7 +40,18 @@ const ChatScreen = ({ setOpen, conversationID }) => {
         }
       })
     }
-  }, [dispatch, conversations.conversation, conversationID])
+  }, [dispatch, conversations.conversation, conversationID, setconversation])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    dispatch(updateSeenConversation(conversationID))
+
+    // const message = {
+    //   sender: user._id,
+    //   text: newMessage,
+    //   conversationId: currentChat._id,
+  }
 
   return (
     <div className="ChatScreen">
@@ -63,8 +67,20 @@ const ChatScreen = ({ setOpen, conversationID }) => {
           <div className="chatBox">
             <div className="chatBoxWrapper">
               <div className="chatBoxTop">
-                <ChatMessage></ChatMessage>
-                <ChatMessage own={true}></ChatMessage>
+                {conversation["messages"].length === 0 ? (
+                  <>
+                    {loading && <Loader />}
+                    <h2>lol</h2>
+                  </>
+                ) : (
+                  <>
+                    {Array.from(conversation["messages"]).map((item, index) => (
+                      <ChatMessage item={item}></ChatMessage>
+                    ))}
+                  </>
+                )}
+
+                {/* <ChatMessage own={true}></ChatMessage> */}
               </div>
               <div className="chatBoxBottom">
                 <textarea

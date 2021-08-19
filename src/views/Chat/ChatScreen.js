@@ -37,7 +37,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
       dispatch(getConversations())
     }
   }, [])
-  // dispatch(updateSeenConversation(conversationID))
 
   useEffect(() => {
     if (conversations.conversation) {
@@ -54,12 +53,17 @@ const ChatScreen = ({ setOpen, conversationID }) => {
         }
       })
     }
-  }, [dispatch, conversationsList, setconversation, setMessages])
+  }, [
+    dispatch,
+    conversationsList,
+    setconversation,
+    setMessages,
+    conversationID,
+  ])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    dispatch(createConversation("60e82e1b65d68d0033ab186e", newMessage))
     // const message = {
     //   sender: userInfo.user["_id"],
     //   text: newMessage,

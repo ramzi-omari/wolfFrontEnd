@@ -8,6 +8,7 @@ import axios from "axios"
 // create convo params in POPUP from members components
 // check with hacene the response we get
 // + add reducers
+// request from members  dispatch(createConversation("receiver id", newMessage))
 
 export const createConversation =
   (receiver, message) => async (dispatch, getState) => {

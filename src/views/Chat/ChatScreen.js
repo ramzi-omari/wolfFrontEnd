@@ -11,17 +11,22 @@ import { updateSeenConversation } from "../../actions/ChatActions.js/seenConvers
 // import { initialSocket } from "./ChatServices"
 
 const ChatScreen = ({ setOpen, conversationID }) => {
-  // open conversations list bartrue
+  // open conversations list barre (right side bar)
   setOpen(true)
 
   const [conversation, setconversation] = useState([])
   const [currentChat, setCurrentChat] = useState(null)
   const [messages, setMessages] = useState([])
+  const [own, setOwn] = useState("")
+
+  //console.log("oowwn " + own)
   // useEffect(() => {
   //   const mySocket = initialSocket("ramzi")
   // }, [])
-
   const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
 
   const conversationsList = useSelector((state) => state.conversationsList)
   const { loading, error, conversations } = conversationsList
@@ -29,18 +34,26 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   useEffect(() => {
     if (!conversations.conversation) {
       dispatch(getConversations())
-    } else {
+    }
+  }, [])
+
+  useEffect(() => {
+    if (conversations.conversation) {
       conversations.conversation.map((item) => {
         if (item["_id"] === conversationID) {
-          console.log("conversation id " + conversationID)
-          console.log("itemid if " + item["_id"])
           setconversation(item)
+          setMessages(item["messages"])
           // send item.message to chatMessage or mybe see a solution to determine sender & reciever
           // recheck the scenario of isAccepted
+          setOwn(
+            item["receiver"]["_id"] === userInfo.user["_id"]
+              ? "RECEIVER"
+              : "SENDER"
+          )
         }
       })
     }
-  }, [dispatch, conversations.conversation, conversationID, setconversation])
+  }, [dispatch, conversationsList, setconversation, setMessages])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -53,6 +66,9 @@ const ChatScreen = ({ setOpen, conversationID }) => {
     //   conversationId: currentChat._id,
   }
 
+  // if (!conversation["messages"]) {
+  //   return null
+  // }
   return (
     <div className="ChatScreen">
       <Grid>
@@ -67,20 +83,15 @@ const ChatScreen = ({ setOpen, conversationID }) => {
           <div className="chatBox">
             <div className="chatBoxWrapper">
               <div className="chatBoxTop">
-                {conversation["messages"].length === 0 ? (
-                  <>
-                    {loading && <Loader />}
-                    <h2>lol</h2>
-                  </>
+                {!messages.length === 0 ? (
+                  <>{loading && <Loader />}</>
                 ) : (
                   <>
-                    {Array.from(conversation["messages"]).map((item, index) => (
-                      <ChatMessage item={item}></ChatMessage>
+                    {Array.from(messages).map((item, index) => (
+                      <ChatMessage own={own} message={item}></ChatMessage>
                     ))}
                   </>
                 )}
-
-                {/* <ChatMessage own={true}></ChatMessage> */}
               </div>
               <div className="chatBoxBottom">
                 <textarea

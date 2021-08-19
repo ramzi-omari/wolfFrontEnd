@@ -18,6 +18,7 @@ import MoreIcon from "@material-ui/icons/MoreVert"
 import { logout } from "../../../actions/usersActions"
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"
 import "./AppNavBar.css"
+import { getConversations } from "../../../actions/ChatActions.js/conversationActions"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -106,6 +107,9 @@ export default function AppNavBar({ history }) {
     setAnchorEl(event.currentTarget)
   }
 
+  // const conversationsList = useSelector((state) => state.conversationsList)
+  // const { conversations } = conversationsList
+
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
@@ -115,6 +119,12 @@ export default function AppNavBar({ history }) {
       history.push("/sign")
     }
   }, [history, userInfo, logout])
+
+  // useEffect(() => {
+  //   if (!conversations.conversation) {
+  //     dispatch(getConversations())
+  //   }
+  // }, [])
 
   const logingout = () => {
     console.log("userinfo before loginout: " + userInfo)

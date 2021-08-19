@@ -110,10 +110,18 @@ const Accueil = ({ history }) => {
                     <Investor></Investor>
                   </Route>
                   <Route path="/Chat">
-                    <ChatScreen
+                    {conversationID ? (
+                      <ChatScreen
+                        setOpen={setOpen}
+                        conversationID={conversationID}
+                      ></ChatScreen>
+                    ) : (
+                      ""
+                    )}
+                    {/* <ChatScreen
                       setOpen={setOpen}
                       conversationID={conversationID}
-                    ></ChatScreen>
+                    ></ChatScreen> */}
                   </Route>
                 </Switch>
               </div>

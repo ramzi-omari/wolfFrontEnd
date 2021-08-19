@@ -25,10 +25,15 @@ const ConversationList = ({ setConversationID }) => {
 
   //  useEffect(() => {}, [conversation])
 
-  const handleClick = (id) => {
+  const handleClick = (id, unseen, accepted) => {
     setConversationID(id)
-    dispatch(updateSeenConversation(id))
-    dispatch(updateAccepteConversation(id))
+
+    if (unseen) {
+      dispatch(updateSeenConversation(id))
+    }
+    if (!accepted) {
+      dispatch(updateAccepteConversation(id))
+    }
   }
 
   return (
@@ -50,7 +55,11 @@ const ConversationList = ({ setConversationID }) => {
           ) : (
             <>
               {Array.from(conversation).map((item, index) => (
-                <div onClick={() => handleClick(item["_id"])}>
+                <div
+                  onClick={() =>
+                    handleClick(item["_id"], item["unseen"], item["accepted"])
+                  }
+                >
                   <ChatConversations item={item}></ChatConversations>
                 </div>
               ))}

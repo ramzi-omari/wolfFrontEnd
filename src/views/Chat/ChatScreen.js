@@ -8,6 +8,7 @@ import Loader from "../../components/utile/Loader"
 import { getConversations } from "../../actions/ChatActions.js/conversationActions"
 import "./ChatScreen.css"
 import { updateSeenConversation } from "../../actions/ChatActions.js/seenConversationAction"
+import { createConversation } from "../../actions/ChatActions.js/createConversationAction"
 // import { initialSocket } from "./ChatServices"
 
 const ChatScreen = ({ setOpen, conversationID }) => {
@@ -15,13 +16,12 @@ const ChatScreen = ({ setOpen, conversationID }) => {
 
   // open conversations list barre (right side bar)
   setOpen(true)
-
   const [conversation, setconversation] = useState([])
-  const [currentChat, setCurrentChat] = useState(null)
+  const [currentChat, setCurrentChat] = useState("")
   const [messages, setMessages] = useState([])
+  const [newMessage, setNewMessage] = useState([])
   const [own, setOwn] = useState("")
 
-  //console.log("oowwn " + own)
   // useEffect(() => {
   //   const mySocket = initialSocket("ramzi")
   // }, [])
@@ -45,13 +45,12 @@ const ChatScreen = ({ setOpen, conversationID }) => {
         if (item["_id"] === conversationID) {
           setconversation(item)
           setMessages(item["messages"])
-          // send item.message to chatMessage or mybe see a solution to determine sender & reciever
-          // recheck the scenario of isAccepted
           setOwn(
             item["receiver"]["_id"] === userInfo.user["_id"]
               ? "RECEIVER"
               : "SENDER"
           )
+          setCurrentChat(item["_id"])
         }
       })
     }
@@ -60,10 +59,12 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
+    dispatch(createConversation("60e82e1b65d68d0033ab186e", newMessage))
     // const message = {
-    //   sender: user._id,
+    //   sender: userInfo.user["_id"],
     //   text: newMessage,
-    //   conversationId: currentChat._id,
+    //   conversationId: currentChat,
+    // }
   }
 
   // if (!conversation["messages"]) {
@@ -102,8 +103,8 @@ const ChatScreen = ({ setOpen, conversationID }) => {
                 <textarea
                   className="chatMessageInput"
                   placeholder="write something..."
-                  // onChange={(e) => setNewMessage(e.target.value)}
-                  // value={newMessage}
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  value={newMessage}
                 ></textarea>
                 <SendIcon
                   style={{
@@ -114,33 +115,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
                   onClick={handleSubmit}
                 ></SendIcon>
               </div>
-
-              {/* {currentChat ? (
-              <>
-                <div className="chatBoxTop">
-                  {messages.map((m) => (
-                    <div ref={scrollRef}>
-                      <Message message={m} own={m.sender === user._id} />
-                    </div>
-                  ))}
-                </div>
-                <div className="chatBoxBottom">
-                  <textarea
-                    className="chatMessageInput"
-                    placeholder="write something..."
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    value={newMessage}
-                  ></textarea>
-                  <button className="chatSubmitButton" onClick={handleSubmit}>
-                    Send
-                  </button>
-                </div>
-              </>
-            ) : (
-              <span className="noConversationText">
-                Open a conversation to start a chat.
-              </span>
-            )} */}
             </div>
           </div>
         </Paper>

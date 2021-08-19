@@ -11,6 +11,8 @@ import { updateSeenConversation } from "../../actions/ChatActions.js/seenConvers
 // import { initialSocket } from "./ChatServices"
 
 const ChatScreen = ({ setOpen, conversationID }) => {
+  const dispatch = useDispatch()
+
   // open conversations list barre (right side bar)
   setOpen(true)
 
@@ -23,7 +25,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   // useEffect(() => {
   //   const mySocket = initialSocket("ramzi")
   // }, [])
-  const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -36,6 +37,7 @@ const ChatScreen = ({ setOpen, conversationID }) => {
       dispatch(getConversations())
     }
   }, [])
+  // dispatch(updateSeenConversation(conversationID))
 
   useEffect(() => {
     if (conversations.conversation) {
@@ -57,8 +59,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
-    dispatch(updateSeenConversation(conversationID))
 
     // const message = {
     //   sender: user._id,
@@ -84,7 +84,12 @@ const ChatScreen = ({ setOpen, conversationID }) => {
             <div className="chatBoxWrapper">
               <div className="chatBoxTop">
                 {!messages.length === 0 ? (
-                  <>{loading && <Loader />}</>
+                  <>
+                    {loading && <Loader />}
+                    <span className="noConversationText">
+                      Open a conversation to start a chat.
+                    </span>
+                  </>
                 ) : (
                   <>
                     {Array.from(messages).map((item, index) => (

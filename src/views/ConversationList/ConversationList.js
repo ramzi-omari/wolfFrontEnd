@@ -4,6 +4,8 @@ import { Grid, Paper } from "@material-ui/core"
 import ChatConversations from "../../components/ChatConversation/ChatConversations"
 import { getConversations } from "../../actions/ChatActions.js/conversationActions"
 import Loader from "../../components/utile/Loader"
+import { updateSeenConversation } from "../../actions/ChatActions.js/seenConversationAction"
+import { updateAccepteConversation } from "../../actions/ChatActions.js/acceptedConversationAction"
 
 const ConversationList = ({ setConversationID }) => {
   const [conversation, setconversation] = useState([])
@@ -25,6 +27,8 @@ const ConversationList = ({ setConversationID }) => {
 
   const handleClick = (id) => {
     setConversationID(id)
+    dispatch(updateSeenConversation(id))
+    dispatch(updateAccepteConversation(id))
   }
 
   return (

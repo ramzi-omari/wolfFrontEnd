@@ -116,7 +116,16 @@ const Accueil = ({ history }) => {
                         conversationID={conversationID}
                       ></ChatScreen>
                     ) : (
-                      ""
+                      <Paper
+                        style={{
+                          width: "auto",
+                          margin: "2rem",
+                        }}
+                      >
+                        <span style={{ width: "2rem" }}>
+                          Open a conversation to start a chat.
+                        </span>
+                      </Paper>
                     )}
                     {/* <ChatScreen
                       setOpen={setOpen}

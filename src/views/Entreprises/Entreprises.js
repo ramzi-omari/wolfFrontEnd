@@ -63,7 +63,6 @@ const Entreprises = () => {
               </>
             )}
           </Grid>
-          <h2>LOOL</h2>
         </Paper>
       </Grid>
     </div>

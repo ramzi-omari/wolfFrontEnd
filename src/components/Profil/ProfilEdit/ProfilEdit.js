@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
 import Select from "@material-ui/core/Select"
 import MenuItem from "@material-ui/core/MenuItem"
+import Autocomplete from "@material-ui/lab/Autocomplete"
 import {
   Avatar,
   Badge,
@@ -93,6 +94,7 @@ const ProfilEdit = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [city, setCity] = useState("")
   const [description, setDescription] = useState("")
+  const [tag, setTag] = useState([])
   //
   const [selectedDate, setDate] = useState(moment())
   const [birthDate, setBirthDate] = useState(moment().format("YYYY-MM-DD"))
@@ -100,10 +102,6 @@ const ProfilEdit = () => {
   const onDateChange = (date, value) => {
     setDate(date)
     setBirthDate(value)
-    console.log("setbirthdate: " + setBirthDate)
-    console.log("setDate: " + setDate)
-    console.log("date: " + date)
-    console.log("value: " + value)
   }
   const dateFormatter = (str) => {
     return str
@@ -125,6 +123,7 @@ const ProfilEdit = () => {
       setCity(user.user["city"])
       setBirthDate(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
       setDescription(user.user["description"])
+      //setTag(user.user["tag"])
     }
   }, [dispatch, user.user])
 
@@ -153,9 +152,14 @@ const ProfilEdit = () => {
         phoneNumber,
         city,
         description,
+        tag,
       })
     )
     // dispatch(getUserDetails()) // not good solution to recall api // should think about combine updateReducer & getdetailReducer
+  }
+
+  const onTagsChange = (value) => {
+    setTag(value)
   }
 
   return (
@@ -298,6 +302,28 @@ const ProfilEdit = () => {
                       variant="outlined"
                       className={classes.inputField}
                     />
+
+                    <Autocomplete
+                      multiple
+                      id="tags-standard"
+                      options={top100Films}
+                      getOptionLabel={(option) => option}
+                      defaultValue={[top100Films[0]]}
+                      value={tag}
+                      size="small"
+                      // onChange={onTagsChange}
+                      onChange={(event, newValue) => {
+                        onTagsChange(newValue)
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          variant="standard"
+                          label="Tags de spécialités"
+                          placeholder="Spécialités"
+                        />
+                      )}
+                    />
                   </Box>
                 </Box>
                 <Button
@@ -318,3 +344,15 @@ const ProfilEdit = () => {
 }
 
 export default ProfilEdit
+
+const top100Films = [
+  "informatique",
+  "droit",
+  "eco",
+  // { title: "Informatique" },
+  // { title: "Droit" },
+  // { title: "Economie: Part II" },
+  // { title: "Electronique"},
+  // { title: "Immobilier", year: 1957 },
+  // { title: "Génie Civil", year: 1993 },
+]

@@ -69,6 +69,8 @@ const Profil = ({ history }) => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [description, setDescription] = useState("")
   const [type, setType] = useState("")
+  const [tag, setTag] = useState("informatique,gestion")
+  // fetch setTag commented
   const [city, setCity] = useState("")
   const [birthday, setBirthDay] = useState(moment().format("YYYY-MM-DD"))
 
@@ -94,6 +96,7 @@ const Profil = ({ history }) => {
       // 4 infos indispo dans l'API
       setCity(user.user["city"])
       setType(user.user["type"])
+      // setTag(user.user["tag"])
       setBirthDay(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
 
       setDescription(user.user["description"])
@@ -137,6 +140,7 @@ const Profil = ({ history }) => {
               <h5>City: {city}</h5>
               <h5>Phone: {phoneNumber}</h5>
               <h5>{type}</h5>
+              <h5>#{tag}</h5>
               <TextField
                 id="outlined-multiline-static"
                 label="Description"

@@ -6,6 +6,9 @@ import CardContent from "@material-ui/core/CardContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 import { Avatar } from "@material-ui/core"
+import ContactMailIcon from "@material-ui/icons/ContactMail"
+import HelpIcon from "@material-ui/icons/Help"
+import Tooltip from "@material-ui/core/Tooltip"
 import "./MemberCard.css"
 
 const useStyles = makeStyles({
@@ -27,7 +30,7 @@ const useStyles = makeStyles({
   content: {
     padding: "1rem 1rem !important",
     backgroundColor: "#6b6b6b2b",
-    height: "5rem",
+    height: "8.5rem",
     display: "flex",
     alignItems: "center",
     justifyContent: "start",
@@ -85,6 +88,29 @@ const MemberCard = ({ item }) => {
             <Typography variant="body2" component="p">
               {item.city}
             </Typography>
+            <Typography
+              variant="body2"
+              component="p"
+              style={{ color: "#0645AD ", marginTop: "1rem" }}
+            >
+              {item.tag}
+              #informatique,gestion
+            </Typography>
+            <div className="contactMember">
+              {/* <Tooltip title="Contactez directement" > */}
+              <Tooltip arrow title={<h4>Contactez directement</h4>}>
+                <ContactMailIcon
+                  style={{ color: "#404040" }}
+                  fontSize="large"
+                ></ContactMailIcon>
+              </Tooltip>
+              <Tooltip arrow title={<h4>Infos supplémentaire</h4>}>
+                <HelpIcon
+                  style={{ color: "#404040" }}
+                  fontSize="large"
+                ></HelpIcon>
+              </Tooltip>
+            </div>
           </div>
         </CardContent>
         {/* <CardActions>

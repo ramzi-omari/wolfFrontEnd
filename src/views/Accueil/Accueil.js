@@ -88,9 +88,9 @@ const Accueil = ({ history }) => {
             >
               <div className="accueil-center">
                 <HeaderImg></HeaderImg>
-                <Link to={"/Profil"}>
+                {/* <Link to={"/Profil"}>
                   <button type="button">Click Me!</button>
-                </Link>
+                </Link> */}
 
                 <Switch>
                   <Route exact path="/" component={Journal}></Route>

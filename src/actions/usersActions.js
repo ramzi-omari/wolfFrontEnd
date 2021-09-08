@@ -124,22 +124,18 @@ export const getUserDetails = () => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    console.log("get user info call1")
     // make request
     const { data } = await axios.get(
       `${process.env.REACT_APP_API_KEY}/users/`,
       config
     )
-    console.log("get user info call2")
-    console.log("data after api call " + data)
+
     if (data) {
       dispatch({
         type: USER_DETAILS_SUCCESS,
         payload: data,
       })
     }
-
-    console.log("get user info success")
   } catch (error) {
     dispatch({
       type: USER_DETAILS_FAIL,

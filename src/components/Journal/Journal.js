@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Avatar, Grid, Paper } from "@material-ui/core"
+import { Avatar, Grid, Input, Paper } from "@material-ui/core"
 import ThumbUpIcon from "@material-ui/icons/ThumbUp"
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline"
 import AccountCircleIcon from "@material-ui/icons/AccountCircle"
 import NearMeIcon from "@material-ui/icons/NearMe"
 import { ExpandMoreOutlined } from "@material-ui/icons"
+import SendIcon from "@material-ui/icons/Send"
 import Loader from "../utile/Loader"
 import Message from "../utile/Message"
 import { getListPosts } from "../../actions/journalActions"
 import moment from "moment"
 
 import "./Journal.css"
+import Comments from "./Comments/Comments"
 
 const Journal = () => {
   const [publications, setPublications] = useState("")
+  const [openComment, setOpenComment] = useState(true)
 
   const dispatch = useDispatch()
   const postsList = useSelector((state) => state.postsList)
@@ -31,6 +34,14 @@ const Journal = () => {
       setPublications(posts.publications)
     }
   }, [dispatch, postsList])
+
+  const handleClick = () => {
+    setOpenComment(!openComment)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+  }
 
   return (
     <Grid>
@@ -75,7 +86,7 @@ const Journal = () => {
                     <p>Like {item.nbr_like}</p>
                   </div>
 
-                  <div className="post__option">
+                  <div className="post__option" onClick={handleClick}>
                     <ChatBubbleOutlineIcon />
                     <p>Comment</p>
                   </div>
@@ -83,12 +94,27 @@ const Journal = () => {
                   {/* <div className="post__option">
                   <NearMeIcon />
                   <p>Share</p>
-                </div> */}
+                  </div> */}
 
                   <div className="post__option">
                     <AccountCircleIcon />
                     <ExpandMoreOutlined />
                   </div>
+                </div>
+                {openComment ? <Comments></Comments> : null}
+                <div className="add__comment">
+                  <Input
+                    className="comment__input"
+                    multiline
+                    maxRows="5"
+                    placeholder="Add a comment"
+                  ></Input>
+                  <SendIcon
+                    style={{
+                      cursor: "pointer",
+                    }}
+                    onClick={handleSubmit}
+                  ></SendIcon>
                 </div>
               </div>
             ))}

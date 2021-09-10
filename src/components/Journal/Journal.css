@@ -74,3 +74,19 @@
   background-color: #eff2f5;
   border-radius: 10px;
 }
+
+.post__comments > .post__top {
+  padding-bottom: 15px;
+}
+
+.comment__input {
+  width: 90%;
+  margin: 10px;
+  justify-content: left;
+}
+
+.add__comment {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}

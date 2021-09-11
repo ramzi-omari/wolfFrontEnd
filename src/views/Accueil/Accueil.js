@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 const Accueil = ({ history }) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
-  const [conversationID, setConversationID] = useState("")
+  const [conversationID, setConversationID] = useState(null)
 
   let { path } = useRouteMatch()
 

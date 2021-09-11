@@ -1,5 +1,5 @@
 import { Grid, Paper } from "@material-ui/core"
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import ChatMessage from "../../components/ChatMessages/ChatMessage"
@@ -22,29 +22,69 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   // open conversations list barre (right side bar)
   setOpen(true)
   const [conversation, setconversation] = useState([])
-  const [currentChat, setCurrentChat] = useState("")
-  const [messages, setMessages] = useState([])
-  const [newMessage, setNewMessage] = useState([])
   const [own, setOwn] = useState("")
 
-  const [room, setRoom] = useState("")
-  const [message, setMessage] = useState("")
-  const [chat, setChat] = useState([])
+  // const [room, setRoom] = useState("")
+  const [receiverId, setReceiverId] = useState(null)
+  const [currentChat, setCurrentChat] = useState(null)
 
-  console.log("convv id " + conversationID)
-  // room = conversationID took from ConversationList component
+  const [messages, setMessages] = useState([])
+  const [newMessage, setNewMessage] = useState([])
+  const [arrivalMessage, setArrivalMessage] = useState(null)
+
+  const socket = useRef()
+  const scrollRef = useRef()
+
+  //  SOCKET
   useEffect(() => {
-    setRoom(conversationID)
-    console.log("rom " + room)
-    if (room) initialSocket(room)
-    subscribeToChat((err, data) => {
-      if (err) return
-      setChat((oldChats) => [data, ...oldChats])
+    // connect ??
+    socket.current = io("ws://localhost:8900")
+    // receive ??
+    socket.current.on("chat", (data) => {
+      setArrivalMessage({
+        sender: data.sendBy,
+        text: data.content,
+        createdAt: Date.now(),
+      })
     })
-    return () => {
-      disconnectSocket()
-    }
-  }, [room, conversationID])
+  }, [])
+
+  // ARRIVALMESSAGE SENDER = an ID ???
+
+  useEffect(() => {
+    arrivalMessage &&
+      // currentChat?.members.includes(arrivalMessage.sender) &&
+      receiverId === arrivalMessage.sender && // === "SENDER" need to check sender ID
+      setMessages((prev) => [...prev, arrivalMessage])
+  }, [arrivalMessage, receiverId])
+
+  // useEffect(() => {
+  //   socket.current.emit("addUser", userInfo.user["_id"])
+  //   socket.current.on("getUsers", (users) => {
+  //     setOnlineUsers(
+  //       user.followings.filter((f) => users.some((u) => u.userId === f))
+  //     )
+  //   })
+  // }, [userInfo.user])
+
+  //
+
+  //2
+
+  // room = conversationID took from ConversationList component
+  // 1
+  // useEffect(() => {
+  //   setRoom(conversationID)
+  //   console.log("rom " + room)
+  //   if (room) initialSocket(room)
+  //   subscribeToChat((err, data) => {
+  //     if (err) return
+  //     setChat((oldChats) => [data, ...oldChats])
+  //   })
+  //   return () => {
+  //     disconnectSocket()
+  //   }
+  // }, [room, conversationID]) //2
 
   // const [socket, setSocket] = useState(null);
 
@@ -54,9 +94,9 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   //   return () => newSocket.close();
   // }, [setSocket]);
 
-  useEffect(() => {
-    const mySocket = initialSocket("ramzi")
-  }, [])
+  // useEffect(() => {
+  //   const mySocket = initialSocket("ramzi")
+  // }, [])
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -81,7 +121,13 @@ const ChatScreen = ({ setOpen, conversationID }) => {
               ? "RECEIVER"
               : "SENDER"
           )
-          setCurrentChat(item["_id"])
+
+          setReceiverId(
+            item["receiver"]["_id"] !== userInfo.user["_id"]
+              ? item["receiver"]["_id"]
+              : item["sender"]["_id"]
+          )
+          setCurrentChat(item)
         }
       })
     }
@@ -96,12 +142,35 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    // const message = {
-    //   sender: userInfo.user["_id"],
+    const message = {
+      sendBy: userInfo.user["_id"],
+      content: newMessage,
+      id_conv: conversationID,
+    }
+    socket.current.emit("chat", message)
+
+    // socket.current.emit("chat", {
+    //   senderId: userInfo.user["_id"],
+    //   receiverId,
     //   text: newMessage,
-    //   conversationId: currentChat,
+    // })
+
+    //
+
+    // send new message to Messages object and clean up newMessage state
+    // which API
+    // try {
+    //   const res = await axios.post("/messages", message);
+    //   setMessages([...messages, res.data]);
+    //   setNewMessage("");
+    // } catch (err) {
+    //   console.log(err);
     // }
   }
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" })
+  }, [messages])
 
   // if (!conversation["messages"]) {
   //   return null
@@ -130,7 +199,9 @@ const ChatScreen = ({ setOpen, conversationID }) => {
                 ) : (
                   <>
                     {Array.from(messages).map((item, index) => (
-                      <ChatMessage own={own} message={item}></ChatMessage>
+                      <div ref={scrollRef}>
+                        <ChatMessage own={own} message={item}></ChatMessage>
+                      </div>
                     ))}
                   </>
                 )}

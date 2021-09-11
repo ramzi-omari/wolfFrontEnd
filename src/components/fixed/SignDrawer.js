@@ -9,6 +9,7 @@ import ImageIcon from "@material-ui/icons/Image"
 import ContactMail from "@material-ui/icons/ContactMail"
 import Twitter from "@material-ui/icons/Twitter"
 import { Tooltip } from "@material-ui/core"
+import { Facebook, LinkedIn } from "@material-ui/icons"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,6 +58,24 @@ export default function SignDrawer() {
           <Tooltip title="Contact">
             <Avatar>
               <Twitter style={{ color: "black", cursor: "pointer" }} />
+            </Avatar>
+          </Tooltip>
+        </ListItemAvatar>
+      </ListItem>
+      <ListItem className={classes.LIpadding}>
+        <ListItemAvatar>
+          <Tooltip title="Contact">
+            <Avatar>
+              <LinkedIn style={{ color: "black", cursor: "pointer" }} />
+            </Avatar>
+          </Tooltip>
+        </ListItemAvatar>
+      </ListItem>
+      <ListItem className={classes.LIpadding}>
+        <ListItemAvatar>
+          <Tooltip title="Contact">
+            <Avatar>
+              <Facebook style={{ color: "black", cursor: "pointer" }} />
             </Avatar>
           </Tooltip>
         </ListItemAvatar>

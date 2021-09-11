@@ -15,6 +15,7 @@ const ConversationList = ({ setConversationID }) => {
   const conversationsList = useSelector((state) => state.conversationsList)
   const { loading, error, conversations } = conversationsList
 
+  // Type Error with conversations.conversstst
   useEffect(() => {
     if (!conversations.conversation) {
       dispatch(getConversations())
@@ -22,6 +23,8 @@ const ConversationList = ({ setConversationID }) => {
       setconversation(conversations.conversation)
     }
   }, [dispatch, conversations.conversation])
+  // type error conversation.conversati
+  // }, [dispatch, getConversations, setconversation])
 
   //  useEffect(() => {}, [conversation])
 

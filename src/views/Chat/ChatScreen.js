@@ -9,7 +9,12 @@ import { getConversations } from "../../actions/ChatActions.js/conversationActio
 import "./ChatScreen.css"
 import { updateSeenConversation } from "../../actions/ChatActions.js/seenConversationAction"
 import { createConversation } from "../../actions/ChatActions.js/createConversationAction"
-// import { initialSocket } from "./ChatServices"
+import io from "socket.io-client"
+import {
+  initialSocket,
+  subscribeToChat,
+  disconnectSocket,
+} from "../../ChatServices/ChatServices"
 
 const ChatScreen = ({ setOpen, conversationID }) => {
   const dispatch = useDispatch()
@@ -22,9 +27,36 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   const [newMessage, setNewMessage] = useState([])
   const [own, setOwn] = useState("")
 
+  const [room, setRoom] = useState("")
+  const [message, setMessage] = useState("")
+  const [chat, setChat] = useState([])
+
+  console.log("convv id " + conversationID)
+  // room = conversationID took from ConversationList component
+  useEffect(() => {
+    setRoom(conversationID)
+    console.log("rom " + room)
+    if (room) initialSocket(room)
+    subscribeToChat((err, data) => {
+      if (err) return
+      setChat((oldChats) => [data, ...oldChats])
+    })
+    return () => {
+      disconnectSocket()
+    }
+  }, [room, conversationID])
+
+  // const [socket, setSocket] = useState(null);
+
   // useEffect(() => {
-  //   const mySocket = initialSocket("ramzi")
-  // }, [])
+  //   const newSocket = io(`http://${window.location.hostname}:3000`);
+  //   setSocket(newSocket);
+  //   return () => newSocket.close();
+  // }, [setSocket]);
+
+  useEffect(() => {
+    const mySocket = initialSocket("ramzi")
+  }, [])
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin

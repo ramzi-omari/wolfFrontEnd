@@ -17,7 +17,7 @@ const ConversationList = ({ setConversationID }) => {
 
   // Type Error with conversations.conversstst
   useEffect(() => {
-    if (!conversations.conversation) {
+    if (conversations && !conversations.conversation) {
       dispatch(getConversations())
     } else {
       setconversation(conversations.conversation)

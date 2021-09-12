@@ -85,23 +85,32 @@ const Profil = ({ history }) => {
   // console.log("locat : " + window.location)
 
   useEffect(() => {
-    if (!user.user) {
+    if (!user) {
+      console.log("first")
       dispatch(getUserDetails())
     } else {
-      // if we have the user we set the form field
-      setLastName(user.user["last_name"])
-      setEmail(user.user["email"])
-      setFirstName(user.user["first_name"])
-      setPhoneNumber(user.user["phone"])
-      // 4 infos indispo dans l'API
-      setCity(user.user["city"])
-      setType(user.user["type"])
-      // setTag(user.user["tag"])
-      setBirthDay(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
+      if (!user.user) {
+        console.log("second")
+        dispatch(getUserDetails())
+        console.log("third")
+      } else {
+        console.log("fourth")
+        // if we have the user we set the form field
+        setLastName(user.user["last_name"])
+        setEmail(user.user["email"])
+        setFirstName(user.user["first_name"])
+        setPhoneNumber(user.user["phone"])
+        // 4 infos indispo dans l'API
+        setCity(user.user["city"])
+        setType(user.user["type"])
+        // setTag(user.user["tag"])
+        setBirthDay(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
 
-      setDescription(user.user["description"])
+        setDescription(user.user["description"])
+      }
     }
-  }, [dispatch, userInfo, user.user])
+    console.log("5")
+  }, [dispatch, userInfo, user])
 
   return (
     <Grid className={classes.root}>
@@ -164,7 +173,7 @@ const Profil = ({ history }) => {
                 alignItems: "center",
               }}
             >
-              <ProfilEdit></ProfilEdit>
+              <ProfilEdit user={user}></ProfilEdit>
               <Tooltip title="Credit">
                 <Button className={classes.buttons} variant="outlined">
                   $ 50

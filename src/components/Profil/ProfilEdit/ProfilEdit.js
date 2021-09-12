@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ProfilEdit = () => {
+const ProfilEdit = ({ user }) => {
   const classes = useStyles()
 
   const [message, setMessage] = useState(null)
@@ -109,23 +109,31 @@ const ProfilEdit = () => {
 
   const dispatch = useDispatch()
 
-  const userDetails = useSelector((state) => state.userDetails)
-  const { loading, error, user } = userDetails
+  // const userDetails = useSelector((state) => state.userDetails)
+  // const { loading, error, user } = userDetails
 
   useEffect(() => {
-    if (!user.user) {
-      dispatch(getUserDetails())
+    if (!user) {
+      console.log("7")
+      //  dispatch(getUserDetails())
+      //  console.log("second")
     } else {
-      // if we have the user we set the form field
-      setName(user.user["last_name"])
-      setFirstName(user.user["first_name"])
-      setPhoneNumber(user.user["phone"])
-      setCity(user.user["city"])
-      setBirthDate(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
-      setDescription(user.user["description"])
-      //setTag(user.user["tag"])
+      console.log("8")
+      if (user.user) {
+        console.log("9")
+        // if we have the user we set the form field
+        setName(user.user["last_name"])
+        setFirstName(user.user["first_name"])
+        setPhoneNumber(user.user["phone"])
+        setCity(user.user["city"])
+        setBirthDate(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
+        setDescription(user.user["description"])
+        //setTag(user.user["tag"])
+      }
+      console.log("10")
     }
-  }, [dispatch, user.user])
+    console.log("11")
+  }, [dispatch, user])
 
   // handle modal button open
   const handleOpen = () => {

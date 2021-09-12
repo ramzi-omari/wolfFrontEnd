@@ -24,7 +24,7 @@ const Journal = () => {
   const { loading, error, posts } = postsList
 
   useEffect(() => {
-    if (!posts.publications) {
+    if (posts && !posts.publications) {
       dispatch(getListPosts())
     }
   }, [])

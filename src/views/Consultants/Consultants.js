@@ -15,7 +15,7 @@ const Consultants = () => {
   const { loading, error, users } = getConsultant
 
   useEffect(() => {
-    if (!users.users) {
+    if (users && !users.users) {
       dispatch(getUsersDetail("CONSULTANT"))
     }
   }, [])

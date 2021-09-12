@@ -15,7 +15,7 @@ const Entreprises = () => {
   const { loading, error, users } = getEntreprise
 
   useEffect(() => {
-    if (!users.users) {
+    if (users && !users.users) {
       dispatch(getUsersDetail("ENTREPRISE"))
     }
   }, [])

@@ -17,12 +17,16 @@ const ConversationList = ({ setConversationID }) => {
 
   // Type Error with conversations.conversstst
   useEffect(() => {
-    if (conversations && !conversations.conversation) {
+    if (!conversations) {
       dispatch(getConversations())
     } else {
-      setconversation(conversations.conversation)
+      if (conversations && !conversations.conversation) {
+        dispatch(getConversations())
+      } else {
+        setconversation(conversations.conversation)
+      }
     }
-  }, [dispatch, conversations.conversation])
+  }, [dispatch, conversations])
   // type error conversation.conversati
   // }, [dispatch, getConversations, setconversation])
 

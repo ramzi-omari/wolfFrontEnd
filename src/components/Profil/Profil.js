@@ -86,15 +86,11 @@ const Profil = ({ history }) => {
 
   useEffect(() => {
     if (!user) {
-      console.log("first")
       dispatch(getUserDetails())
     } else {
       if (!user.user) {
-        console.log("second")
         dispatch(getUserDetails())
-        console.log("third")
       } else {
-        console.log("fourth")
         // if we have the user we set the form field
         setLastName(user.user["last_name"])
         setEmail(user.user["email"])
@@ -109,7 +105,6 @@ const Profil = ({ history }) => {
         setDescription(user.user["description"])
       }
     }
-    console.log("5")
   }, [dispatch, userInfo, user])
 
   return (

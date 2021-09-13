@@ -24,7 +24,7 @@ const Journal = () => {
   const { loading, error, posts } = postsList
 
   useEffect(() => {
-    if (posts && !posts.publications) {
+    if (!posts.publications) {
       dispatch(getListPosts())
     }
   }, [])
@@ -59,65 +59,66 @@ const Journal = () => {
           <h2>Posts is empty</h2>
         ) : (
           <div>
-            {publications.map((item) => (
-              <div className="post">
-                <div className="post__top">
-                  <Avatar
-                    src="https://img.favpng.com/18/18/18/computer-icons-icon-design-avatar-png-favpng-X29r5WhWMXVYvNsYXkR4iBgwf.jpg"
-                    className="post__avatar"
-                  />
-                  <div className="post__topInfo">
-                    <h3>username</h3>
-                    <p>{moment(item.created_at).format("YYYY-MM-DD LT")}</p>
+            {publications &&
+              publications.map((item) => (
+                <div className="post">
+                  <div className="post__top">
+                    <Avatar
+                      src="https://img.favpng.com/18/18/18/computer-icons-icon-design-avatar-png-favpng-X29r5WhWMXVYvNsYXkR4iBgwf.jpg"
+                      className="post__avatar"
+                    />
+                    <div className="post__topInfo">
+                      <h3>username</h3>
+                      <p>{moment(item.created_at).format("YYYY-MM-DD LT")}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="post__bottom">
-                  <p>{item.content}</p>
-                </div>
-                <div className="post__image">
-                  <img
-                    src="https://images.unsplash.com/photo-1521575107034-e0fa0b594529?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9zdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"
-                    alt=""
-                  />
-                </div>
-                <div className="post__options">
-                  <div className="post__option">
-                    <ThumbUpIcon />
-                    <p>Like {item.nbr_like}</p>
+                  <div className="post__bottom">
+                    <p>{item.content}</p>
                   </div>
+                  <div className="post__image">
+                    <img
+                      src="https://images.unsplash.com/photo-1521575107034-e0fa0b594529?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9zdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"
+                      alt=""
+                    />
+                  </div>
+                  <div className="post__options">
+                    <div className="post__option">
+                      <ThumbUpIcon />
+                      <p>Like {item.nbr_like}</p>
+                    </div>
 
-                  <div className="post__option" onClick={handleClick}>
-                    <ChatBubbleOutlineIcon />
-                    <p>Comment</p>
-                  </div>
+                    <div className="post__option" onClick={handleClick}>
+                      <ChatBubbleOutlineIcon />
+                      <p>Comment</p>
+                    </div>
 
-                  {/* <div className="post__option">
+                    {/* <div className="post__option">
                   <NearMeIcon />
                   <p>Share</p>
                   </div> */}
 
-                  <div className="post__option">
-                    <AccountCircleIcon />
-                    <ExpandMoreOutlined />
+                    <div className="post__option">
+                      <AccountCircleIcon />
+                      <ExpandMoreOutlined />
+                    </div>
+                  </div>
+                  {openComment ? <Comments></Comments> : null}
+                  <div className="add__comment">
+                    <Input
+                      className="comment__input"
+                      multiline
+                      maxRows="5"
+                      placeholder="Add a comment"
+                    ></Input>
+                    <SendIcon
+                      style={{
+                        cursor: "pointer",
+                      }}
+                      onClick={handleSubmit}
+                    ></SendIcon>
                   </div>
                 </div>
-                {openComment ? <Comments></Comments> : null}
-                <div className="add__comment">
-                  <Input
-                    className="comment__input"
-                    multiline
-                    maxRows="5"
-                    placeholder="Add a comment"
-                  ></Input>
-                  <SendIcon
-                    style={{
-                      cursor: "pointer",
-                    }}
-                    onClick={handleSubmit}
-                  ></SendIcon>
-                </div>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </Paper>

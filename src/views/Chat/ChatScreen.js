@@ -38,7 +38,13 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   //  SOCKET
   useEffect(() => {
     // connect ??
-    socket.current = io("ws://localhost:8900")
+    // socket.current = io(process.env.REACT_CHAT_APP_API_KEY)
+
+    socket.current = io("http://192.168.1.3:8000")
+    // "ws://localhost:8900"
+    // socket.current.on("connection", conversationID)
+    socket.current.emit("join", conversationID)
+    // env chat
     // receive ??
     socket.current.on("chat", (data) => {
       setArrivalMessage({
@@ -50,11 +56,13 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   }, [])
 
   // ARRIVALMESSAGE SENDER = an ID ???
+  // celui qui envois le premier msg est le sender
 
   useEffect(() => {
     arrivalMessage &&
       // currentChat?.members.includes(arrivalMessage.sender) &&
-      receiverId === arrivalMessage.sender && // === "SENDER" need to check sender ID
+      // receiverId === arrivalMessage.sender && // === "SENDER" need to check sender ID
+      arrivalMessage.sender === "SENDER" &&
       setMessages((prev) => [...prev, arrivalMessage])
   }, [arrivalMessage, receiverId])
 
@@ -143,19 +151,12 @@ const ChatScreen = ({ setOpen, conversationID }) => {
     e.preventDefault()
 
     const message = {
-      sendBy: userInfo.user["_id"],
+      // sendBy: userInfo.user["_id"],
+      sendBy: own,
       content: newMessage,
       id_conv: conversationID,
     }
-    socket.current.emit("chat", message)
-
-    // socket.current.emit("chat", {
-    //   senderId: userInfo.user["_id"],
-    //   receiverId,
-    //   text: newMessage,
-    // })
-
-    //
+    socket.current.emit("chat", { message, conversationID })
 
     // send new message to Messages object and clean up newMessage state
     // which API

@@ -130,7 +130,7 @@ const Wallet = ({ history }) => {
                 flexDirection: "column",
                 gap: "1rem",
                 textAlign: "start",
-                justifyContent: "start",
+                justifyContent: "center",
                 width: "25%",
                 alignItems: "center",
               }}
@@ -144,9 +144,6 @@ const Wallet = ({ history }) => {
                   Send Money
                 </Button>
               </Tooltip>
-              <Button className={classes.buttons} variant="outlined">
-                Mot de passe
-              </Button>
             </Box>
           </Box>
         </div>

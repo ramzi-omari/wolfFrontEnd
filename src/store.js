@@ -60,7 +60,9 @@ import {
   getInvestorReducer,
   getEntrepriseReducer,
 } from "./reducers/getUsersReducers"
-// import investors from "./reducers/investorSlice"
+import commentsReducer from "./Slices/commentSlice"
+// import investors from "./reducers/investorSlice" import slice from reducerSlice
+
 import { conversationsListReducer } from "./reducers/ChatReducers/conversationsReducers"
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -69,7 +71,6 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
-  // userUpdateProfile: [],
 }
 
 const store = configureStore({
@@ -83,7 +84,7 @@ const store = configureStore({
     getInvestor: getInvestorReducer,
     getEntreprise: getEntrepriseReducer,
     conversationsList: conversationsListReducer,
-    // investors: investors,
+    comments: commentsReducer,
   },
   initialState,
 })

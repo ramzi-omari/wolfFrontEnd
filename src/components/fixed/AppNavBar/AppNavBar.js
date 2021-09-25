@@ -110,6 +110,9 @@ export default function AppNavBar({ history }) {
   // const conversationsList = useSelector((state) => state.conversationsList)
   // const { conversations } = conversationsList
 
+  const dat = JSON.parse(localStorage.getItem("userInfo"))
+  console.log("ls " + dat)
+
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 

@@ -43,3 +43,5 @@ export const getListPosts = () => async (dispatch, getState) => {
     })
   }
 }
+
+// LIKE POST

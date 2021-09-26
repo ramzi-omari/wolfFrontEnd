@@ -61,6 +61,7 @@ import {
   getEntrepriseReducer,
 } from "./reducers/getUsersReducers"
 import commentsReducer from "./Slices/commentSlice"
+import userDetailReducer from "./Slices/profileSlice"
 // import investors from "./reducers/investorSlice" import slice from reducerSlice
 
 import { conversationsListReducer } from "./reducers/ChatReducers/conversationsReducers"
@@ -77,14 +78,15 @@ const store = configureStore({
   reducer: {
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
-    userDetails: userDetailsReducer,
-    userUpdateProfile: userUpdateProfileReducer,
+    // userDetails: userDetailsReducer,
+    // userUpdateProfile: userUpdateProfileReducer,
     postsList: postsListReducer,
     getConsultant: getConsultantReducer,
     getInvestor: getInvestorReducer,
     getEntreprise: getEntrepriseReducer,
     conversationsList: conversationsListReducer,
     comments: commentsReducer,
+    userInformations: userDetailReducer,
   },
   initialState,
 })

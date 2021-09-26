@@ -15,6 +15,14 @@ import {
   USER_UPDATE_PROFILE_SUCCESS,
   USER_UPDATE_PROFILE_FAIL,
 } from "../constants/userConstants"
+import {
+  getProfileLoading,
+  getProfileSuccess,
+  getProfileFail,
+  editProfileLoading,
+  editProfileSuccess,
+  editProfileFail,
+} from "../Slices/profileSlice"
 import axios from "axios"
 
 // HACENE LOGIN logic
@@ -108,85 +116,93 @@ export const logout = () => (dispatch) => {
 export const getUserDetails = () => async (dispatch, getState) => {
   // getState to get the token from userInfo
   try {
-    dispatch({
-      type: USER_DETAILS_REQUEST,
-    })
-
+    dispatch(getProfileLoading())
+    // old dispatch
     const {
       userLogin: { userInfo },
     } = getState()
 
     const config = {
-      // to pass the token with protected routes
-      // send in the headers content type of application/json
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    // make request
     const { data } = await axios.get(
       `${process.env.REACT_APP_API_KEY}/users/`,
       config
     )
 
     if (data) {
-      dispatch({
-        type: USER_DETAILS_SUCCESS,
-        payload: data,
-      })
+      dispatch(getProfileSuccess(data))
+
+      // dispatch({
+      //   type: USER_DETAILS_SUCCESS,
+      //   payload: data,
+      // })
     }
   } catch (error) {
-    dispatch({
-      type: USER_DETAILS_FAIL,
-      payload:
+    dispatch(
+      getProfileFail(
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message,
-    })
+          : error.message
+      )
+    )
+    // dispatch({
+    //   type: USER_DETAILS_FAIL,
+    //   payload:
+    //     error.response && error.response.data.message
+    //       ? error.response.data.message
+    //       : error.message,
+    // })
   }
 }
 
 export const updateUserProfile = (user) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: USER_UPDATE_PROFILE_REQUEST,
-    })
+    // dispatch({
+    //   type: USER_UPDATE_PROFILE_REQUEST,
+    // })
+    dispatch(editProfileLoading())
 
-    // distructor to get the token from getstate.userlogin.userinfo.token
     const {
       userLogin: { userInfo },
     } = getState()
 
     const config = {
-      // to pass the token with protected routes
-      // send in the headers content type of application/json
       headers: {
         "Content-Type": "application/json",
-        // we pass our tokens as authorization
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
 
-    // make PUT request
-    // user contains the data we want to update with (passed in params from UI)
     const { data } = await axios.put(
       `${process.env.REACT_APP_API_KEY}/users/`,
       user,
       config
     )
 
-    dispatch({
-      type: USER_UPDATE_PROFILE_SUCCESS,
-      payload: data,
-    })
+    dispatch(editProfileSuccess(data))
+
+    // dispatch({
+    //   type: USER_UPDATE_PROFILE_SUCCESS,
+    //   payload: data,
+    // })
   } catch (error) {
-    dispatch({
-      type: USER_UPDATE_PROFILE_FAIL,
-      payload:
+    dispatch(
+      editProfileFail(
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message,
-    })
+          : error.message
+      )
+    )
+    // dispatch({
+    //   type: USER_UPDATE_PROFILE_FAIL,
+    //   payload:
+    //     error.response && error.response.data.message
+    //       ? error.response.data.message
+    //       : error.message,
+    // })
   }
 }

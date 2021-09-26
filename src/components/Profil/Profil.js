@@ -75,37 +75,40 @@ const Profil = ({ history }) => {
   const [birthday, setBirthDay] = useState(moment().format("YYYY-MM-DD"))
 
   const dispatch = useDispatch()
-  const userDetails = useSelector((state) => state.userDetails)
-  const { loading, error, user } = userDetails
+  // const userDetails = useSelector((state) => state.userDetails)
+  // const { loading, error, user } = userDetails
+
+  const { loading, error, userDetails } = useSelector(
+    (state) => state.userInformations
+  )
+  const { success, user } = userDetails
 
   // check if the user isn't logged in
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  // console.log("history: " + history.location)
-  // console.log("locat : " + window.location)
 
   useEffect(() => {
     if (!user) {
+      console.log("1")
       dispatch(getUserDetails())
+      console.log("2")
     } else {
-      if (!user.user) {
-        dispatch(getUserDetails())
-      } else {
-        // if we have the user we set the form field
-        setLastName(user.user["last_name"])
-        setEmail(user.user["email"])
-        setFirstName(user.user["first_name"])
-        setPhoneNumber(user.user["phone"])
-        // 4 infos indispo dans l'API
-        setCity(user.user["city"])
-        setType(user.user["type"])
-        // setTag(user.user["tag"])
-        setBirthDay(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
+      console.log("3")
+      console.log("userr " + user["last_name"])
+      // if we have the user we set the form field
+      setLastName(user["last_name"])
+      setEmail(user["email"])
+      setFirstName(user["first_name"])
+      setPhoneNumber(user["phone"])
+      // 4 infos indispo dans l'API
+      setCity(user["city"])
+      setType(user["type"])
+      // setTag(user.user["tag"])
+      setBirthDay(moment(user["birthDate"]).format("YYYY-MM-DD"))
 
-        setDescription(user.user["description"])
-      }
+      setDescription(user["description"])
     }
-  }, [dispatch, userInfo, user])
+  }, [user])
 
   return (
     <Grid className={classes.root}>

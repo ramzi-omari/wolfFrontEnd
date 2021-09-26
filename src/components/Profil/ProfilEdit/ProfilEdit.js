@@ -119,18 +119,15 @@ const ProfilEdit = ({ user }) => {
       //  console.log("second")
     } else {
       console.log("8")
-      if (user.user) {
-        console.log("9")
-        // if we have the user we set the form field
-        setName(user.user["last_name"])
-        setFirstName(user.user["first_name"])
-        setPhoneNumber(user.user["phone"])
-        setCity(user.user["city"])
-        setBirthDate(moment(user.user["birthDate"]).format("YYYY-MM-DD"))
-        setDescription(user.user["description"])
-        //setTag(user.user["tag"])
-      }
-      console.log("10")
+
+      // if we have the user we set the form field
+      setName(user["last_name"])
+      setFirstName(user["first_name"])
+      setPhoneNumber(user["phone"])
+      setCity(user["city"])
+      setBirthDate(moment(user["birthDate"]).format("YYYY-MM-DD"))
+      setDescription(user["description"])
+      //setTag(user.user["tag"])
     }
     console.log("11")
   }, [dispatch, user])
@@ -143,9 +140,13 @@ const ProfilEdit = ({ user }) => {
   const handleClose = () => {
     setOpen(false)
   }
+  // const [success, setSuccess] = useState(false)
 
-  const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
-  const { success } = userUpdateProfile
+  // const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+  // const { success } = userUpdateProfile
+  const { loading, error, updateSuccess, userDetails } = useSelector(
+    (state) => state.userInformations
+  )
 
   // handle form data change
   const submitHandler = (e) => {
@@ -163,7 +164,6 @@ const ProfilEdit = ({ user }) => {
         tag,
       })
     )
-    // dispatch(getUserDetails()) // not good solution to recall api // should think about combine updateReducer & getdetailReducer
   }
 
   const onTagsChange = (value) => {
@@ -197,7 +197,9 @@ const ProfilEdit = ({ user }) => {
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Edit Profil</h2>
             {message && <Message severity="error">{message}</Message>}
-            {success && <Message severity="success">Profile Updated</Message>}
+            {updateSuccess && (
+              <Message severity="success">Profile Updated</Message>
+            )}
             <div className="modal-form">
               <form
                 onSubmit={submitHandler}

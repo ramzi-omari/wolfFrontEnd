@@ -68,8 +68,11 @@ const Wallet = ({ history }) => {
   const [phoneNumber, setPhoneNumber] = useState("")
 
   const dispatch = useDispatch()
-  const userDetails = useSelector((state) => state.userDetails)
-  const { loading, error, user } = userDetails
+
+  const { loading, error, userDetails } = useSelector(
+    (state) => state.userInformations
+  )
+  const { success, user } = userDetails
 
   // check if the user isn't logged in
   const userLogin = useSelector((state) => state.userLogin)

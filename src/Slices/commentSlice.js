@@ -69,6 +69,7 @@ const commentSlice = createSlice({
       if (!state.comment[id]) {
         state.comment[id] = []
       }
+      // ----
       state.comment[id].push(newComment)
       state.comment.push(action.payload)
 

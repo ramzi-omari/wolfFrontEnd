@@ -8,6 +8,9 @@ const walletSlice = createSlice({
     myTransactions: {},
     loading: false,
     error: false,
+    transactionById: [],
+    loadingById: false,
+    errorById: false,
   },
 
   reducers: {
@@ -20,22 +23,22 @@ const walletSlice = createSlice({
       state.loading = false
     },
     getTransactionsSuccess: (state, action) => {
-      state.post = action.payload
+      state.myTransactions = action.payload
       state.loading = false
       state.error = false
     },
     // GET Transactions By ID
     getTransactionsByIdLoading: (state) => {
-      state.loading = true
+      state.loadingById = true
     },
     getTransactionsByIdFail: (state, action) => {
-      state.error = action.payload
-      state.loading = false
+      state.errorById = action.payload
+      state.loadingById = false
     },
     getTransactionsByIdSuccess: (state, action) => {
-      state.post = action.payload
-      state.loading = false
-      state.error = false
+      state.transactionById = action.payload
+      state.loadingById = false
+      state.errorById = false
     },
     //Cancel Transaction
     cancelTransactionLoading: (state) => {
@@ -45,11 +48,10 @@ const walletSlice = createSlice({
       state.error = action.payload
       state.loading = false
     },
+    // needs TEST
     cancelTransactionSuccess: (state, action) => {
-      if (!state.post) {
-        state.post = []
-      }
-      state.post = action.payload
+      //  const transaction = state.myTransactions.find(transaction => transaction.id === action.payload.transactions._id)
+      state.myTransactions[action.payload._id] = action.payload.transactions
       state.loading = false
       state.error = false
     },
@@ -61,11 +63,13 @@ const walletSlice = createSlice({
       state.error = action.payload
       state.loading = false
     },
+
+    // NEEDS Check
     postTransactionSuccess: (state, action) => {
-      if (!state.post) {
-        state.post = []
+      if (!state.myTransactions) {
+        state.myTransactions = []
       }
-      state.post = action.payload
+      state.myTransactions.push(action.payload) // .transactions
       state.loading = false
       state.error = false
     },

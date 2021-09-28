@@ -4,6 +4,14 @@ import {
   POSTS_LIST_SUCCESS,
   POSTS_LIST_FAIL,
 } from "../constants/journalConstants"
+import {
+  getPostsLoading,
+  getPostsSuccess,
+  getPostsFail,
+  likePostsLoading,
+  likePostsSuccess,
+  likePostsFail,
+} from "../Slices/postsSlice.js"
 
 export const getListPosts = () => async (dispatch, getState) => {
   //redux thunk allow us to use function inside function

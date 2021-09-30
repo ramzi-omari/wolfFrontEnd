@@ -1,3 +1,7 @@
+.comment_global {
+  display: flex;
+  flex-direction: column;
+}
 .post__comments {
   display: flex;
   align-items: center;
@@ -34,4 +38,10 @@
   display: flex;
   justify-content: space-around;
   width: 100%;
+}
+
+.add__comment {
+  display: flex;
+  align-items: center;
+  margin: 10px;
 }

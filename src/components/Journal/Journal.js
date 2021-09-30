@@ -11,13 +11,13 @@ import Loader from "../utile/Loader"
 import Message from "../utile/Message"
 import { getListPosts } from "../../actions/journalActions"
 import moment from "moment"
-
 import "./Journal.css"
 import Comments from "./Comments/Comments"
 
 const Journal = () => {
   const [publications, setPublications] = useState("")
   const [openComment, setOpenComment] = useState(true)
+  const [clickedID, setClickedID] = useState("")
 
   const dispatch = useDispatch()
   const postsList = useSelector((state) => state.postsList)
@@ -35,12 +35,12 @@ const Journal = () => {
     }
   }, [dispatch, postsList])
 
-  const handleClick = () => {
-    setOpenComment(!openComment)
-  }
-
-  const handleSubmit = async (e) => {
+  const handleClick = (e) => {
     e.preventDefault()
+    const id = e.currentTarget.getAttribute("data-id")
+
+    setClickedID(id)
+    setOpenComment(!openComment)
   }
 
   return (
@@ -87,7 +87,11 @@ const Journal = () => {
                       <p>Like {item.nbr_like}</p>
                     </div>
 
-                    <div className="post__option" onClick={handleClick}>
+                    <div
+                      className="post__option"
+                      onClick={handleClick}
+                      data-id={item._id}
+                    >
                       <ChatBubbleOutlineIcon />
                       <p>Comment</p>
                     </div>
@@ -102,21 +106,9 @@ const Journal = () => {
                       <ExpandMoreOutlined />
                     </div>
                   </div>
-                  {openComment ? <Comments></Comments> : null}
-                  <div className="add__comment">
-                    <Input
-                      className="comment__input"
-                      multiline
-                      maxRows="5"
-                      placeholder="Add a comment"
-                    ></Input>
-                    <SendIcon
-                      style={{
-                        cursor: "pointer",
-                      }}
-                      onClick={handleSubmit}
-                    ></SendIcon>
-                  </div>
+                  {openComment && clickedID === item._id ? (
+                    <Comments post_id={item._id}></Comments>
+                  ) : null}
                 </div>
               ))}
           </div>

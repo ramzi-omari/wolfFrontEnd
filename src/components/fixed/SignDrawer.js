@@ -57,7 +57,10 @@ export default function SignDrawer() {
         <ListItemAvatar>
           <Tooltip title="Contact">
             <Avatar>
-              <Twitter style={{ color: "black", cursor: "pointer" }} />
+              <Twitter
+                style={{ color: "black", cursor: "pointer" }}
+                onClick={() => window.open("www.facebook.com", "_blank")}
+              />
             </Avatar>
           </Tooltip>
         </ListItemAvatar>

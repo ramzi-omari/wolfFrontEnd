@@ -33,8 +33,7 @@ const commentSlice = createSlice({
       state.loading = false
     },
     addCommentsSuccess: (state, action) => {
-      // NEEDS TEST ADD ITEM
-      state.comment.push(action.payload)
+      state.comment.comments.push(action.payload.comment)
       state.loading = false
       state.error = false
     },
@@ -49,9 +48,10 @@ const commentSlice = createSlice({
     deleteCommentsSuccess: (state, action) => {
       // DELETE ITEM FROM REDUX STORE NEEDS TEST
       // check actions.payload to see if there's the comment ID to delete
-      state.comment = state.comment.filter(
-        (arrow) => arrow.id !== action.payload
+      state.comment.comments = state.comment.comments.filter(
+        (arrow) => arrow._id !== action.payload
       )
+      console.log("slice " + action.payload)
       state.loading = false
       state.error = false
     },

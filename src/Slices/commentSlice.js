@@ -48,10 +48,13 @@ const commentSlice = createSlice({
     deleteCommentsSuccess: (state, action) => {
       // DELETE ITEM FROM REDUX STORE NEEDS TEST
       // check actions.payload to see if there's the comment ID to delete
+      // return (
+      //   (state.loading = false),
+      //   state.comment.comments.filter(({ id }) => id !== action.payload)
+      // )
       state.comment.comments = state.comment.comments.filter(
-        (arrow) => arrow._id !== action.payload
+        (arrow) => arrow._id !== action.payload.id
       )
-      console.log("slice " + action.payload)
       state.loading = false
       state.error = false
     },

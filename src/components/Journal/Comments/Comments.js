@@ -25,6 +25,8 @@ const Comments = ({ post_id }) => {
 
   const dispatch = useDispatch()
 
+  const { userDetails } = useSelector((state) => state.userInformations)
+
   const comments = useSelector((state) => state.comments)
   const { loading, error, comment } = comments
 
@@ -82,26 +84,28 @@ const Comments = ({ post_id }) => {
                 </div>
                 <div className="post__comment">
                   <h5>{commentaire["comment"]}</h5>
-                  <div>
-                    <Tooltip arrow title={<h4>Delete Comment</h4>}>
-                      <DeleteIcon
-                        style={{
-                          cursor: "pointer",
-                        }}
-                        onClick={handleDelete}
-                        data-id={commentaire["_id"]}
-                      ></DeleteIcon>
-                    </Tooltip>
-                    <Tooltip arrow title={<h4>Edit Comment</h4>}>
-                      <EditIcon
-                        style={{
-                          cursor: "pointer",
-                        }}
-                        onClick={handleEdit}
-                        data_edit-id={commentaire["_id"]}
-                      ></EditIcon>
-                    </Tooltip>
-                  </div>
+                  {commentaire["user"] === userDetails.user["_id"] ? (
+                    <div>
+                      <Tooltip arrow title={<h4>Delete Comment</h4>}>
+                        <DeleteIcon
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          onClick={handleDelete}
+                          data-id={commentaire["_id"]}
+                        ></DeleteIcon>
+                      </Tooltip>
+                      <Tooltip arrow title={<h4>Edit Comment</h4>}>
+                        <EditIcon
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          onClick={handleEdit}
+                          data_edit-id={commentaire["_id"]}
+                        ></EditIcon>
+                      </Tooltip>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </>

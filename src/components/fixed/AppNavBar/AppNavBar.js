@@ -119,7 +119,7 @@ export default function AppNavBar({ history }) {
   useEffect(() => {
     // if we are not logged in redirect to /sign
     if (!userInfo) {
-      history.push("/sign")
+      history.push("sign")
     }
   }, [history, userInfo, logout])
 

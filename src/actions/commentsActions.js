@@ -110,7 +110,7 @@ export const deleteComment = (id) => async (dispatch, getState) => {
       config
     )
 
-    dispatch(deleteCommentsSuccess(id))
+    dispatch(deleteCommentsSuccess({ commentId: id }))
   } catch (error) {
     dispatch(
       deleteCommentsFail(

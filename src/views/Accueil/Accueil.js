@@ -26,6 +26,7 @@ import Consultants from "../Consultants/Consultants"
 import Investor from "../Investor/Investor"
 import ChatScreen from "../Chat/ChatScreen"
 import ConversationList from "../ConversationList/ConversationList"
+import BlankComponent from "../BlankComponent"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
 const Accueil = ({ history }) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
+  const [blankOpen, setBlankOpen] = useState(true)
+
   const [conversationID, setConversationID] = useState(null)
 
   let { path } = useRouteMatch()
@@ -59,7 +62,7 @@ const Accueil = ({ history }) => {
       <AppNavBar history={history}></AppNavBar>
 
       <div className="dis-flex">
-        <DrawerSide setOpen={setOpen}></DrawerSide>
+        <DrawerSide setOpen={setOpen} setBlankOpen={setBlankOpen}></DrawerSide>
         <Grid
           container
           style={{
@@ -91,9 +94,9 @@ const Accueil = ({ history }) => {
                 {/* <Link to={"/Profil"}>
                   <button type="button">Click Me!</button>
                 </Link> */}
-
+                {blankOpen ? <BlankComponent></BlankComponent> : null}
                 <Switch>
-                  <Route exact path="/" component={Journal}></Route>
+                  <Route exact path="/Journal" component={Journal}></Route>
                   <Route path="/Profil">
                     <Profil></Profil>
                   </Route>

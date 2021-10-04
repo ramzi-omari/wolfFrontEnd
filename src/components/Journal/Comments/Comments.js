@@ -15,6 +15,7 @@ import {
 } from "../../../actions/commentsActions"
 import Loader from "../../utile/Loader"
 import moment from "moment"
+import { setDate } from "date-fns/esm"
 
 // faut gerer comment open !open Journal
 // different get comments api call
@@ -48,7 +49,9 @@ const Comments = ({ post_id }) => {
     e.preventDefault()
 
     dispatch(addComment(post_id, newCommentaire))
+    setNewCommentaire("")
   }
+
   const handleDelete = async (e) => {
     e.preventDefault()
     const del_id = e.currentTarget.getAttribute("data-id")
@@ -75,7 +78,10 @@ const Comments = ({ post_id }) => {
                     className="post__avatar"
                   />
                   <div className="post__topInfo">
-                    <h3>username</h3>
+                    <h3>
+                      {commentaire.user["first_name"]}{" "}
+                      {commentaire.user["last_name"]}
+                    </h3>
                     <p>
                       {moment(commentaire.updated_at).format("YYYY-MM-DD LT")}
                     </p>
@@ -84,7 +90,7 @@ const Comments = ({ post_id }) => {
                 </div>
                 <div className="post__comment">
                   <h5>{commentaire["comment"]}</h5>
-                  {commentaire["user"] === userDetails.user["_id"] ? (
+                  {commentaire["user"]["_id"] === userDetails.user["_id"] ? (
                     <div>
                       <Tooltip arrow title={<h4>Delete Comment</h4>}>
                         <DeleteIcon
@@ -122,7 +128,7 @@ const Comments = ({ post_id }) => {
           maxRows="5"
           placeholder="Add a comment"
           onChange={(e) => setNewCommentaire(e.target.value)}
-          // value={newCommentaire}
+          value={newCommentaire}
         ></Input>
         <SendIcon
           style={{

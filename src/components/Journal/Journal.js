@@ -15,11 +15,14 @@ import "./Journal.css"
 import Comments from "./Comments/Comments"
 
 const Journal = () => {
-  const [publications, setPublications] = useState("")
+  const [publications, setPublications] = useState([])
   const [openComment, setOpenComment] = useState(true)
   const [clickedID, setClickedID] = useState("")
 
   const dispatch = useDispatch()
+  // const { userInfo } = useSelector((state) => state.userLogin)
+  // const { user } = userInfo
+
   const postsList = useSelector((state) => state.postsList)
   const { loading, error, posts } = postsList
 
@@ -42,6 +45,11 @@ const Journal = () => {
     setClickedID(id)
     setOpenComment(!openComment)
   }
+
+  // to avoid publications undefined
+  // if (!posts) return null
+
+  if (!publications) return null
 
   return (
     <Grid>

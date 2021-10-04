@@ -37,15 +37,14 @@ const ChatScreen = ({ setOpen, conversationID }) => {
 
   //  SOCKET
   useEffect(() => {
-    // connect ??
-    // socket.current = io(process.env.REACT_CHAT_APP_API_KEY)
+    // socket.current = io(prprocessocess.env.REACT_CHAT_APP_API_KEY)
 
-    socket.current = io("http://192.168.1.3:8000")
-    // "ws://localhost:8900"
+    socket.current = io("https://wolfap.herokuapp.com/")
+
     // socket.current.on("connection", conversationID)
     socket.current.emit("join", conversationID)
     // env chat
-    // receive ??
+    // receive Done
     socket.current.on("chat", (data) => {
       setArrivalMessage({
         sender: data.sendBy,
@@ -66,17 +65,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
       setMessages((prev) => [...prev, arrivalMessage])
   }, [arrivalMessage, receiverId])
 
-  // useEffect(() => {
-  //   socket.current.emit("addUser", userInfo.user["_id"])
-  //   socket.current.on("getUsers", (users) => {
-  //     setOnlineUsers(
-  //       user.followings.filter((f) => users.some((u) => u.userId === f))
-  //     )
-  //   })
-  // }, [userInfo.user])
-
-  //
-
   //2
 
   // room = conversationID took from ConversationList component
@@ -93,18 +81,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   //     disconnectSocket()
   //   }
   // }, [room, conversationID]) //2
-
-  // const [socket, setSocket] = useState(null);
-
-  // useEffect(() => {
-  //   const newSocket = io(`http://${window.location.hostname}:3000`);
-  //   setSocket(newSocket);
-  //   return () => newSocket.close();
-  // }, [setSocket]);
-
-  // useEffect(() => {
-  //   const mySocket = initialSocket("ramzi")
-  // }, [])
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -154,7 +130,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
       // sendBy: userInfo.user["_id"],
       sendBy: own,
       content: newMessage,
-      id_conv: conversationID,
     }
     socket.current.emit("chat", { message, conversationID })
 

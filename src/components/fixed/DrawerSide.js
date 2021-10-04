@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const DrawerSide = ({ setOpen }) => {
+const DrawerSide = ({ setOpen, setBlankOpen }) => {
   const classes = useStyles()
 
   const [clicked, setClicked] = useState("")
@@ -70,21 +70,31 @@ const DrawerSide = ({ setOpen }) => {
       >
         {/* <Toolbar /> */}
         <div className={classes.drawerContainer}>
-          <List>
-            {["Accueil"].map((text, index) => (
-              <ListItem button component={Link} to={"/"} key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <Home /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
           <Divider />
 
           <List>
             {/* {["Profil", "Wallet", "Entreprises", "Consultants"].map(
               (text, index) => ( */}
+            <ListItem
+              button
+              component={Link}
+              to={"Journal"}
+              // to={() => {
+              //   handleclicked(text)
+              // }}
+              // onClick={() => handleNavButtons(text)}
+              onClick={() => {
+                setOpen(false)
+                setBlankOpen(false)
+              }}
+              key={"Journal"}
+            >
+              <ListItemIcon>
+                <AccountBox />
+              </ListItemIcon>
+              <ListItemText primary={"Journal"} />
+            </ListItem>
+            <Divider />
             <ListItem
               button
               component={Link}
@@ -95,6 +105,7 @@ const DrawerSide = ({ setOpen }) => {
               // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
+                setBlankOpen(false)
               }}
               key={"Profil"}
             >
@@ -114,6 +125,7 @@ const DrawerSide = ({ setOpen }) => {
               // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
+                setBlankOpen(false)
               }}
               key={"Wallet"}
             >
@@ -133,6 +145,7 @@ const DrawerSide = ({ setOpen }) => {
               // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
+                setBlankOpen(false)
               }}
               key={"Entreprises"}
             >
@@ -152,6 +165,7 @@ const DrawerSide = ({ setOpen }) => {
               // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
+                setBlankOpen(false)
               }}
               key={"Consultants"}
             >
@@ -171,6 +185,7 @@ const DrawerSide = ({ setOpen }) => {
               // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
+                setBlankOpen(false)
               }}
               key={"Investor"}
             >
@@ -191,6 +206,7 @@ const DrawerSide = ({ setOpen }) => {
               // onClick={handleClick}
               onClick={() => {
                 setOpen(true)
+                setBlankOpen(false)
               }}
               key={"Messagerie"}
             >

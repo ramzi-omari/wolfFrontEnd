@@ -75,8 +75,6 @@ const Profil = ({ history }) => {
   const [birthday, setBirthDay] = useState(moment().format("YYYY-MM-DD"))
 
   const dispatch = useDispatch()
-  // const userDetails = useSelector((state) => state.userDetails)
-  // const { loading, error, user } = userDetails
 
   const { loading, error, userDetails } = useSelector(
     (state) => state.userInformations
@@ -89,12 +87,8 @@ const Profil = ({ history }) => {
 
   useEffect(() => {
     if (!user) {
-      console.log("1")
       dispatch(getUserDetails())
-      console.log("2")
     } else {
-      console.log("3")
-      console.log("userr " + user["last_name"])
       // if we have the user we set the form field
       setLastName(user["last_name"])
       setEmail(user["email"])

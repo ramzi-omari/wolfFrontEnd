@@ -26,7 +26,7 @@ const Comments = ({ post_id }) => {
 
   const dispatch = useDispatch()
 
-  const { userDetails } = useSelector((state) => state.userInformations)
+  const { userDetails } = useSelector((state) => state.userDetails)
 
   const comments = useSelector((state) => state.comments)
   const { loading, error, comment } = comments

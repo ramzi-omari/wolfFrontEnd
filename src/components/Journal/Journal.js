@@ -9,7 +9,7 @@ import { ExpandMoreOutlined } from "@material-ui/icons"
 import SendIcon from "@material-ui/icons/Send"
 import Loader from "../utile/Loader"
 import Message from "../utile/Message"
-import { getListPosts } from "../../actions/journalActions"
+import { getListPosts, likePost } from "../../actions/journalActions"
 import moment from "moment"
 import "./Journal.css"
 import Comments from "./Comments/Comments"
@@ -45,6 +45,14 @@ const Journal = () => {
 
     setClickedID(id)
     setOpenComment(!openComment)
+  }
+
+  const handleClickLike = (e) => {
+    e.preventDefault()
+    const Likeid = e.currentTarget.getAttribute("like-id")
+    console.log("idliked " + Likeid)
+
+    dispatch(likePost(Likeid))
   }
 
   // to avoid publications undefined
@@ -92,7 +100,10 @@ const Journal = () => {
                   </div>
                   <div className="post__options">
                     <div className="post__option">
-                      <ThumbUpIcon />
+                      <ThumbUpIcon
+                        onClick={handleClickLike}
+                        like-id={item._id}
+                      />
                       <p>Like {item.nbr_like}</p>
                     </div>
 

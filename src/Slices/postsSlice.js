@@ -3,9 +3,9 @@ import { createSlice } from "@reduxjs/toolkit"
 // GET POSTS & Like POSTS
 
 const postsSlice = createSlice({
-  name: "posts",
+  name: "postsList",
   initialState: {
-    post: {},
+    posts: {},
     loading: false,
     error: false,
   },
@@ -20,7 +20,7 @@ const postsSlice = createSlice({
       state.loading = false
     },
     getPostsSuccess: (state, action) => {
-      state.post = action.payload
+      state.posts = action.payload
       state.loading = false
       state.error = false
     },
@@ -33,10 +33,15 @@ const postsSlice = createSlice({
       state.loading = false
     },
     likePostsSuccess: (state, action) => {
-      if (!state.post) {
-        state.post = []
+      const { publication } = action.payload
+      const { _id } = publication
+
+      const pubs = state.posts.publications.find((pub) => pub._id == _id)
+      if (pubs) {
+        pubs.nbr_like = publication.nbr_like
+        pubs.like = publication.like
       }
-      state.post = action.payload
+
       state.loading = false
       state.error = false
     },

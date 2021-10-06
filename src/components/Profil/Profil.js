@@ -77,7 +77,7 @@ const Profil = ({ history }) => {
   const dispatch = useDispatch()
 
   const { loading, error, userDetails } = useSelector(
-    (state) => state.userInformations
+    (state) => state.userDetails
   )
   const { success, user } = userDetails
 

@@ -145,7 +145,7 @@ const ProfilEdit = ({ user }) => {
   // const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   // const { success } = userUpdateProfile
   const { loading, error, updateSuccess, userDetails } = useSelector(
-    (state) => state.userInformations
+    (state) => state.userDetails
   )
 
   // handle form data change

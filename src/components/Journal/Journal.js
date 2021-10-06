@@ -26,6 +26,7 @@ const Journal = () => {
   const postsList = useSelector((state) => state.postsList)
   const { loading, error, posts } = postsList
 
+  // POSTS UNDEFINED when accessing journal directly
   useEffect(() => {
     if (!posts.publications) {
       dispatch(getListPosts())
@@ -47,9 +48,9 @@ const Journal = () => {
   }
 
   // to avoid publications undefined
-  // if (!posts) return null
+  if (!posts) return null
 
-  if (!publications) return null
+  //if (!publications) return null
 
   return (
     <Grid>

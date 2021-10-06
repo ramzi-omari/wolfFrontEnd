@@ -10,11 +10,6 @@ import "./ChatScreen.css"
 import { updateSeenConversation } from "../../actions/ChatActions.js/seenConversationAction"
 import { createConversation } from "../../actions/ChatActions.js/createConversationAction"
 import io from "socket.io-client"
-import {
-  initialSocket,
-  subscribeToChat,
-  disconnectSocket,
-} from "../../ChatServices/ChatServices"
 
 const ChatScreen = ({ setOpen, conversationID }) => {
   const dispatch = useDispatch()
@@ -24,13 +19,11 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   const [conversation, setconversation] = useState([])
   const [own, setOwn] = useState("")
 
-  // const [room, setRoom] = useState("")
-  const [receiverId, setReceiverId] = useState(null)
-  const [currentChat, setCurrentChat] = useState(null)
+  // receiver or sender id to choose show message color black/white
+  const [part1, setpart1] = useState("")
 
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState([])
-  const [arrivalMessage, setArrivalMessage] = useState(null)
 
   const socket = useRef()
   const scrollRef = useRef()
@@ -46,41 +39,16 @@ const ChatScreen = ({ setOpen, conversationID }) => {
     // env chat
     // receive Done
     socket.current.on("chat", (data) => {
-      setArrivalMessage({
-        sender: data.sendBy,
-        text: data.content,
-        createdAt: Date.now(),
-      })
+      setMessages((prev) => [
+        {
+          sendBy: data.sendBy,
+          content: data.content,
+          updated_at: Date.now(),
+        },
+        ...prev,
+      ])
     })
   }, [])
-
-  // ARRIVALMESSAGE SENDER = an ID ???
-  // celui qui envois le premier msg est le sender
-
-  useEffect(() => {
-    arrivalMessage &&
-      // currentChat?.members.includes(arrivalMessage.sender) &&
-      // receiverId === arrivalMessage.sender && // === "SENDER" need to check sender ID
-      arrivalMessage.sender === "SENDER" &&
-      setMessages((prev) => [...prev, arrivalMessage])
-  }, [arrivalMessage, receiverId])
-
-  //2
-
-  // room = conversationID took from ConversationList component
-  // 1
-  // useEffect(() => {
-  //   setRoom(conversationID)
-  //   console.log("rom " + room)
-  //   if (room) initialSocket(room)
-  //   subscribeToChat((err, data) => {
-  //     if (err) return
-  //     setChat((oldChats) => [data, ...oldChats])
-  //   })
-  //   return () => {
-  //     disconnectSocket()
-  //   }
-  // }, [room, conversationID]) //2
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -100,28 +68,22 @@ const ChatScreen = ({ setOpen, conversationID }) => {
         if (item["_id"] === conversationID) {
           setconversation(item)
           setMessages(item["messages"])
+          // setpart1(item["sender"]["_id"])
+          // si mon ID est storé dans le SENDER > part1 = sender
+          setpart1(
+            item["sender"]["_id"] === userInfo.user["_id"]
+              ? "SENDER"
+              : "RECEIVER"
+          )
           setOwn(
             item["receiver"]["_id"] === userInfo.user["_id"]
               ? "RECEIVER"
               : "SENDER"
           )
-
-          setReceiverId(
-            item["receiver"]["_id"] !== userInfo.user["_id"]
-              ? item["receiver"]["_id"]
-              : item["sender"]["_id"]
-          )
-          setCurrentChat(item)
         }
       })
     }
-  }, [
-    dispatch,
-    conversationsList,
-    setconversation,
-    setMessages,
-    conversationID,
-  ])
+  }, [dispatch, conversationsList, setMessages, conversationID])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -132,16 +94,7 @@ const ChatScreen = ({ setOpen, conversationID }) => {
       content: newMessage,
     }
     socket.current.emit("chat", { message, conversationID })
-
-    // send new message to Messages object and clean up newMessage state
-    // which API
-    // try {
-    //   const res = await axios.post("/messages", message);
-    //   setMessages([...messages, res.data]);
-    //   setNewMessage("");
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    // setNewMessage("")
   }
 
   useEffect(() => {
@@ -174,11 +127,17 @@ const ChatScreen = ({ setOpen, conversationID }) => {
                   </>
                 ) : (
                   <>
-                    {Array.from(messages).map((item, index) => (
-                      <div ref={scrollRef}>
-                        <ChatMessage own={own} message={item}></ChatMessage>
-                      </div>
-                    ))}
+                    {Array.from(messages)
+                      .map((item, index) => (
+                        <div ref={scrollRef}>
+                          <ChatMessage
+                            own={own}
+                            message={item}
+                            part1={part1}
+                          ></ChatMessage>
+                        </div>
+                      ))
+                      .reverse()}
                   </>
                 )}
               </div>

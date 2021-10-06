@@ -3,9 +3,25 @@ import { useSelector } from "react-redux"
 import moment from "moment"
 import "./ChatMessage.css"
 
-const ChatMessage = ({ own, message }) => {
+const ChatMessage = ({ own, message, part1 }) => {
+  const [test, settest] = useState("")
+
+  useEffect(() => {
+    if (message["sendBy"] === part1) {
+      // part1 c'est l'utilisateur connecté
+      // si c'est lui test = sender automatiquement
+      // sinon receiver
+      settest("SENDER")
+    } else {
+      settest("RECEIVER")
+    }
+  }, [test, message])
+
   return (
-    <div className={own === "RECEIVER" ? "message own" : "message"}>
+    <div
+      // className={message["sendBy"] !== "RECEIVER" ? "message own" : "message"}
+      className={test !== "SENDER" ? "message own" : "message"}
+    >
       <div className="messageTop">
         <img
           className="messageImg"

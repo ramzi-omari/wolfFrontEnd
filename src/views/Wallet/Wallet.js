@@ -15,6 +15,7 @@ import Fade from "@material-ui/core/Fade"
 import Tooltip from "@material-ui/core/Tooltip"
 import "./Wallet.css"
 import TransactionsList from "./TransactionsList"
+import { getTransactions } from "../../actions/transactionsActions"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +65,7 @@ const Wallet = ({ history }) => {
   const [open, setOpen] = useState(false)
   const [open2, setOpen2] = useState(false)
 
+  const [allTransactions, setAllTransactions] = useState([])
   const [email, setEmail] = useState("")
   const [lastname, setLastName] = useState("")
   const [firstname, setFirstName] = useState("")
@@ -71,20 +73,23 @@ const Wallet = ({ history }) => {
 
   const dispatch = useDispatch()
 
-  const { loading, error, userDetails } = useSelector(
-    (state) => state.userDetails
-  )
-  const { success, user } = userDetails
-
   // check if the user isn't logged in
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  // console.log("history: " + history.location)
-  // console.log("locat : " + window.location)
+
+  const wallet = useSelector((state) => state.wallet)
+  const { loading, error, myTransactions } = wallet
+  const { success, transactions } = myTransactions
 
   useEffect(() => {
-    // dispatch INFOS wallet
-  }, [])
+    if (!transactions) {
+      dispatch(getTransactions())
+    } else {
+      setAllTransactions(transactions)
+    }
+  }, [transactions])
+
+  ///////
 
   const handleOpen = () => {
     setOpen(!open)
@@ -204,7 +209,7 @@ const Wallet = ({ history }) => {
             }}
           >
             <h6>click to show details</h6>
-            <TransactionsList></TransactionsList>
+            <TransactionsList transactions={allTransactions}></TransactionsList>
           </Box>
         )}
         {!open ? null : (

@@ -26,7 +26,7 @@ const Comments = ({ post_id }) => {
 
   const dispatch = useDispatch()
 
-  const { userDetails } = useSelector((state) => state.userDetails)
+  const { userInfo } = useSelector((state) => state.userLogin)
 
   const comments = useSelector((state) => state.comments)
   const { loading, error, comment } = comments
@@ -42,6 +42,9 @@ const Comments = ({ post_id }) => {
       console.log("GOOO")
     } else {
       setCommentaires(comment.comments)
+      console.log(
+        "commntaires comntid: " + commentaires.map((e) => e.user["_id"])
+      )
     }
   }, [comment])
 
@@ -90,7 +93,7 @@ const Comments = ({ post_id }) => {
                 </div>
                 <div className="post__comment">
                   <h5>{commentaire["comment"]}</h5>
-                  {commentaire["user"]["_id"] === userDetails.user["_id"] ? (
+                  {commentaire.user["_id"] === userInfo.user["_id"] ? (
                     <div>
                       <Tooltip arrow title={<h4>Delete Comment</h4>}>
                         <DeleteIcon

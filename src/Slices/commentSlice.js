@@ -33,7 +33,7 @@ const commentSlice = createSlice({
       state.loading = false
     },
     addCommentsSuccess: (state, action) => {
-      state.comment.comments.push(action.payload.comment)
+      state.comment.comments.push(action.payload.comment["0"])
       state.loading = false
       state.error = false
     },

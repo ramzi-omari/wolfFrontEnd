@@ -5,6 +5,8 @@ import { DataGrid } from "@mui/x-data-grid"
 import { Modal } from "@material-ui/core"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
+import { getTransactions } from "../../actions/transactionsActions"
+import moment from "moment"
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -33,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     height: "auto",
-    width: "60%",
+    width: "40%",
     marginTop: "2.5rem",
   },
   radius: {
@@ -59,62 +61,83 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const columns = [
-  { field: "id", headerName: "ID", width: 90 },
   {
     field: "to",
     headerName: "Receiver",
     width: 150,
-    // editable: true,
+    renderCell: (params) => {
+      return (
+        <div className="rowitem">
+          {params.row.to.last_name} {params.row.to.first_name}
+        </div>
+      )
+    },
+  },
+  {
+    field: "motif",
+    headerName: "motif",
+    width: 150,
+    hide: true,
+  },
+  {
+    field: "updated_at",
+    headerName: "date",
+    width: 150,
+    hide: true,
   },
   {
     field: "from",
     headerName: "Sender",
     width: 150,
+    renderCell: (params) => {
+      return (
+        <div className="rowitem">
+          {params.row.from.last_name} {params.row.from.first_name}
+        </div>
+      )
+    },
   },
   {
     field: "amount",
     headerName: "Amount",
     type: "number",
+    description: "le montant de la transaction en Dinar Algerien",
     width: 150,
   },
   {
     field: "status",
     headerName: "Status",
-    description: "This column has a value getter and is not sortable.",
-    sortable: false,
+    description: "status de la transaction",
     width: 150,
-    valueGetter: (params) =>
-      `${params.getValue(params.id, "to") || ""} ${
-        params.getValue(params.id, "from") || ""
-      }`,
   },
 ]
 
-const rows = [
-  { id: 1, from: "Snow", to: "Jon", amount: 35 },
-  { id: 2, from: "Lannister", to: "Cersei", amount: 42 },
-  { id: 3, from: "Lannister", to: "Jaime", amount: 45 },
-  { id: 4, from: "Stark", to: "Arya", amount: 16 },
-  { id: 5, from: "Targaryen", to: "Daenerys", amount: null },
-  { id: 6, from: "Melisandre", to: null, amount: 150 },
-  { id: 7, from: "Clifford", to: "Ferrara", amount: 44 },
-  { id: 8, from: "Frances", to: "Rossini", amount: 36 },
-  { id: 9, from: "Roxie", to: "Harvey", amount: 65 },
-]
-
-export default function TransactionsList() {
+export default function TransactionsList({ transactions }) {
   const classes = useStyles()
 
+  const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const [open, setOpen] = useState(false)
-  const [test, settest] = useState("")
-  const [test2, settest2] = useState("")
+  const [tranFrom, setTranFrom] = useState("")
+  const [tranTo, setTranTo] = useState("")
+  const [tranDate, setTranDate] = useState("")
+  const [tranMotif, setTranMotif] = useState("")
+  const [tranAmount, setTranAmount] = useState("")
+  const [tranStatus, setTranStatus] = useState("")
 
   // open modal depend on Row click
   const handleOnClick = (row) => {
     console.log("llol " + row)
     //alert("navigation")
-    settest(row.from)
-    settest2(row.to)
+    setTranFrom(row.from.last_name + " " + row.from.first_name)
+    setTranTo(row.to.last_name + " " + row.to.first_name)
+    setTranDate(row.updated_at)
+    setTranMotif(row.motif)
+    setTranAmount(row.amount)
+    setTranStatus(row.status)
     setOpen(true)
   }
   // handle modal button close
@@ -125,8 +148,9 @@ export default function TransactionsList() {
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={rows}
+        rows={transactions}
         columns={columns}
+        getRowId={(row) => row._id}
         pageSize={5}
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
@@ -148,11 +172,61 @@ export default function TransactionsList() {
         <Fade in={open}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Transaction Details</h2>
-            <div className="modal-form">
-              <h5>details</h5>
-              <h5>
-                Transaction made From: {test} To: {test2}
-              </h5>
+            <div
+              className="modal-form"
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                alignItems: "center",
+                marginTop: "1rem",
+              }}
+            >
+              <div>
+                <h5>
+                  <strong>Transaction Details:</strong>
+                </h5>
+                <h5>
+                  <strong>From:</strong> {tranFrom}
+                </h5>
+                <h5>
+                  <strong>To:</strong> {tranTo}
+                </h5>
+                <h5>
+                  <strong>Date:</strong>{" "}
+                  {moment(tranDate).format("YYYY-MM-DD LT")}
+                </h5>
+                <h5>
+                  <strong>Motif:</strong> {tranMotif}
+                </h5>
+                <h5>
+                  <strong>Amount:</strong> {tranAmount} DA
+                </h5>
+              </div>
+              <div>
+                {tranStatus === "CANCELED" ? (
+                  <h5
+                    style={{
+                      color: "red",
+                      border: "1px solid #ff000096",
+                      width: "min-content",
+                      padding: "1rem",
+                    }}
+                  >
+                    <strong>{tranStatus}</strong>
+                  </h5>
+                ) : (
+                  <h5
+                    style={{
+                      color: "green",
+                      border: "1px solid #00800096",
+                      width: "min-content",
+                      padding: "1rem",
+                    }}
+                  >
+                    <strong>{tranStatus}</strong>
+                  </h5>
+                )}
+              </div>
             </div>
           </div>
         </Fade>

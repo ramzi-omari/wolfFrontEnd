@@ -1,17 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 // GET transaction // Get By id transaction // post new transaction // Cancel Transaction
+const initialState = {
+  myTransactions: {},
+  loading: false,
+  error: false,
+  transactionById: [],
+  loadingById: false,
+  errorById: false,
+}
 
 const walletSlice = createSlice({
   name: "wallet",
-  initialState: {
-    myTransactions: {},
-    loading: false,
-    error: false,
-    transactionById: [],
-    loadingById: false,
-    errorById: false,
-  },
+  initialState,
 
   reducers: {
     // GET Transactions
@@ -73,6 +74,9 @@ const walletSlice = createSlice({
       state.loading = false
       state.error = false
     },
+    TransactionsReset: (state, action) => {
+      return initialState
+    },
   },
 })
 
@@ -90,6 +94,7 @@ export const {
   getTransactionsByIdLoading,
   getTransactionsByIdSuccess,
   getTransactionsByIdFail,
+  TransactionsReset,
 } = actions
 
 export default reducer

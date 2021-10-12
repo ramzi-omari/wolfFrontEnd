@@ -1,14 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 // TESTS NEEDED WITH REAL DATA
+const initialState = {
+  comment: {},
+  loading: false,
+  error: false,
+}
 
 const commentSlice = createSlice({
   name: "comments",
-  initialState: {
-    comment: {},
-    loading: false,
-    error: false,
-  },
+  initialState,
 
   reducers: {
     // GET COMMENTS
@@ -75,6 +76,9 @@ const commentSlice = createSlice({
       state.loading = false
       state.error = false
     },
+    commentsReset: (state, action) => {
+      return initialState
+    },
   },
 })
 
@@ -92,6 +96,7 @@ export const {
   editCommentsLoading,
   editCommentsSuccess,
   editCommentsFail,
+  commentsReset,
 } = actions
 
 export default reducer

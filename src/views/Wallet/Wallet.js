@@ -16,6 +16,7 @@ import Tooltip from "@material-ui/core/Tooltip"
 import "./Wallet.css"
 import TransactionsList from "./TransactionsList"
 import { getTransactions } from "../../actions/transactionsActions"
+import SendMoney from "./SendMoney"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -212,82 +213,7 @@ const Wallet = ({ history }) => {
             <TransactionsList transactions={allTransactions}></TransactionsList>
           </Box>
         )}
-        {!open ? null : (
-          <Box
-            display="flex"
-            style={{
-              paddingBottom: "1rem",
-              flexDirection: "column",
-              height: "max-content",
-              margin: "auto",
-              width: "50%",
-              textAlign: "center",
-              justifyContent: "center",
-            }}
-          >
-            <TextField
-              placeholder="Le montant à envoyer"
-              label="Montant - DA"
-              variant="outlined"
-              size="small"
-              type="number"
-              fullWidth
-              className={classes.inputField}
-              // onChange={(e) => setName(e.target.value)}
-              // value={last_name}
-              //   style={{ padding: "12.5px 14px" }}
-              name="amount"
-            />
-            <TextField
-              placeholder="Destinataire"
-              label="Destinataire"
-              variant="outlined"
-              size="small"
-              fullWidth
-              className={classes.inputField}
-              // onChange={(e) => setFirstName(e.target.value)}
-              // value={first_name}
-              name="destinataire"
-            />
-
-            {/* 4) TextField */}
-            <TextField
-              placeholder="Confirmez votre mot de passe"
-              label="Confirmez votre mot de passe"
-              type="password"
-              variant="outlined"
-              fullWidth
-              size="small"
-              className={classes.inputField}
-              name="phone"
-              // onChange={(e) => setPhoneNumber(e.target.value)}
-              // value={phoneNumber}
-            />
-            <TextField
-              id="outlined-multiline-static"
-              label="La raison de l'envoie"
-              multiline
-              rows={3}
-              placeholder="La raison de l'envoie"
-              //defaultValue="Description"
-              // value={description}
-              // onChange={(e) => setDescription(e.target.value)}
-              variant="outlined"
-              className={classes.inputField}
-            />
-            <Button
-              className={classes.buttons}
-              variant="outlined"
-              style={{
-                margin: "auto",
-                marginTop: "1rem",
-                marginBottom: "1rem",
-              }}
-            >
-              Confirmez
-            </Button>
-          </Box>
-        )}
+        {!open ? null : <SendMoney></SendMoney>}
       </Paper>
     </Grid>
   )

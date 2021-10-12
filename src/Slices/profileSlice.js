@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 
+const initialState = {
+  userDetails: {},
+  loading: false,
+  error: false,
+  updateSuccess: false,
+}
+
 const profileSlice = createSlice({
   name: "user",
-  initialState: {
-    userDetails: {},
-    loading: false,
-    error: false,
-    updateSuccess: false,
-  },
+  initialState,
 
   reducers: {
     // GET userDetailsS
@@ -41,6 +43,9 @@ const profileSlice = createSlice({
       state.loading = false
       state.error = false
     },
+    profilReset: (state, action) => {
+      return initialState
+    },
   },
 })
 
@@ -52,6 +57,7 @@ export const {
   editProfileLoading,
   editProfileSuccess,
   editProfileFail,
+  profilReset,
 } = actions
 
 export default reducer

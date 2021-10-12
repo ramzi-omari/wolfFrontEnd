@@ -33,18 +33,13 @@ const Comments = ({ post_id }) => {
 
   useEffect(() => {
     dispatch(getComments(post_id))
-    console.log("lol")
   }, [post_id])
 
   useEffect(() => {
     if (!comment.comments) {
       dispatch(getComments(post_id))
-      console.log("GOOO")
     } else {
       setCommentaires(comment.comments)
-      console.log(
-        "commntaires comntid: " + commentaires.map((e) => e.user["_id"])
-      )
     }
   }, [comment])
 
@@ -93,7 +88,7 @@ const Comments = ({ post_id }) => {
                 </div>
                 <div className="post__comment">
                   <h5>{commentaire["comment"]}</h5>
-                  {commentaire.user["_id"] === userInfo.user["_id"] ? (
+                  {commentaire.user["_id"] === userInfo?.user["_id"] ? (
                     <div>
                       <Tooltip arrow title={<h4>Delete Comment</h4>}>
                         <DeleteIcon

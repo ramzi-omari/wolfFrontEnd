@@ -2,13 +2,15 @@ import { createSlice } from "@reduxjs/toolkit"
 
 // GET POSTS & Like POSTS
 
+const initialState = {
+  posts: {},
+  loading: false,
+  error: false,
+}
+
 const postsSlice = createSlice({
   name: "postsList",
-  initialState: {
-    posts: {},
-    loading: false,
-    error: false,
-  },
+  initialState,
 
   reducers: {
     // GET posts
@@ -45,6 +47,9 @@ const postsSlice = createSlice({
       state.loading = false
       state.error = false
     },
+    postsReset: (state, action) => {
+      return initialState
+    },
   },
 })
 
@@ -56,6 +61,7 @@ export const {
   likePostsLoading,
   likePostsSuccess,
   likePostsFail,
+  postsReset,
 } = actions
 
 export default reducer

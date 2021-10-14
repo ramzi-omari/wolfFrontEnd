@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import { Box, Button, TextField } from "@material-ui/core"
+import SearchDestinationUser from "./SearchDestinationUser"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -48,6 +49,12 @@ const useStyles = makeStyles((theme) => ({
 const SendMoney = () => {
   const classes = useStyles()
 
+  const [destinataireID, setDestinataireID] = useState("")
+
+  useEffect(() => {}, [destinataireID])
+
+  console.log("idd ", destinataireID)
+
   return (
     <div>
       <Box
@@ -75,18 +82,10 @@ const SendMoney = () => {
           //   style={{ padding: "12.5px 14px" }}
           name="amount"
         />
-        <TextField
-          placeholder="Destinataire"
-          label="Destinataire"
-          variant="outlined"
-          size="small"
-          fullWidth
-          className={classes.inputField}
-          // onChange={(e) => setFirstName(e.target.value)}
-          // value={first_name}
-          name="destinataire"
-        />
 
+        <SearchDestinationUser
+          setDestinataireID={setDestinataireID}
+        ></SearchDestinationUser>
         {/* 4) TextField */}
         <TextField
           placeholder="Confirmez votre mot de passe"

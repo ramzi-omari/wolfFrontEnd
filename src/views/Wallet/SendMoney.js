@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import { Box, Button, TextField } from "@material-ui/core"
 import SearchDestinationUser from "./SearchDestinationUser"
+import axios from "axios"
+import { postTransaction } from "../../actions/transactionsActions"
+import Message from "../../components/utile/Message"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,10 +53,58 @@ const SendMoney = () => {
   const classes = useStyles()
 
   const [destinataireID, setDestinataireID] = useState("")
+  const [amount, setAmount] = useState("")
+  const [password, setPassword] = useState("")
+  const [raison, setRaison] = useState("")
+  const [transactionSuccess, setTransactionSuccess] = useState(false)
+
+  const { userInfo } = useSelector((state) => state.userLogin)
+  const { token } = userInfo
+
+  const dispatch = useDispatch()
 
   useEffect(() => {}, [destinataireID])
 
-  console.log("idd ", destinataireID)
+  // VERIFY PASSWORD & POST Transaction
+  const verifyPassword = (password) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+
+    axios
+      .post(
+        `${process.env.REACT_APP_API_KEY}/password/check`,
+        { password },
+        config
+      )
+      .then((response) => {
+        if (response.data.message === "CORRECT_PASSWORD") {
+          dispatch(postTransaction(amount, destinataireID, raison))
+          setAmount("")
+          setRaison("")
+          setPassword("")
+          setTransactionSuccess(true)
+        } else {
+          alert("WRONG PASSWORD")
+          setTransactionSuccess(false)
+        }
+      })
+      .catch((error) => {
+        console.log("erreuur", error)
+        setTransactionSuccess(false)
+      })
+  }
+
+  const onClickHandler = () => {
+    if (password && amount && destinataireID && raison) {
+      verifyPassword(password)
+    } else {
+      alert("veuillez remplir toutes les taches correctement")
+    }
+  }
 
   return (
     <div>
@@ -69,6 +120,9 @@ const SendMoney = () => {
           justifyContent: "center",
         }}
       >
+        {transactionSuccess && (
+          <Message severity="success">Transaction Done</Message>
+        )}
         <TextField
           placeholder="Le montant à envoyer"
           label="Montant - DA"
@@ -77,8 +131,8 @@ const SendMoney = () => {
           type="number"
           fullWidth
           className={classes.inputField}
-          // onChange={(e) => setName(e.target.value)}
-          // value={last_name}
+          onChange={(e) => setAmount(e.target.value)}
+          value={amount}
           //   style={{ padding: "12.5px 14px" }}
           name="amount"
         />
@@ -95,9 +149,9 @@ const SendMoney = () => {
           fullWidth
           size="small"
           className={classes.inputField}
-          name="phone"
-          // onChange={(e) => setPhoneNumber(e.target.value)}
-          // value={phoneNumber}
+          name="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
         />
         <TextField
           id="outlined-multiline-static"
@@ -106,8 +160,11 @@ const SendMoney = () => {
           rows={3}
           placeholder="La raison de l'envoie"
           //defaultValue="Description"
-          // value={description}
-          // onChange={(e) => setDescription(e.target.value)}
+          value={raison}
+          onChange={(e) => setRaison(e.target.value)}
+          inputProps={{
+            maxLength: 25,
+          }}
           variant="outlined"
           className={classes.inputField}
         />
@@ -119,6 +176,7 @@ const SendMoney = () => {
             marginTop: "1rem",
             marginBottom: "1rem",
           }}
+          onClick={onClickHandler}
         >
           Confirmez
         </Button>

@@ -68,9 +68,9 @@ const walletSlice = createSlice({
     // NEEDS Check
     postTransactionSuccess: (state, action) => {
       if (!state.myTransactions) {
-        state.myTransactions = []
+        state.myTransactions.transactions = []
       }
-      state.myTransactions.push(action.payload) // .transactions
+      state.myTransactions.transactions.push(action.payload.transaction["0"]) // .transactions
       state.loading = false
       state.error = false
     },

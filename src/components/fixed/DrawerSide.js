@@ -198,6 +198,26 @@ const DrawerSide = ({ setOpen, setBlankOpen }) => {
             <ListItem
               button
               component={Link}
+              to={"Investor"}
+              // to={() => {
+              //   handleclicked(text)
+              // }}
+              // onClick={() => handleNavButtons(text)}
+              onClick={() => {
+                setOpen(false)
+                setBlankOpen(false)
+              }}
+              key={"Investor"}
+            >
+              <ListItemIcon>
+                <GroupAddIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Bourse"} />
+            </ListItem>
+
+            <ListItem
+              button
+              component={Link}
               to={"Chat"}
               // to={() => {
               //   handleclicked(text)

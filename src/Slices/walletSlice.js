@@ -51,8 +51,12 @@ const walletSlice = createSlice({
     },
     // needs TEST
     cancelTransactionSuccess: (state, action) => {
-      //  const transaction = state.myTransactions.find(transaction => transaction.id === action.payload.transactions._id)
-      state.myTransactions[action.payload._id] = action.payload.transactions
+      const trans = state.myTransactions.transactions.find(
+        (transaction) => transaction._id === action.payload.transaction._id
+      )
+      if (trans) {
+        trans.status = "CANCELED"
+      }
       state.loading = false
       state.error = false
     },

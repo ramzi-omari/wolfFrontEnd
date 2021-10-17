@@ -5,8 +5,12 @@ import { DataGrid } from "@mui/x-data-grid"
 import { Modal } from "@material-ui/core"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
-import { getTransactions } from "../../actions/transactionsActions"
+import {
+  cancelTransaction,
+  getTransactions,
+} from "../../actions/transactionsActions"
 import moment from "moment"
+import AlertDialog from "../../components/utile/AlertDialog"
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -127,6 +131,24 @@ export default function TransactionsList({ transactions }) {
   const [tranMotif, setTranMotif] = useState("")
   const [tranAmount, setTranAmount] = useState("")
   const [tranStatus, setTranStatus] = useState("")
+  const [tranID, setTranID] = useState("")
+
+  // dialog States
+  const [descriptionDialog, setDescriptionDialog] = useState("")
+  const [dialogTitle, setDialogTitle] = useState("")
+  const [openDialog, setOpenDialog] = useState(false)
+
+  const handleOpenDialog = (tranStatus) => {
+    if (tranStatus !== "CANCELED") {
+      setOpenDialog(true)
+      setDescriptionDialog("Are you sure to cancel this transaction")
+      setDialogTitle("Confirmation")
+    }
+  }
+
+  const handleCloseDialog = () => {
+    setOpenDialog(false)
+  }
 
   // open modal depend on Row click
   const handleOnClick = (row) => {
@@ -138,10 +160,16 @@ export default function TransactionsList({ transactions }) {
     setTranMotif(row.motif)
     setTranAmount(row.amount)
     setTranStatus(row.status)
+    setTranID(row._id)
     setOpen(true)
   }
   // handle modal button close
   const handleClose = () => {
+    setOpen(false)
+  }
+
+  const onClickHandler = () => {
+    dispatch(cancelTransaction(tranID))
     setOpen(false)
   }
 
@@ -202,7 +230,11 @@ export default function TransactionsList({ transactions }) {
                   <strong>Amount:</strong> {tranAmount} DA
                 </h5>
               </div>
-              <div>
+              <div
+                onClick={() => {
+                  handleOpenDialog(tranStatus)
+                }}
+              >
                 {tranStatus === "CANCELED" ? (
                   <h5
                     style={{
@@ -227,6 +259,15 @@ export default function TransactionsList({ transactions }) {
                   </h5>
                 )}
               </div>
+              {openDialog ? (
+                <AlertDialog
+                  onCloseDialog={handleCloseDialog}
+                  openDialog={openDialog}
+                  descriptionDialog={descriptionDialog}
+                  dialogTitle={dialogTitle}
+                  onClickHandler={onClickHandler}
+                ></AlertDialog>
+              ) : null}
             </div>
           </div>
         </Fade>

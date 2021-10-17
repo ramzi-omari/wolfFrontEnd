@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Card from "@material-ui/core/Card"
 import CardActions from "@material-ui/core/CardActions"
@@ -10,6 +10,7 @@ import ContactMailIcon from "@material-ui/icons/ContactMail"
 import HelpIcon from "@material-ui/icons/Help"
 import Tooltip from "@material-ui/core/Tooltip"
 import "./MemberCard.css"
+import MemberInfos from "./MemberInfos"
 
 const useStyles = makeStyles({
   root: {
@@ -48,10 +49,19 @@ const useStyles = makeStyles({
 
 const MemberCard = ({ item }) => {
   const classes = useStyles()
+  const [openModal, setOpenModal] = useState(false)
 
   useEffect(() => {}, [item])
   const bull = <span className={classes.bullet}>•</span>
   // INFOS : nom prenom city type
+
+  const handleOpenModal = () => {
+    setOpenModal(true)
+  }
+  const handleCloseModal = () => {
+    setOpenModal(false)
+  }
+
   return (
     <div>
       <Card className={classes.root}>
@@ -106,13 +116,21 @@ const MemberCard = ({ item }) => {
               </Tooltip>
               <Tooltip arrow title={<h4>Infos supplémentaire</h4>}>
                 <HelpIcon
-                  style={{ color: "#404040" }}
+                  style={{ color: "#404040", cursor: "pointer" }}
                   fontSize="large"
+                  onClick={handleOpenModal}
                 ></HelpIcon>
               </Tooltip>
             </div>
           </div>
         </CardContent>
+        {openModal ? (
+          <MemberInfos
+            handleCloseModal={handleCloseModal}
+            openModal={openModal}
+            item={item}
+          ></MemberInfos>
+        ) : null}
         {/* <CardActions>
         <Button size="small">Contact</Button>
       </CardActions> */}

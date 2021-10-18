@@ -113,6 +113,17 @@ const columns = [
     headerName: "Status",
     description: "status de la transaction",
     width: 150,
+    renderCell: (params) => {
+      return (
+        <div>
+          {params.row.status === "CANCELED" ? (
+            <div style={{ color: "red" }}>{params.row.status} </div>
+          ) : (
+            <div style={{ color: "green" }}>{params.row.status} </div>
+          )}
+        </div>
+      )
+    },
   },
 ]
 

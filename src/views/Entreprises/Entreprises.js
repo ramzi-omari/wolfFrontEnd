@@ -6,6 +6,8 @@ import { getUsersDetail } from "../../actions/getUsersAction"
 
 import "../Consultants/Consultants.css"
 import Loader from "../../components/utile/Loader"
+import PaginationMembers from "./PaginationMembers"
+import ListMembers from "./ListMembers"
 
 const Entreprises = () => {
   const [data, setData] = useState("")
@@ -54,12 +56,17 @@ const Entreprises = () => {
             {data.length === 0 ? (
               <h2>Users is empty</h2>
             ) : (
+              // <>
+              //   {Array.from(data).map((item, index) => (
+              //     <Grid item xs={12} sm={6} md={6} key={index}>
+              //       <MemberCard item={item}></MemberCard>
+              //     </Grid>
+              //   ))}
+              // </>
+              // members
               <>
-                {Array.from(data).map((item, index) => (
-                  <Grid item xs={12} sm={6} md={6} key={index}>
-                    <MemberCard item={item}></MemberCard>
-                  </Grid>
-                ))}
+                <h6>click to show details</h6>
+                <ListMembers members={data}></ListMembers>
               </>
             )}
           </Grid>

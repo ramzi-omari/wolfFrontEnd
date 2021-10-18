@@ -151,13 +151,11 @@ export default function ListMembers({ members }) {
   const { userInfo } = userLogin
 
   const [open, setOpen] = useState(false)
-  const [tranFrom, setTranFrom] = useState("")
   const [fullName, setFullName] = useState("")
   const [rating, setRating] = useState("")
   const [tag, setTag] = useState([])
   const [description, setDescription] = useState("")
   const [type, setType] = useState("")
-  const [tranID, setTranID] = useState("")
 
   // open modal depend on Row click
   const handleOnClick = (row) => {

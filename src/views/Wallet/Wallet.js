@@ -140,7 +140,9 @@ const Wallet = ({ history }) => {
                 width: "50%",
               }}
             >
-              <h5 className="wallet-sold">Your Sold: $50 </h5>
+              <h5 className="wallet-sold">
+                Your Sold: {userInfo.user.wallet} DA{" "}
+              </h5>
               {/* <h5>City: {city}</h5> */}
               {/*<h5>Phone: {phoneNumber}</h5>
               <h5>{type}</h5>

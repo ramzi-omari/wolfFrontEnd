@@ -99,11 +99,12 @@ const Journal = () => {
                     />
                   </div>
                   <div className="post__options">
-                    <div className="post__option">
-                      <ThumbUpIcon
-                        onClick={handleClickLike}
-                        like-id={item._id}
-                      />
+                    <div
+                      className="post__option"
+                      onClick={handleClickLike}
+                      like-id={item._id}
+                    >
+                      <ThumbUpIcon />
                       <p>Like {item.nbr_like}</p>
                     </div>
 

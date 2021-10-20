@@ -30,6 +30,7 @@ import {
 } from "../../../actions/usersActions"
 import Message from "../../utile/Message"
 import "./ProfilEdit.css"
+import DropImage from "./DropImage"
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -83,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ProfilEdit = ({ user }) => {
+const ProfilEdit = ({ user, setImageLink }) => {
   const classes = useStyles()
 
   const [message, setMessage] = useState(null)
@@ -316,9 +317,9 @@ const ProfilEdit = ({ user }) => {
                     <Autocomplete
                       multiple
                       id="tags-standard"
-                      options={top100Films}
+                      options={listTags}
                       getOptionLabel={(option) => option}
-                      defaultValue={[top100Films[0]]}
+                      defaultValue={[listTags[0]]}
                       value={tag}
                       size="small"
                       // onChange={onTagsChange}
@@ -334,6 +335,7 @@ const ProfilEdit = ({ user }) => {
                         />
                       )}
                     />
+                    <DropImage setImageLink={setImageLink}></DropImage>
                   </Box>
                 </Box>
                 <Button
@@ -355,7 +357,7 @@ const ProfilEdit = ({ user }) => {
 
 export default ProfilEdit
 
-const top100Films = [
+const listTags = [
   "informatique",
   "droit",
   "eco",

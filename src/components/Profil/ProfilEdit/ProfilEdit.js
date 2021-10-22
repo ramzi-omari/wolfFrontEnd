@@ -115,12 +115,9 @@ const ProfilEdit = ({ user, setImageLink }) => {
 
   useEffect(() => {
     if (!user) {
-      console.log("7")
       //  dispatch(getUserDetails())
       //  console.log("second")
     } else {
-      console.log("8")
-
       // if we have the user we set the form field
       setName(user["last_name"])
       setFirstName(user["first_name"])
@@ -128,9 +125,8 @@ const ProfilEdit = ({ user, setImageLink }) => {
       setCity(user["city"])
       setBirthDate(moment(user["birthDate"]).format("YYYY-MM-DD"))
       setDescription(user["description"])
-      //setTag(user.user["tag"])
+      setTag(user["tag"])
     }
-    console.log("11")
   }, [dispatch, user])
 
   // handle modal button open

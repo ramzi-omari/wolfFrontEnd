@@ -70,15 +70,6 @@ const commentSlice = createSlice({
       if (editedComment) {
         editedComment.comment = action.payload.comment.comment
       }
-      //   check if i get id + newComment in payload
-      // const { id, newComment } = action.payload
-      // if (!state.comment[id]) {
-      //   state.comment[id] = []
-      // }
-      // // ----
-      // state.comment[id].push(newComment)
-      // state.comment.push(action.payload)
-
       state.loading = false
       state.error = false
     },

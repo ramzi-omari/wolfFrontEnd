@@ -141,8 +141,8 @@ export const editComment = (id, comment) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.put(
-      `${process.env.REACT_APP_API_KEY}/publication/comment/`,
-      { id, comment },
+      `${process.env.REACT_APP_API_KEY}/publication/comment/edit`,
+      { comment, id },
       config
     )
 

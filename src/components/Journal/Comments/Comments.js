@@ -1,7 +1,6 @@
 import { Avatar } from "@material-ui/core"
 import React, { useEffect, useState } from "react"
 import DeleteIcon from "@material-ui/icons/Delete"
-import EditIcon from "@material-ui/icons/Edit"
 import Tooltip from "@material-ui/core/Tooltip"
 import SendIcon from "@material-ui/icons/Send"
 import { Grid, Input, Paper } from "@material-ui/core"
@@ -16,9 +15,7 @@ import {
 import Loader from "../../utile/Loader"
 import moment from "moment"
 import { setDate } from "date-fns/esm"
-
-// faut gerer comment open !open Journal
-// different get comments api call
+import EditComments from "./EditComments"
 
 const Comments = ({ post_id }) => {
   const [commentaires, setCommentaires] = useState([])
@@ -55,12 +52,6 @@ const Comments = ({ post_id }) => {
     const del_id = e.currentTarget.getAttribute("data-id")
 
     dispatch(deleteComment(del_id))
-  }
-  const handleEdit = async (e) => {
-    e.preventDefault()
-    const edit_id = e.currentTarget.getAttribute("data_edit-id")
-
-    dispatch(editComment(edit_id, newCommentaire))
   }
 
   return (
@@ -99,15 +90,10 @@ const Comments = ({ post_id }) => {
                           data-id={commentaire["_id"]}
                         ></DeleteIcon>
                       </Tooltip>
-                      <Tooltip arrow title={<h4>Edit Comment</h4>}>
-                        <EditIcon
-                          style={{
-                            cursor: "pointer",
-                          }}
-                          onClick={handleEdit}
-                          data_edit-id={commentaire["_id"]}
-                        ></EditIcon>
-                      </Tooltip>
+                      <EditComments
+                        commentID={commentaire["_id"]}
+                        commentaire={commentaire["comment"]}
+                      ></EditComments>
                     </div>
                   ) : null}
                 </div>

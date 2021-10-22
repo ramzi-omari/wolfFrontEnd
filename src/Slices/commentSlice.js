@@ -64,14 +64,20 @@ const commentSlice = createSlice({
       state.loading = false
     },
     editCommentsSuccess: (state, action) => {
-      //   check if i get id + newComment in payload
-      const { id, newComment } = action.payload
-      if (!state.comment[id]) {
-        state.comment[id] = []
+      const editedComment = state.comment.comments.find(
+        (comment) => comment._id === action.payload.comment._id
+      )
+      if (editedComment) {
+        editedComment.comment = action.payload.comment.comment
       }
-      // ----
-      state.comment[id].push(newComment)
-      state.comment.push(action.payload)
+      //   check if i get id + newComment in payload
+      // const { id, newComment } = action.payload
+      // if (!state.comment[id]) {
+      //   state.comment[id] = []
+      // }
+      // // ----
+      // state.comment[id].push(newComment)
+      // state.comment.push(action.payload)
 
       state.loading = false
       state.error = false

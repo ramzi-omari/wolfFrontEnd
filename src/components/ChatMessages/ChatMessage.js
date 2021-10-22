@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
 import moment from "moment"
 import "./ChatMessage.css"
+import { Avatar } from "@material-ui/core"
 
 const ChatMessage = ({ own, message, part1 }) => {
   const [test, settest] = useState("")
 
+  console.log("part1", part1)
   useEffect(() => {
     if (message["sendBy"] === part1) {
       // part1 c'est l'utilisateur connecté
@@ -23,11 +25,19 @@ const ChatMessage = ({ own, message, part1 }) => {
       className={test !== "SENDER" ? "message own" : "message"}
     >
       <div className="messageTop">
-        <img
-          className="messageImg"
-          src="https://images.pexels.com/photos/3686769/pexels-photo-3686769.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-          alt=""
-        />
+        <Avatar
+          className="avatar"
+          src={
+            "https://images.pexels.com/photos/3686769/pexels-photo-3686769.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+          }
+          style={{
+            marginTop: "auto",
+            marginBottom: "auto",
+            borderRadius: "50%",
+            marginRight: "10px",
+          }}
+        ></Avatar>
+
         <p className="messageText">{message["content"]}</p>
       </div>
       <div className="messageBottom">

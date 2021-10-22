@@ -69,7 +69,7 @@ const MemberCard = ({ item }) => {
           <div className="avatar">
             <Avatar
               alt="s"
-              src="https://img.freepik.com/vecteurs-libre/homme-affaires-caractere-avatar-isole_24877-60111.jpg?size=338&ext=jpg"
+              src={item.profilePictureUrl}
               className={classes.large}
             />
             <Typography
@@ -104,10 +104,8 @@ const MemberCard = ({ item }) => {
               style={{ color: "#0645AD ", marginTop: "1rem" }}
             >
               {item.tag}
-              #informatique,gestion
             </Typography>
             <div className="contactMember">
-              {/* <Tooltip title="Contactez directement" > */}
               <Tooltip arrow title={<h4>Contactez directement</h4>}>
                 <ContactMailIcon
                   style={{ color: "#404040" }}
@@ -131,9 +129,6 @@ const MemberCard = ({ item }) => {
             item={item}
           ></MemberInfos>
         ) : null}
-        {/* <CardActions>
-        <Button size="small">Contact</Button>
-      </CardActions> */}
       </Card>
     </div>
   )

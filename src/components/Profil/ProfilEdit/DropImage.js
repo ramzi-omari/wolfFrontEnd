@@ -9,6 +9,7 @@ const DropImage = ({ setImageLink }) => {
     const base64 = await convertBase64(file)
     setBaseImage(base64)
     setImageLink(base64)
+    console.log("photo", base64)
   }
 
   const convertBase64 = (file) => {

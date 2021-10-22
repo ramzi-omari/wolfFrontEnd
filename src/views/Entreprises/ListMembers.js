@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { makeStyles } from "@material-ui/core/styles"
 import { DataGrid } from "@mui/x-data-grid"
-import { Button, Modal } from "@material-ui/core"
+import { Avatar, Button, Modal } from "@material-ui/core"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
 import {
@@ -79,10 +79,17 @@ const columns = [
     renderCell: (params) => {
       return (
         <div className="rowitem" style={{ margin: "auto" }}>
-          <img
-            style={{ margin: "auto", height: "40px", width: "40px" }}
-            src="https://previews.123rf.com/images/kritchanut/kritchanut1401/kritchanut140100054/25251050-photo-de-profil-d-affaires-de-l-avatar.jpg"
-          ></img>
+          <Avatar
+            alt="s"
+            src={params.row.profilePictureUrl}
+            style={{
+              width: "95px",
+              height: "95px",
+              margin: "auto",
+              borderRadius: "20px",
+              margin: "2px",
+            }}
+          />
         </div>
       )
     },
@@ -156,6 +163,7 @@ export default function ListMembers({ members }) {
   const [tag, setTag] = useState([])
   const [description, setDescription] = useState("")
   const [type, setType] = useState("")
+  const [profilePictureUrl, setProfilePictureUrl] = useState("")
 
   // open modal depend on Row click
   const handleOnClick = (row) => {
@@ -166,6 +174,7 @@ export default function ListMembers({ members }) {
     setTag(row.tag)
     setDescription(row.description)
     setType(row.type)
+    setProfilePictureUrl(row.profilePictureUrl)
     setOpen(true)
   }
   // handle modal button close
@@ -174,7 +183,7 @@ export default function ListMembers({ members }) {
   }
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <div style={{ height: 570, width: "100%" }}>
       <DataGrid
         rows={members}
         columns={columns}
@@ -182,6 +191,7 @@ export default function ListMembers({ members }) {
         pageSize={5}
         rowsPerPageOptions={[5]}
         disableSelectionOnClick
+        rowHeight={100}
         onRowClick={(param) => handleOnClick(param.row)}
       />
 
@@ -251,15 +261,23 @@ export default function ListMembers({ members }) {
                     </Button>
                   </div>
                 </div>
-                <div
-                  className="photo"
-                  style={{ height: "100px", width: "100px" }}
-                >
+                <div className="photo" style={{ height: "100px" }}>
                   {" "}
-                  <img
+                  {/* <img
                     style={{ height: "inherit" }}
-                    src="https://previews.123rf.com/images/kritchanut/kritchanut1401/kritchanut140100054/25251050-photo-de-profil-d-affaires-de-l-avatar.jpg"
-                  ></img>
+                    src={}
+                  ></img> */}
+                  <Avatar
+                    alt="s"
+                    src={profilePictureUrl}
+                    style={{
+                      height: "inherit",
+                      width: "inherit",
+                      // margin: "auto",
+                      borderRadius: "10px",
+                      // margin: "2px",
+                    }}
+                  />
                 </div>
               </div>
             </div>

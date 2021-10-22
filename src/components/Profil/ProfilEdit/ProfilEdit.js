@@ -134,14 +134,11 @@ const ProfilEdit = ({ user }) => {
   // handle modal button open
   const handleOpen = () => {
     setOpen(true)
-    console.log("lienpic", profilePictureUrl)
   }
   // handle modal button close
   const handleClose = () => {
     setOpen(false)
-    console.log("lienpic2", profilePictureUrl)
     setProfilePictureUrl("")
-    console.log("lienpic4", profilePictureUrl)
   }
   // const [success, setSuccess] = useState(false)
 

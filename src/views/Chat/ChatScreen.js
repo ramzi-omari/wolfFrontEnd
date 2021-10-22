@@ -75,6 +75,7 @@ const ChatScreen = ({ setOpen, conversationID }) => {
               ? "SENDER"
               : "RECEIVER"
           )
+
           setOwn(
             item["receiver"]["_id"] === userInfo.user["_id"]
               ? "RECEIVER"

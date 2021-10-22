@@ -8,22 +8,11 @@
   display: flex;
 }
 
-.messageImg {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: 10px;
-}
-
 .messageText {
   padding: 10px;
   border-radius: 20px;
   background-color: #202020;
   color: white;
-  max-width: 50%;
   text-align: start;
 }
 
@@ -38,6 +27,7 @@
 
 .message.own .messageText {
   background-color: rgb(245, 241, 241);
+  margin-right: 0rem;
   color: black;
 }
 

@@ -120,7 +120,14 @@ const Profil = ({ history }) => {
               display="flex"
               style={{ flexDirection: "column", width: "20%" }}
             >
-              <Avatar src={profilePic} className={classes.large} />
+              <Avatar
+                src={
+                  profilePic
+                    ? profilePic
+                    : "../../img/676-6764065_default-profile-picture-transparent-hd-png-download.png"
+                }
+                className={classes.large}
+              />
               <h3>
                 {lastname} {firstname}
               </h3>

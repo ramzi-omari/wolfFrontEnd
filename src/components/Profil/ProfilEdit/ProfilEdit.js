@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const ProfilEdit = ({ user, setImageLink }) => {
+const ProfilEdit = ({ user }) => {
   const classes = useStyles()
 
   const [message, setMessage] = useState(null)
@@ -96,6 +96,8 @@ const ProfilEdit = ({ user, setImageLink }) => {
   const [city, setCity] = useState("")
   const [description, setDescription] = useState("")
   const [tag, setTag] = useState([])
+  const [profilePictureUrl, setProfilePictureUrl] = useState("")
+
   //
   const [selectedDate, setDate] = useState(moment())
   const [birthDate, setBirthDate] = useState(moment().format("YYYY-MM-DD"))
@@ -132,10 +134,14 @@ const ProfilEdit = ({ user, setImageLink }) => {
   // handle modal button open
   const handleOpen = () => {
     setOpen(true)
+    console.log("lienpic", profilePictureUrl)
   }
   // handle modal button close
   const handleClose = () => {
     setOpen(false)
+    console.log("lienpic2", profilePictureUrl)
+    setProfilePictureUrl("")
+    console.log("lienpic4", profilePictureUrl)
   }
   // const [success, setSuccess] = useState(false)
 
@@ -159,6 +165,7 @@ const ProfilEdit = ({ user, setImageLink }) => {
         city,
         description,
         tag,
+        profilePictureUrl,
       })
     )
   }
@@ -331,7 +338,7 @@ const ProfilEdit = ({ user, setImageLink }) => {
                         />
                       )}
                     />
-                    <DropImage setImageLink={setImageLink}></DropImage>
+                    <DropImage setImageLink={setProfilePictureUrl}></DropImage>
                   </Box>
                 </Box>
                 <Button

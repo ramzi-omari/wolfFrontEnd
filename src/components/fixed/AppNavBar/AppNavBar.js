@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { alpha, makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
@@ -19,6 +19,16 @@ import { logout } from "../../../actions/usersActions"
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"
 import "./AppNavBar.css"
 import { getConversations } from "../../../actions/ChatActions.js/conversationActions"
+import axios from "axios"
+import {
+  Avatar,
+  Box,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  Modal,
+} from "@material-ui/core"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -40,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: "relative",
     borderRadius: theme.shape.borderRadius,
+    zIndex: "99999999",
     backgroundColor: alpha(theme.palette.common.white, 1),
     "&:hover": {
       backgroundColor: alpha(theme.palette.common.white, 0.45),
@@ -58,11 +69,12 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 2),
     height: "100%",
     position: "absolute",
-    pointerEvents: "none",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     color: "black",
+    cursor: "pointer",
+    zIndex: "999999990",
   },
   inputRoot: {
     color: "black",
@@ -73,8 +85,11 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       width: "20ch",
+      "&:focus": {
+        width: "30ch",
+      },
     },
   },
 
@@ -92,8 +107,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+}
+
 export default function AppNavBar({ history }) {
   const classes = useStyles()
+  const [searchText, setSearchText] = useState("")
+  const [users, setUsers] = useState([])
+  const [open, setOpen] = useState("")
 
   const dispatch = useDispatch()
 
@@ -130,7 +160,7 @@ export default function AppNavBar({ history }) {
 
   const logingout = () => {
     console.log("userinfo before loginout: " + userInfo)
-
+    setUsers([])
     dispatch(logout())
   }
 
@@ -203,6 +233,61 @@ export default function AppNavBar({ history }) {
       </MenuItem>
     </Menu>
   )
+  useEffect(() => {}, [users])
+
+  const HandleSearch = (e) => {
+    e.preventDefault()
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    if (searchText && searchText.length > 0) {
+      const getSearchedUsers = () => {
+        axios
+          .get(
+            `${process.env.REACT_APP_API_KEY}/users/search?search=${searchText}`,
+            config
+          )
+          .then((response) => {
+            setUsers(response.data.users)
+          })
+          .catch((error) => console.log("err", error))
+      }
+      getSearchedUsers()
+      console.log("uss", users)
+      setOpen(true)
+    }
+  }
+
+  // const HandleUserClick = (e) => {
+  //   e.preventDefault()
+  //   const user_id = e.currentTarget.getAttribute("data-id")
+  //   console.log("iddd", user_id)
+  //   setUsers([])
+  // }
+
+  const onSuggestHandler = (text) => {
+    // setName(text.first_name + " " + text.last_name)
+    // setDestinataireID(text._id)
+    setSearchText(text.first_name + " " + text.last_name)
+    // LINK TO MEMBERS depending on text.type
+    setOpen(false)
+    setUsers([])
+    // history.push("Consultants")
+    // const history = useHistory();
+    // history.push({
+    //   pathname: "/Consultants",
+    //   state: { username: text },
+    // })
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+    setUsers([])
+  }
 
   return (
     <div className={classes.grow}>
@@ -220,7 +305,7 @@ export default function AppNavBar({ history }) {
             Material-UI
           </Typography>
           <div className={classes.search}>
-            <div className={classes.searchIcon}>
+            <div className={classes.searchIcon} onClick={HandleSearch}>
               <SearchIcon />
             </div>
             <InputBase
@@ -230,8 +315,40 @@ export default function AppNavBar({ history }) {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
             />
           </div>
+
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <div>{users.length === 0 ? "User not found" : null}</div>
+              {users &&
+                users.map((user, i) => (
+                  <div
+                    style={{
+                      borderBottom: "1px solid  gray",
+                      marginBottom: "0.5rem",
+                    }}
+                    key={i}
+                    onClick={() => onSuggestHandler(user)}
+                  >
+                    <div style={{ color: "#707070", fontSize: "0.7rem" }}>
+                      {user.email} (PHOTO)
+                    </div>
+                    <div>
+                      {user.first_name} {user.last_name}
+                    </div>
+                  </div>
+                ))}
+            </Box>
+          </Modal>
+
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">

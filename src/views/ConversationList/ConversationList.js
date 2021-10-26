@@ -6,11 +6,24 @@ import { getConversations } from "../../actions/ChatActions.js/conversationActio
 import Loader from "../../components/utile/Loader"
 import { updateSeenConversation } from "../../actions/ChatActions.js/seenConversationAction"
 import { updateAccepteConversation } from "../../actions/ChatActions.js/acceptedConversationAction"
+import { useHistory } from "react-router-dom"
 
 const ConversationList = ({ setConversationID }) => {
   const [conversation, setconversation] = useState([])
 
   const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  let history = useHistory()
+
+  useEffect(() => {
+    // if we are not logged in redirect to /sign
+    if (!userInfo) {
+      history.push("/sign")
+    }
+  }, [history, userInfo, userLogin])
 
   const conversationsList = useSelector((state) => state.conversationsList)
   const { loading, error, conversations } = conversationsList
@@ -27,19 +40,17 @@ const ConversationList = ({ setConversationID }) => {
       }
     }
   }, [dispatch, conversations])
-  // type error conversation.conversati
-  // }, [dispatch, getConversations, setconversation])
 
-  //  useEffect(() => {}, [conversation])
-
-  const handleClick = (id, unseen, accepted) => {
+  const handleClick = (id, unseen, accepted, senderid) => {
     setConversationID(id)
 
-    if (unseen) {
-      dispatch(updateSeenConversation(id))
-    }
-    if (!accepted) {
-      dispatch(updateAccepteConversation(id))
+    if (senderid !== userInfo.user._id) {
+      if (unseen) {
+        dispatch(updateSeenConversation(id))
+      }
+      if (!accepted) {
+        dispatch(updateAccepteConversation(id))
+      }
     }
   }
 
@@ -64,7 +75,12 @@ const ConversationList = ({ setConversationID }) => {
               {Array.from(conversation).map((item, index) => (
                 <div
                   onClick={() =>
-                    handleClick(item["_id"], item["unseen"], item["accepted"])
+                    handleClick(
+                      item["_id"],
+                      item["unseen"],
+                      item["accepted"],
+                      item["sender"]["_id"]
+                    )
                   }
                 >
                   <ChatConversations item={item}></ChatConversations>

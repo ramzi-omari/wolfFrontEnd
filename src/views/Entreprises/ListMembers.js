@@ -5,6 +5,7 @@ import { DataGrid } from "@mui/x-data-grid"
 import { Avatar, Button, Modal } from "@material-ui/core"
 import Backdrop from "@material-ui/core/Backdrop"
 import Fade from "@material-ui/core/Fade"
+import SendIcon from "@material-ui/icons/Send"
 import {
   cancelTransaction,
   getTransactions,
@@ -12,6 +13,8 @@ import {
 import moment from "moment"
 import AlertDialog from "../../components/utile/AlertDialog"
 import { Rating } from "@material-ui/lab"
+import { createConversation } from "../../actions/ChatActions.js/createConversationAction"
+import { getConversations } from "../../actions/ChatActions.js/conversationActions"
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -164,22 +167,36 @@ export default function ListMembers({ members }) {
   const [description, setDescription] = useState("")
   const [type, setType] = useState("")
   const [profilePictureUrl, setProfilePictureUrl] = useState("")
+  const [userID, setUserID] = useState("")
+
+  const [sendMsg, setSendMsg] = useState(false)
+  const [newMessage, setNewMessage] = useState("")
 
   // open modal depend on Row click
   const handleOnClick = (row) => {
-    console.log("llol " + row)
-
     setFullName(row.last_name + " " + row.first_name)
     setRating(row.rating)
     setTag(row.tag)
     setDescription(row.description)
     setType(row.type)
     setProfilePictureUrl(row.profilePictureUrl)
+    setUserID(row._id)
     setOpen(true)
   }
   // handle modal button close
   const handleClose = () => {
     setOpen(false)
+    setSendMsg(false)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(createConversation(userID, newMessage))
+    // This will run after 8 second!
+    const timer = setTimeout(() => {
+      dispatch(getConversations())
+    }, 8000)
+    return () => clearTimeout(timer)
   }
 
   return (
@@ -250,7 +267,11 @@ export default function ListMembers({ members }) {
                 }}
               >
                 <div style={{ marginTop: "0.2rem" }}>
-                  <div className="sendMsg" style={{ marginBottom: "0.3rem" }}>
+                  <div
+                    className="sendMsg"
+                    style={{ marginBottom: "0.3rem" }}
+                    onClick={() => setSendMsg(!sendMsg)}
+                  >
                     <Button className={classes.buttons} variant="outlined">
                       Contacter
                     </Button>
@@ -281,6 +302,24 @@ export default function ListMembers({ members }) {
                 </div>
               </div>
             </div>
+            {sendMsg ? (
+              <div className="chatBoxBottom">
+                <textarea
+                  className="chatMessageInput"
+                  placeholder="write something..."
+                  onChange={(e) => setNewMessage(e.target.value)}
+                  value={newMessage}
+                ></textarea>
+                <SendIcon
+                  style={{
+                    width: "9%",
+                    height: "34px",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleSubmit}
+                ></SendIcon>
+              </div>
+            ) : null}
           </div>
         </Fade>
       </Modal>

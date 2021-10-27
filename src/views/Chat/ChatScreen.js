@@ -5,13 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import ChatMessage from "../../components/ChatMessages/ChatMessage"
 import SendIcon from "@material-ui/icons/Send"
 import Loader from "../../components/utile/Loader"
-import {
-  addMsg,
-  getConversations,
-} from "../../actions/ChatActions.js/conversationActions"
+import { getConversations } from "../../actions/ChatActions.js/conversationActions"
 import "./ChatScreen.css"
-import { updateSeenConversation } from "../../actions/ChatActions.js/seenConversationAction"
-import { createConversation } from "../../actions/ChatActions.js/createConversationAction"
 import io from "socket.io-client"
 import { addMessages } from "../../Slices/conversationsSlice"
 

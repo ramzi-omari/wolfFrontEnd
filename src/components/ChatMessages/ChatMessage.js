@@ -4,10 +4,9 @@ import moment from "moment"
 import "./ChatMessage.css"
 import { Avatar } from "@material-ui/core"
 
-const ChatMessage = ({ own, message, part1 }) => {
+const ChatMessage = ({ own, message, part1, profilePic, contactPic }) => {
   const [test, settest] = useState("")
 
-  console.log("part1", part1)
   useEffect(() => {
     if (message["sendBy"] === part1) {
       // part1 c'est l'utilisateur connecté
@@ -27,9 +26,7 @@ const ChatMessage = ({ own, message, part1 }) => {
       <div className="messageTop">
         <Avatar
           className="avatar"
-          src={
-            "https://images.pexels.com/photos/3686769/pexels-photo-3686769.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-          }
+          src={test === "SENDER" ? profilePic : contactPic}
           style={{
             marginTop: "auto",
             marginBottom: "auto",

@@ -20,6 +20,8 @@ const ChatScreen = ({ setOpen, conversationID }) => {
 
   // receiver or sender id to choose show message color black/white
   const [part1, setpart1] = useState("")
+  const [profilePic, setProfilePic] = useState("")
+  const [contactPic, setContactPic] = useState("")
 
   const [messages, setMessages] = useState([])
   const [newMessage, setNewMessage] = useState([])
@@ -37,10 +39,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
     // env chat
     // receive Done
     socket.current.on("chat", (data) => {
-      console.log("datasock", data)
-      // var data = JSON.parse(e.data)
-      // var message = {message: data.message, user: data.user,
-      //                 timestamp: data.timestamp};
       const datt = data
       var contnt = {
         content: datt.content,
@@ -48,22 +46,12 @@ const ChatScreen = ({ setOpen, conversationID }) => {
         updated_at: Date.now(),
       }
 
-      console.log("senttt", conversationID, contnt)
       dispatch(addMessages({ conversationID, contnt }))
-
-      // setMessages((prev) => [
-      //   {
-      //     sendBy: data.sendBy,
-      //     content: data.content,
-      //     updated_at: Date.now(),
-      //   },
-      //   ...prev,
-      // ])
     })
     return () => {
       socket.current.off("chat")
     }
-  }, [])
+  }, [conversationID])
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -83,13 +71,20 @@ const ChatScreen = ({ setOpen, conversationID }) => {
         if (item["_id"] === conversationID) {
           setconversation(item)
           setMessages(item["messages"])
-          // setpart1(item["sender"]["_id"])
           // si mon ID est storé dans le SENDER > part1 = sender
           setpart1(
             item["sender"]["_id"] === userInfo.user["_id"]
               ? "SENDER"
               : "RECEIVER"
           )
+
+          if (item["sender"]["_id"] === userInfo.user["_id"]) {
+            setProfilePic(item["sender"]["profilePictureUrl"])
+            setContactPic(item["receiver"]["profilePictureUrl"])
+          } else {
+            setProfilePic(item["receiver"]["profilePictureUrl"])
+            setContactPic(item["sender"]["profilePictureUrl"])
+          }
 
           setOwn(
             item["receiver"]["_id"] === userInfo.user["_id"]
@@ -150,6 +145,8 @@ const ChatScreen = ({ setOpen, conversationID }) => {
                             own={own}
                             message={item}
                             part1={part1}
+                            profilePic={profilePic}
+                            contactPic={contactPic}
                           ></ChatMessage>
                         </div>
                       ))

@@ -195,7 +195,7 @@ export default function ListMembers({ members }) {
     // This will run after 8 second!
     const timer = setTimeout(() => {
       dispatch(getConversations())
-    }, 8000)
+    }, 2000)
     return () => clearTimeout(timer)
   }
 

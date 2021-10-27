@@ -15,6 +15,7 @@ import commentsReducer from "./Slices/commentSlice"
 import userDetailReducer from "./Slices/profileSlice"
 import postsReducer from "./Slices/postsSlice"
 import walletReducer from "./Slices/walletSlice"
+import conversationReducer from "./Slices/conversationsSlice"
 // import investors from "./reducers/investorSlice" import slice from reducerSlice
 
 import { conversationsListReducer } from "./reducers/ChatReducers/conversationsReducers"
@@ -37,11 +38,12 @@ const store = configureStore({
     getConsultant: getConsultantReducer,
     getInvestor: getInvestorReducer,
     getEntreprise: getEntrepriseReducer,
-    conversationsList: conversationsListReducer,
+    // conversationsList: conversationsListReducer,
     comments: commentsReducer,
     userDetails: userDetailReducer,
     postsList: postsReducer,
     wallet: walletReducer,
+    conversationsList: conversationReducer,
   },
   initialState,
 })

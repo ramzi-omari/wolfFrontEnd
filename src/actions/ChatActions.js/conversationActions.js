@@ -1,16 +1,15 @@
 import {
-  GET_CONVERSATIONS_REQUEST,
-  GET_CONVERSATIONS_SUCCESS,
-  GET_CONVERSATIONS_FAIL,
-} from "../../constants/ChatConstants/conversationConstants"
+  getConversationsLoading,
+  getConversationsSuccess,
+  getConversationsFail,
+  addMessages,
+} from "../../Slices/conversationsSlice"
 import axios from "axios"
 
 export const getConversations = () => async (dispatch, getState) => {
   // getState to get the token from userInfo
   try {
-    dispatch({
-      type: GET_CONVERSATIONS_REQUEST,
-    })
+    dispatch(getConversationsLoading())
 
     const {
       userLogin: { userInfo },
@@ -29,18 +28,19 @@ export const getConversations = () => async (dispatch, getState) => {
     )
 
     if (data) {
-      dispatch({
-        type: GET_CONVERSATIONS_SUCCESS,
-        payload: data,
-      })
+      dispatch(getConversationsSuccess(data))
     }
   } catch (error) {
-    dispatch({
-      type: GET_CONVERSATIONS_FAIL,
-      payload:
+    dispatch(
+      getConversationsFail(
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message,
-    })
+          : error.message
+      )
+    )
   }
+}
+
+export const addMsg = (conversationID, contnt) => (dispatch, getState) => {
+  dispatch(addMessages(conversationID, contnt))
 }

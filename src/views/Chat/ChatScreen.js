@@ -5,11 +5,15 @@ import { useDispatch, useSelector } from "react-redux"
 import ChatMessage from "../../components/ChatMessages/ChatMessage"
 import SendIcon from "@material-ui/icons/Send"
 import Loader from "../../components/utile/Loader"
-import { getConversations } from "../../actions/ChatActions.js/conversationActions"
+import {
+  addMsg,
+  getConversations,
+} from "../../actions/ChatActions.js/conversationActions"
 import "./ChatScreen.css"
 import { updateSeenConversation } from "../../actions/ChatActions.js/seenConversationAction"
 import { createConversation } from "../../actions/ChatActions.js/createConversationAction"
 import io from "socket.io-client"
+import { addMessages } from "../../Slices/conversationsSlice"
 
 const ChatScreen = ({ setOpen, conversationID }) => {
   const dispatch = useDispatch()
@@ -29,25 +33,41 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   const scrollRef = useRef()
 
   //  SOCKET
+
   useEffect(() => {
     // socket.current = io(prprocessocess.env.REACT_CHAT_APP_API_KEY)
 
     socket.current = io("https://wolfap.herokuapp.com/")
-
-    // socket.current.on("connection", conversationID)
     socket.current.emit("join", conversationID)
     // env chat
     // receive Done
     socket.current.on("chat", (data) => {
-      setMessages((prev) => [
-        {
-          sendBy: data.sendBy,
-          content: data.content,
-          updated_at: Date.now(),
-        },
-        ...prev,
-      ])
+      console.log("datasock", data)
+      // var data = JSON.parse(e.data)
+      // var message = {message: data.message, user: data.user,
+      //                 timestamp: data.timestamp};
+      const datt = data
+      var contnt = {
+        content: datt.content,
+        sendBy: datt.sendBy,
+        updated_at: Date.now(),
+      }
+
+      console.log("senttt", conversationID, contnt)
+      dispatch(addMessages({ conversationID, contnt }))
+
+      // setMessages((prev) => [
+      //   {
+      //     sendBy: data.sendBy,
+      //     content: data.content,
+      //     updated_at: Date.now(),
+      //   },
+      //   ...prev,
+      // ])
     })
+    return () => {
+      socket.current.off("chat")
+    }
   }, [])
 
   const userLogin = useSelector((state) => state.userLogin)

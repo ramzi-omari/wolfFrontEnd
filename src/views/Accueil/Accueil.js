@@ -49,10 +49,6 @@ const Accueil = ({ history }) => {
 
   const dispatch = useDispatch()
 
-  // useEffect(() => {
-  //   dispatch(getUserDetails())
-  // }, [dispatch])
-
   // const handleClick = () => {
   //   setOpen(!open)
   // }

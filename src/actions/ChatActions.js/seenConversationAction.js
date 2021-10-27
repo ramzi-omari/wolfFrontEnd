@@ -1,15 +1,13 @@
 import {
-  SEEN_CONVERSATIONS_REQUEST,
-  SEEN_CONVERSATIONS_SUCCESS,
-  SEEN_CONVERSATIONS_FAIL,
-} from "../../constants/ChatConstants/conversationConstants"
+  seenConversationsLoading,
+  seenConversationsSuccess,
+  seenConversationsFail,
+} from "../../Slices/conversationsSlice"
 import axios from "axios"
 
 export const updateSeenConversation = (id) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: SEEN_CONVERSATIONS_REQUEST,
-    })
+    dispatch(seenConversationsLoading())
 
     // distructor to get the token from getstate.userlogin.userinfo.token
     const {
@@ -32,19 +30,14 @@ export const updateSeenConversation = (id) => async (dispatch, getState) => {
       config
     )
 
-    dispatch({
-      type: SEEN_CONVERSATIONS_SUCCESS,
-      payload: id,
-    })
-
-    // FAUT CHECKER DATA ENVOYER AU REDUCER et verifie si on peut acceder à id dans reducer
+    dispatch(seenConversationsSuccess(id))
   } catch (error) {
-    dispatch({
-      type: SEEN_CONVERSATIONS_FAIL,
-      payload:
+    dispatch(
+      seenConversationsFail(
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message,
-    })
+          : error.message
+      )
+    )
   }
 }

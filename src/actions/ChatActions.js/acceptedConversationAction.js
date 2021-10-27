@@ -1,15 +1,13 @@
 import {
-  ACCEPTE_CONVERSATIONS_REQUEST,
-  ACCEPTE_CONVERSATIONS_SUCCESS,
-  ACCEPTE_CONVERSATIONS_FAIL,
-} from "../../constants/ChatConstants/conversationConstants"
+  acceptConversationsLoading,
+  acceptConversationsSuccess,
+  acceptConversationsFail,
+} from "../../Slices/conversationsSlice"
 import axios from "axios"
 
 export const updateAccepteConversation = (id) => async (dispatch, getState) => {
   try {
-    dispatch({
-      type: ACCEPTE_CONVERSATIONS_REQUEST,
-    })
+    dispatch(acceptConversationsLoading())
 
     // distructor to get the token from getstate.userlogin.userinfo.token
     const {
@@ -32,19 +30,14 @@ export const updateAccepteConversation = (id) => async (dispatch, getState) => {
       config
     )
 
-    dispatch({
-      type: ACCEPTE_CONVERSATIONS_SUCCESS,
-      payload: id,
-    })
-
-    // FAUT CHECKER DATA ENVOYER AU REDUCER et verifie si on peut acceder à id dans reducer
+    dispatch(acceptConversationsSuccess(id))
   } catch (error) {
-    dispatch({
-      type: ACCEPTE_CONVERSATIONS_FAIL,
-      payload:
+    dispatch(
+      acceptConversationsFail(
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.message,
-    })
+          : error.message
+      )
+    )
   }
 }

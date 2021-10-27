@@ -28,6 +28,7 @@ import axios from "axios"
 import { TransactionsReset } from "../Slices/walletSlice"
 import { postsReset } from "../Slices/postsSlice"
 import { commentsReset } from "../Slices/commentSlice"
+import { conversationsReset } from "../Slices/conversationsSlice"
 
 // HACENE LOGIN logic
 export const login = (email, password) => async (dispatch) => {
@@ -119,6 +120,7 @@ export const logout = () => (dispatch) => {
   dispatch(profilReset())
   dispatch(postsReset())
   dispatch(commentsReset())
+  dispatch(conversationsReset())
 }
 
 export const getUserDetails = () => async (dispatch, getState) => {

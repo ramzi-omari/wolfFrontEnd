@@ -102,8 +102,8 @@ const ChatScreen = ({ setOpen, conversationID }) => {
       sendBy: own,
       content: newMessage,
     }
+    setNewMessage("")
     socket.current.emit("chat", { message, conversationID })
-    // setNewMessage("")
   }
 
   useEffect(() => {

@@ -24,10 +24,10 @@ const Entreprises = () => {
   useEffect(() => {}, [users])
 
   useEffect(() => {
-    if (users.users) {
+    if (users && users.users) {
       setData(users.users)
     }
-  }, [users.users])
+  }, [users])
 
   return (
     <div className="consultants">

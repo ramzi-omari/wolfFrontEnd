@@ -1,9 +1,4 @@
 import {
-  CREATE_CONVERSATIONS_FAIL,
-  CREATE_CONVERSATIONS_REQUEST,
-  CREATE_CONVERSATIONS_SUCCESS,
-} from "../../constants/ChatConstants/conversationConstants"
-import {
   createConversationsLoading,
   createConversationsSuccess,
   createConversationsFail,
@@ -19,9 +14,6 @@ export const createConversation =
   (receiver, message) => async (dispatch, getState) => {
     try {
       dispatch(createConversationsLoading())
-      // dispatch({
-      //   type: CREATE_CONVERSATIONS_REQUEST,
-      // })
 
       const {
         userLogin: { userInfo },
@@ -42,10 +34,6 @@ export const createConversation =
       )
 
       dispatch(createConversationsSuccess(data))
-      // dispatch({
-      //   type: CREATE_CONVERSATIONS_SUCCESS,
-      //   payload: data,
-      // })
     } catch (error) {
       dispatch(
         createConversationsFail(
@@ -54,12 +42,5 @@ export const createConversation =
             : error.message
         )
       )
-      // dispatch({
-      //   type: CREATE_CONVERSATIONS_FAIL,
-      //   payload:
-      //     error.response && error.response.data.message
-      //       ? error.response.data.message
-      //       : error.message,
-      // })
     }
   }

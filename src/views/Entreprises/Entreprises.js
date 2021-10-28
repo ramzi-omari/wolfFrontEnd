@@ -6,7 +6,6 @@ import { getUsersDetail } from "../../actions/getUsersAction"
 
 import "../Consultants/Consultants.css"
 import Loader from "../../components/utile/Loader"
-import PaginationMembers from "./PaginationMembers"
 import ListMembers from "./ListMembers"
 
 const Entreprises = () => {
@@ -21,6 +20,8 @@ const Entreprises = () => {
       dispatch(getUsersDetail("ENTREPRISE"))
     }
   }, [])
+
+  useEffect(() => {}, [users])
 
   useEffect(() => {
     if (users.users) {

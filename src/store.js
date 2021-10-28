@@ -10,6 +10,7 @@ import userDetailReducer from "./Slices/profileSlice"
 import postsReducer from "./Slices/postsSlice"
 import walletReducer from "./Slices/walletSlice"
 import conversationReducer from "./Slices/conversationsSlice"
+import createConversationReducer from "./Slices/createConversationSlice"
 // import investors from "./reducers/investorSlice" import slice from reducerSlice
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -32,6 +33,7 @@ const store = configureStore({
     postsList: postsReducer,
     wallet: walletReducer,
     conversationsList: conversationReducer,
+    createConver: createConversationReducer,
   },
   initialState,
 })

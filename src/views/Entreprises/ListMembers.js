@@ -15,6 +15,9 @@ import AlertDialog from "../../components/utile/AlertDialog"
 import { Rating } from "@material-ui/lab"
 import { createConversation } from "../../actions/ChatActions.js/createConversationAction"
 import { getConversations } from "../../actions/ChatActions.js/conversationActions"
+import Message from "../../components/utile/Message"
+import { createConversationsReset } from "../../Slices/createConversationSlice"
+import Loader from "../../components/utile/Loader"
 
 const useStyles = makeStyles((theme) => ({
   buttons: {
@@ -187,16 +190,25 @@ export default function ListMembers({ members }) {
   const handleClose = () => {
     setOpen(false)
     setSendMsg(false)
+    setNewMessage("")
+    dispatch(getConversations())
+    dispatch(createConversationsReset())
   }
+
+  const createConver = useSelector((state) => state.createConver)
+  const { loading, error, createConvo } = createConver
 
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(createConversation(userID, newMessage))
     // This will run after 8 second!
-    const timer = setTimeout(() => {
-      dispatch(getConversations())
-    }, 2000)
-    return () => clearTimeout(timer)
+    // if (Object.keys(createConvo).length !== 0) {
+    //   const timer = setTimeout(() => {
+    //     dispatch(getConversations())
+    //   }, 8000)
+
+    //   return () => clearTimeout(timer)
+    // }
   }
 
   return (
@@ -320,6 +332,12 @@ export default function ListMembers({ members }) {
                 ></SendIcon>
               </div>
             ) : null}
+            {loading && <Loader />}
+            {Object.keys(createConvo).length !== 0 ? (
+              <Message severity="success">Message Sent</Message>
+            ) : null}
+
+            {error && <Message severity="error">{error.fr}</Message>}
           </div>
         </Fade>
       </Modal>

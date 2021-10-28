@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 
 const columns = [
   {
-    field: "profilePic",
+    field: "profilePictureUrl",
     headerName: "profilepic",
     width: 140,
     hide: false,
@@ -101,15 +101,19 @@ const columns = [
     },
   },
   {
-    field: "fullName",
-    headerName: "Full Name",
-    width: 150,
+    field: "last_name",
+    headerName: "Name",
+    width: 120,
     renderCell: (params) => {
-      return (
-        <div className="rowitem">
-          {params.row.last_name} {params.row.first_name}
-        </div>
-      )
+      return <div className="rowitem">{params.row.last_name}</div>
+    },
+  },
+  {
+    field: "first_name",
+    headerName: "firstName",
+    width: 120,
+    renderCell: (params) => {
+      return <div className="rowitem">{params.row.first_name}</div>
     },
   },
 
@@ -118,6 +122,7 @@ const columns = [
     headerName: "type",
     description: "Member type",
     width: 150,
+    hide: true,
     renderCell: (params) => {
       return (
         <div className="rowitem" style={{ textTransform: "lowercase" }}>

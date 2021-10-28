@@ -59,8 +59,10 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     height: "auto",
+    // maxHeight: "500px",
     width: "60%",
     marginTop: "2.5rem",
+    // overflowY: "scroll",
   },
   radius: {
     borderRadius: 20,
@@ -256,6 +258,7 @@ const ProfilEdit = ({ user }) => {
                       variant="outlined"
                       fullWidth
                       size="small"
+                      disabled
                       className={classes.inputField}
                       name="phone"
                       onChange={(e) => setPhoneNumber(e.target.value)}

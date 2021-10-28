@@ -15,7 +15,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
 
   // open conversations list barre (right side bar)
   setOpen(true)
-  const [conversation, setconversation] = useState([])
   const [own, setOwn] = useState("")
 
   // receiver or sender id to choose show message color black/white
@@ -69,7 +68,6 @@ const ChatScreen = ({ setOpen, conversationID }) => {
     if (conversations.conversation) {
       conversations.conversation.map((item) => {
         if (item["_id"] === conversationID) {
-          setconversation(item)
           setMessages(item["messages"])
           // si mon ID est storé dans le SENDER > part1 = sender
           setpart1(

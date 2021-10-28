@@ -36,7 +36,7 @@ const DropImage = ({ setImageLink }) => {
         }}
       />
       <br></br>
-      <img src={baseImage} height="200px" />
+      {baseImage ? <img src={baseImage} height="150px" /> : null}
     </div>
   )
 }

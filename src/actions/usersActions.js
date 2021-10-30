@@ -23,6 +23,7 @@ import { TransactionsReset } from "../Slices/walletSlice"
 import { postsReset } from "../Slices/postsSlice"
 import { commentsReset } from "../Slices/commentSlice"
 import { conversationsReset } from "../Slices/conversationsSlice"
+import { isLoggedFalse, isLoggedTrue } from "../Slices/authSlice"
 
 // HACENE LOGIN logic
 export const login = (email, password) => async (dispatch) => {
@@ -48,7 +49,7 @@ export const login = (email, password) => async (dispatch) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     })
-    // set user in localstorage
+    dispatch(isLoggedTrue())
     localStorage.setItem("userInfo", JSON.stringify(data))
   } catch (error) {
     dispatch({
@@ -94,6 +95,7 @@ export const register =
         type: USER_LOGIN_SUCCESS,
         payload: data,
       })
+      dispatch(isLoggedTrue())
 
       localStorage.setItem("userInfo", JSON.stringify(data))
     } catch (error) {
@@ -110,6 +112,7 @@ export const register =
 export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo")
   dispatch({ type: USER_LOGOUT })
+  dispatch(isLoggedFalse())
   dispatch(TransactionsReset())
   dispatch(profilReset())
   dispatch(postsReset())

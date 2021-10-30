@@ -11,7 +11,7 @@ import postsReducer from "./Slices/postsSlice"
 import walletReducer from "./Slices/walletSlice"
 import conversationReducer from "./Slices/conversationsSlice"
 import createConversationReducer from "./Slices/createConversationSlice"
-// import investors from "./reducers/investorSlice" import slice from reducerSlice
+import authReducer from "./Slices/authSlice"
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
@@ -25,6 +25,7 @@ const store = configureStore({
   reducer: {
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
+    auth: authReducer,
     getConsultant: getConsultantReducer,
     getInvestor: getInvestorReducer,
     getEntreprise: getEntrepriseReducer,

@@ -61,11 +61,9 @@ const useStyles = makeStyles((theme) => ({
 const SignIn = ({ location, history }) => {
   const classes = useStyles()
 
-  //HACENE track our states
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  //HACENE initialise useDispatch + useSelector (make use of userLogin from store.js)
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -82,7 +80,6 @@ const SignIn = ({ location, history }) => {
   //   }
   // }, [history, userInfo, redirect])
 
-  //HACENE dispatch en onSubmit form --- use 'login' from usersAction
   const handleSubmitLogin = (e) => {
     e.preventDefault()
     dispatch(login(email, password))

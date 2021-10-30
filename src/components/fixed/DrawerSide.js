@@ -45,8 +45,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const DrawerSide = ({ setOpen, setBlankOpen }) => {
+const DrawerSide = () => {
   const classes = useStyles()
+  const [open, setOpen] = useState(false)
+  const [blankOpen, setBlankOpen] = useState(false)
 
   const [clicked, setClicked] = useState("")
 
@@ -73,16 +75,10 @@ const DrawerSide = ({ setOpen, setBlankOpen }) => {
           <Divider />
 
           <List>
-            {/* {["Profil", "Wallet", "Entreprises", "Consultants"].map(
-              (text, index) => ( */}
             <ListItem
               button
               component={Link}
               to={"Journal"}
-              // to={() => {
-              //   handleclicked(text)
-              // }}
-              // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
                 setBlankOpen(false)
@@ -99,10 +95,6 @@ const DrawerSide = ({ setOpen, setBlankOpen }) => {
               button
               component={Link}
               to={"Profil"}
-              // to={() => {
-              //   handleclicked(text)
-              // }}
-              // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
                 setBlankOpen(false)
@@ -119,10 +111,6 @@ const DrawerSide = ({ setOpen, setBlankOpen }) => {
               button
               component={Link}
               to={"Wallet"}
-              // to={() => {
-              //   handleclicked(text)
-              // }}
-              // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
                 setBlankOpen(false)
@@ -139,10 +127,6 @@ const DrawerSide = ({ setOpen, setBlankOpen }) => {
               button
               component={Link}
               to={"Entreprises"}
-              // to={() => {
-              //   handleclicked(text)
-              // }}
-              // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
                 setBlankOpen(false)
@@ -159,10 +143,6 @@ const DrawerSide = ({ setOpen, setBlankOpen }) => {
               button
               component={Link}
               to={"Consultants"}
-              // to={() => {
-              //   handleclicked(text)
-              // }}
-              // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
                 setBlankOpen(false)
@@ -179,10 +159,6 @@ const DrawerSide = ({ setOpen, setBlankOpen }) => {
               button
               component={Link}
               to={"Investor"}
-              // to={() => {
-              //   handleclicked(text)
-              // }}
-              // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
                 setBlankOpen(false)
@@ -199,10 +175,6 @@ const DrawerSide = ({ setOpen, setBlankOpen }) => {
               button
               component={Link}
               to={"Investor"}
-              // to={() => {
-              //   handleclicked(text)
-              // }}
-              // onClick={() => handleNavButtons(text)}
               onClick={() => {
                 setOpen(false)
                 setBlankOpen(false)

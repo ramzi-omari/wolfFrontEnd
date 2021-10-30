@@ -29,6 +29,7 @@ import {
   ListItemText,
   Modal,
 } from "@material-ui/core"
+import { Link, useHistory } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -119,13 +120,14 @@ const style = {
   p: 4,
 }
 
-export default function AppNavBar({ history }) {
+export default function AppNavBar() {
   const classes = useStyles()
   const [searchText, setSearchText] = useState("")
   const [users, setUsers] = useState([])
   const [open, setOpen] = useState("")
 
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
@@ -145,12 +147,12 @@ export default function AppNavBar({ history }) {
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
-  useEffect(() => {
-    // if we are not logged in redirect to /sign
-    if (!userInfo) {
-      history.push("sign")
-    }
-  }, [history, userInfo, logout])
+  // useEffect(() => {
+  //   // if we are not logged in redirect to /sign
+  //   if (!userInfo) {
+  //     history.push("sign")
+  //   }
+  // }, [history, userInfo, logout])
 
   // useEffect(() => {
   //   if (!conversations.conversation) {
@@ -274,14 +276,10 @@ export default function AppNavBar({ history }) {
     // setDestinataireID(text._id)
     setSearchText(text.first_name + " " + text.last_name)
     // LINK TO MEMBERS depending on text.type
+    console.log("typ", text.type)
     setOpen(false)
     setUsers([])
-    // history.push("Consultants")
-    // const history = useHistory();
-    // history.push({
-    //   pathname: "/Consultants",
-    //   state: { username: text },
-    // })
+    history.push("/Consultants")
   }
 
   const handleClose = () => {

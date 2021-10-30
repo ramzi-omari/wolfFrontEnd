@@ -97,12 +97,11 @@ const SignUp = ({ location, history }) => {
   const dispatch = useDispatch()
 
   // const userLogin = useSelector((state) => state.userLogin)
-  const LSuserinfo = localStorage.getItem("userInfo")
-  console.log("LSuserinfo " + LSuserinfo)
+  // const LSuserinfo = localStorage.getItem("userInfo")
+  // console.log("LSuserinfo " + LSuserinfo)
 
   const userRegister = useSelector((state) => state.userRegister)
   const { loading, error, userInfo } = userRegister
-  console.log("errrr " + error)
 
   const submitHandler = (e) => {
     e.preventDefault()

@@ -60,9 +60,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Wallet = ({ history }) => {
+const Wallet = ({ history, lol }) => {
   const classes = useStyles()
-
+  console.log("walletlol", lol)
   const [open, setOpen] = useState(false)
   const [open2, setOpen2] = useState(false)
 

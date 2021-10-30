@@ -59,15 +59,14 @@ const Accueil = ({ history }) => {
 
       <div className="dis-flex">
         <DrawerSide setOpen={setOpen} setBlankOpen={setBlankOpen}></DrawerSide>
+        {/* center & right part */}
         <Grid
           container
           style={{
-            // backgroundColor: "rgba(0, 0, 0, 0.2)",
-            backgroundColor: "rgba(20,20,20)", // black background
-            // backgroundImage:
-            //   "url(../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png)",
+            backgroundColor: "rgba(20,20,20)",
           }}
         >
+          {/* center part */}
           <Grid
             item
             xs={8}
@@ -78,18 +77,12 @@ const Accueil = ({ history }) => {
               className={classes.paper}
               style={{
                 backgroundColor: "rgba(0, 0, 0, 0.2)",
-                // backgroundImage: url(
-                //   "../../neven-krcmarek-9dTg44Qhx1Q-unsplash-removebg.png"
-                // ),
                 minHeight: "85.6vh",
                 marginBottom: "4vh",
               }}
             >
               <div className="accueil-center">
                 <HeaderImg></HeaderImg>
-                {/* <Link to={"/Profil"}>
-                  <button type="button">Click Me!</button>
-                </Link> */}
                 {blankOpen ? <BlankComponent></BlankComponent> : null}
                 <Switch>
                   <Route exact path="/Journal" component={Journal}></Route>
@@ -126,15 +119,12 @@ const Accueil = ({ history }) => {
                         </span>
                       </Paper>
                     )}
-                    {/* <ChatScreen
-                      setOpen={setOpen}
-                      conversationID={conversationID}
-                    ></ChatScreen> */}
                   </Route>
                 </Switch>
               </div>
             </Paper>
           </Grid>
+          {/* Right Sidebar if open conversationList */}
           <Grid
             item
             xs={4}
@@ -168,6 +158,7 @@ const Accueil = ({ history }) => {
               )}
             </Paper>
           </Grid>
+          {/* fin */}
         </Grid>
       </div>
 

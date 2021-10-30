@@ -17,20 +17,39 @@ import Consultants from "./views/Consultants/Consultants"
 
 export const history = createBrowserHistory()
 function App() {
+  const [blankOpen, setBlankOpen] = useState(true)
   return (
     <Router history={history}>
       <Switch>
         {/* change Accc with accueil without routers inside & with landing screen */}
-        <PrivateRoute path="/Acc" component={Accc} exact={true} />
+        <PrivateRoute path="/Acc" open={false} component={Accc} exact={true} />
         <PublicRoute path="/" component={SignUpIn} exact={true} />
-        <PrivateRoute path="/Journal" component={Journal} />
-        <PrivateRoute path="/Profil" component={Profil} />
-        <PrivateRoute path="/Wallet" component={Wallet} />
-        <PrivateRoute path="/Entreprises" component={Entreprises} />
-        <PrivateRoute path="/Consultants" component={Consultants} />
-        {/* <PrivateRoute path="/Investor" component={Investor} />
-        <PrivateRoute path="/Chat" component={ChatScreen} />
-        <PrivateRoute path="/Bourse" component={Investor} /> 
+        <PrivateRoute path="/Journal" open={false} component={Journal} />
+        <PrivateRoute
+          path="/Profil"
+          open={false}
+          lol={false}
+          component={Profil}
+        />
+        <PrivateRoute
+          path="/Wallet"
+          open={false}
+          lol={true}
+          component={Wallet}
+        />
+        <PrivateRoute
+          path="/Entreprises"
+          open={false}
+          component={Entreprises}
+        />
+        <PrivateRoute
+          path="/Consultants"
+          open={false}
+          component={Consultants}
+        />
+        {/* <PrivateRoute path="/Investor" open={false} component={Investor} />
+        <PrivateRoute path="/Chat" open={true} setBlankOpen={setBlankOpen} component={ChatScreen} />
+        <PrivateRoute path="/Bourse" open={false} component={Investor} /> 
        */}
 
         {/* <Route component={PageNotFound} /> */}

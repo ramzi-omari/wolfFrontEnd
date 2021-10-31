@@ -147,21 +147,7 @@ export default function AppNavBar() {
   const userLogin = useSelector((state) => state.userLogin)
   const { loading, error, userInfo } = userLogin
 
-  // useEffect(() => {
-  //   // if we are not logged in redirect to /sign
-  //   if (!userInfo) {
-  //     history.push("sign")
-  //   }
-  // }, [history, userInfo, logout])
-
-  // useEffect(() => {
-  //   if (!conversations.conversation) {
-  //     dispatch(getConversations())
-  //   }
-  // }, [])
-
   const logingout = () => {
-    console.log("userinfo before loginout: " + userInfo)
     setUsers([])
     dispatch(logout())
   }

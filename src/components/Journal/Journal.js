@@ -20,8 +20,6 @@ const Journal = () => {
   const [clickedID, setClickedID] = useState("")
 
   const dispatch = useDispatch()
-  // const { userInfo } = useSelector((state) => state.userLogin)
-  // const { user } = userInfo
 
   const postsList = useSelector((state) => state.postsList)
   const { loading, error, posts } = postsList

@@ -47,10 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
 const DrawerSide = () => {
   const classes = useStyles()
-  const [open, setOpen] = useState(false)
-  const [blankOpen, setBlankOpen] = useState(false)
-
-  const [clicked, setClicked] = useState("")
 
   const handleNavButtons = (e) => {
     console.log("clicked: " + e)
@@ -75,48 +71,21 @@ const DrawerSide = () => {
           <Divider />
 
           <List>
-            <ListItem
-              button
-              component={Link}
-              to={"Journal"}
-              onClick={() => {
-                setOpen(false)
-                setBlankOpen(false)
-              }}
-              key={"Journal"}
-            >
+            <ListItem button component={Link} to={"Journal"} key={"Journal"}>
               <ListItemIcon>
                 <AccountBox />
               </ListItemIcon>
               <ListItemText primary={"Journal"} />
             </ListItem>
             <Divider />
-            <ListItem
-              button
-              component={Link}
-              to={"Profil"}
-              onClick={() => {
-                setOpen(false)
-                setBlankOpen(false)
-              }}
-              key={"Profil"}
-            >
+            <ListItem button component={Link} to={"Profil"} key={"Profil"}>
               <ListItemIcon>
                 <AccountBox />
               </ListItemIcon>
               <ListItemText primary={"Profil"} />
             </ListItem>
 
-            <ListItem
-              button
-              component={Link}
-              to={"Wallet"}
-              onClick={() => {
-                setOpen(false)
-                setBlankOpen(false)
-              }}
-              key={"Wallet"}
-            >
+            <ListItem button component={Link} to={"Wallet"} key={"Wallet"}>
               <ListItemIcon>
                 <AccountBalance />
               </ListItemIcon>
@@ -127,10 +96,6 @@ const DrawerSide = () => {
               button
               component={Link}
               to={"Entreprises"}
-              onClick={() => {
-                setOpen(false)
-                setBlankOpen(false)
-              }}
               key={"Entreprises"}
             >
               <ListItemIcon>
@@ -143,10 +108,6 @@ const DrawerSide = () => {
               button
               component={Link}
               to={"Consultants"}
-              onClick={() => {
-                setOpen(false)
-                setBlankOpen(false)
-              }}
               key={"Consultants"}
             >
               <ListItemIcon>
@@ -155,53 +116,21 @@ const DrawerSide = () => {
               <ListItemText primary={"Consultants"} />
             </ListItem>
 
-            <ListItem
-              button
-              component={Link}
-              to={"Investor"}
-              onClick={() => {
-                setOpen(false)
-                setBlankOpen(false)
-              }}
-              key={"Investor"}
-            >
+            <ListItem button component={Link} to={"Investor"} key={"Investor"}>
               <ListItemIcon>
                 <GroupAddIcon />
               </ListItemIcon>
               <ListItemText primary={"Investisseurs"} />
             </ListItem>
 
-            <ListItem
-              button
-              component={Link}
-              to={"Investor"}
-              onClick={() => {
-                setOpen(false)
-                setBlankOpen(false)
-              }}
-              key={"Investor"}
-            >
+            <ListItem button component={Link} to={"Investor"} key={"Investor"}>
               <ListItemIcon>
                 <GroupAddIcon />
               </ListItemIcon>
               <ListItemText primary={"Bourse"} />
             </ListItem>
 
-            <ListItem
-              button
-              component={Link}
-              to={"Chat"}
-              // to={() => {
-              //   handleclicked(text)
-              // }}
-              // onClick={() => handleNavButtons(text)}
-              // onClick={handleClick}
-              onClick={() => {
-                setOpen(true)
-                setBlankOpen(false)
-              }}
-              key={"Messagerie"}
-            >
+            <ListItem button component={Link} to={"Chat"} key={"Messagerie"}>
               <ListItemIcon>
                 <GroupAddIcon />
               </ListItemIcon>

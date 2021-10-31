@@ -16,15 +16,6 @@ const ConversationList = ({ setConversationID }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  let history = useHistory()
-
-  useEffect(() => {
-    // if we are not logged in redirect to /sign
-    if (!userInfo) {
-      history.push("/sign")
-    }
-  }, [history, userInfo, userLogin])
-
   const conversationsList = useSelector((state) => state.conversationsList)
   const { loading, error, conversations } = conversationsList
 

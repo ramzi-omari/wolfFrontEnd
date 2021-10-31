@@ -13,10 +13,6 @@ import { addMessages } from "../../Slices/conversationsSlice"
 const ChatScreen = ({ conversationID }) => {
   const dispatch = useDispatch()
 
-  // open conversations list barre (right side bar)
-
-  // setOpen(true)
-
   const [own, setOwn] = useState("")
 
   // receiver or sender id to choose show message color black/white
@@ -118,12 +114,6 @@ const ChatScreen = ({ conversationID }) => {
   return (
     <>
       {conversationID ? (
-        // <ChatScreen
-        //   setOpen={setOpen}
-        //   // setOpen > no need in new structure
-        //   // open set from app.js
-        //   conversationID={conversationID}
-        // ></ChatScreen>
         <div className="ChatScreen">
           <Grid>
             <Paper

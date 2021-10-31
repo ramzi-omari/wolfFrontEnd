@@ -20,7 +20,6 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        {/* change Accc with accueil without routers inside & with landing screen */}
         <PrivateRoute path="/Acc" open={false} component={Home} exact={true} />
         <PublicRoute path="/" component={SignUpIn} exact={true} />
         <PrivateRoute path="/Journal" open={false} component={Journal} />

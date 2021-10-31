@@ -114,9 +114,6 @@ const ProfilEdit = ({ user }) => {
 
   const dispatch = useDispatch()
 
-  // const userDetails = useSelector((state) => state.userDetails)
-  // const { loading, error, user } = userDetails
-
   useEffect(() => {
     if (!user) {
       //  dispatch(getUserDetails())
@@ -142,10 +139,7 @@ const ProfilEdit = ({ user }) => {
     setOpen(false)
     setProfilePictureUrl("")
   }
-  // const [success, setSuccess] = useState(false)
 
-  // const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
-  // const { success } = userUpdateProfile
   const { loading, error, updateSuccess, userDetails } = useSelector(
     (state) => state.userDetails
   )

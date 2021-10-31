@@ -14,11 +14,10 @@ import moment from "moment"
 import "./Journal.css"
 import Comments from "./Comments/Comments"
 
-const Journal = ({ lol }) => {
+const Journal = () => {
   const [publications, setPublications] = useState([])
   const [openComment, setOpenComment] = useState(true)
   const [clickedID, setClickedID] = useState("")
-  console.log("accueillol", lol)
 
   const dispatch = useDispatch()
   // const { userInfo } = useSelector((state) => state.userLogin)

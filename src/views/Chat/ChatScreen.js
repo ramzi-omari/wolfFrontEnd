@@ -10,11 +10,13 @@ import "./ChatScreen.css"
 import io from "socket.io-client"
 import { addMessages } from "../../Slices/conversationsSlice"
 
-const ChatScreen = ({ setOpen, conversationID }) => {
+const ChatScreen = ({ conversationID }) => {
   const dispatch = useDispatch()
 
   // open conversations list barre (right side bar)
-  setOpen(true)
+
+  // setOpen(true)
+
   const [own, setOwn] = useState("")
 
   // receiver or sender id to choose show message color black/white
@@ -114,65 +116,86 @@ const ChatScreen = ({ setOpen, conversationID }) => {
   //   return null
   // }
   return (
-    <div className="ChatScreen">
-      <Grid>
+    <>
+      {conversationID ? (
+        // <ChatScreen
+        //   setOpen={setOpen}
+        //   // setOpen > no need in new structure
+        //   // open set from app.js
+        //   conversationID={conversationID}
+        // ></ChatScreen>
+        <div className="ChatScreen">
+          <Grid>
+            <Paper
+              style={{
+                // backgroundColor: "#80808024",
+                borderRadius: "30px",
+                width: "90%",
+                margin: "auto",
+              }}
+            >
+              <div className="chatBox">
+                <div className="chatBoxWrapper">
+                  <div className="chatBoxTop">
+                    {!messages.length === 0 ? (
+                      <>
+                        {loading && <Loader />}
+                        <span className="noConversationText">
+                          Open a conversation to start a chat.
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        {Array.from(messages)
+                          .map((item, index) => (
+                            <div ref={scrollRef}>
+                              <ChatMessage
+                                own={own}
+                                message={item}
+                                part1={part1}
+                                profilePic={profilePic}
+                                contactPic={contactPic}
+                              ></ChatMessage>
+                            </div>
+                          ))
+                          .reverse()}
+                      </>
+                    )}
+                  </div>
+                  <div className="chatBoxBottom">
+                    <textarea
+                      className="chatMessageInput"
+                      placeholder="write something..."
+                      onChange={(e) => setNewMessage(e.target.value)}
+                      value={newMessage}
+                    ></textarea>
+                    <SendIcon
+                      style={{
+                        width: "9%",
+                        height: "34px",
+                        cursor: "pointer",
+                      }}
+                      onClick={handleSubmit}
+                    ></SendIcon>
+                  </div>
+                </div>
+              </div>
+            </Paper>
+          </Grid>
+        </div>
+      ) : (
         <Paper
           style={{
-            // backgroundColor: "#80808024",
-            borderRadius: "30px",
-            width: "90%",
-            margin: "auto",
+            width: "auto",
+            margin: "2rem",
           }}
         >
-          <div className="chatBox">
-            <div className="chatBoxWrapper">
-              <div className="chatBoxTop">
-                {!messages.length === 0 ? (
-                  <>
-                    {loading && <Loader />}
-                    <span className="noConversationText">
-                      Open a conversation to start a chat.
-                    </span>
-                  </>
-                ) : (
-                  <>
-                    {Array.from(messages)
-                      .map((item, index) => (
-                        <div ref={scrollRef}>
-                          <ChatMessage
-                            own={own}
-                            message={item}
-                            part1={part1}
-                            profilePic={profilePic}
-                            contactPic={contactPic}
-                          ></ChatMessage>
-                        </div>
-                      ))
-                      .reverse()}
-                  </>
-                )}
-              </div>
-              <div className="chatBoxBottom">
-                <textarea
-                  className="chatMessageInput"
-                  placeholder="write something..."
-                  onChange={(e) => setNewMessage(e.target.value)}
-                  value={newMessage}
-                ></textarea>
-                <SendIcon
-                  style={{
-                    width: "9%",
-                    height: "34px",
-                    cursor: "pointer",
-                  }}
-                  onClick={handleSubmit}
-                ></SendIcon>
-              </div>
-            </div>
-          </div>
+          <span style={{ width: "2rem" }}>
+            Open a conversation to start a chat.
+          </span>
         </Paper>
-      </Grid>
-    </div>
+      )}
+    </>
   )
 }
 

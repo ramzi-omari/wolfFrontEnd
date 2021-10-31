@@ -60,9 +60,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Profil = ({ history, lol }) => {
+const Profil = ({ history }) => {
   const classes = useStyles()
-  console.log("loooo", lol)
 
   const [email, setEmail] = useState("")
   const [lastname, setLastName] = useState("")

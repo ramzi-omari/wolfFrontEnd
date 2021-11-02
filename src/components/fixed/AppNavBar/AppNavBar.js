@@ -30,6 +30,7 @@ import {
   Modal,
 } from "@material-ui/core"
 import { Link, useHistory } from "react-router-dom"
+import NotificationsComponent from "../../Notifications/NotificationsComponent"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -106,6 +107,11 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  menu: {
+    "& .MuiPaper-root": {
+      top: "10vh !important",
+    },
+  },
 }))
 
 const style = {
@@ -126,8 +132,13 @@ export default function AppNavBar() {
   const [users, setUsers] = useState([])
   const [open, setOpen] = useState("")
 
+  const [openNotif, setOpenNotif] = useState(false)
+
   const dispatch = useDispatch()
   const history = useHistory()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { loading, error, userInfo } = userLogin
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
@@ -137,19 +148,6 @@ export default function AppNavBar() {
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget)
-  }
-
-  // const conversationsList = useSelector((state) => state.conversationsList)
-  // const { conversations } = conversationsList
-
-  const dat = JSON.parse(localStorage.getItem("userInfo"))
-
-  const userLogin = useSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
-
-  const logingout = () => {
-    setUsers([])
-    dispatch(logout())
   }
 
   const handleMobileMenuClose = () => {
@@ -190,6 +188,7 @@ export default function AppNavBar() {
       keepMounted
       transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMobileMenuOpen}
+      className={classes.menu}
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
@@ -221,6 +220,12 @@ export default function AppNavBar() {
       </MenuItem>
     </Menu>
   )
+
+  const logingout = () => {
+    setUsers([])
+    dispatch(logout())
+  }
+
   useEffect(() => {}, [users])
 
   const HandleSearch = (e) => {
@@ -271,6 +276,11 @@ export default function AppNavBar() {
   const handleClose = () => {
     setOpen(false)
     setUsers([])
+  }
+
+  const notificationClick = () => {
+    setOpenNotif(!openNotif)
+    // dispatch(getNotifications())
   }
 
   return (
@@ -340,9 +350,17 @@ export default function AppNavBar() {
                 <MailIcon />
               </Badge>
             </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            <IconButton
+              aria-label="show 17 new notifications"
+              color="inherit"
+              onClick={notificationClick}
+            >
               <Badge badgeContent={17} color="secondary">
                 <NotificationsIcon />
+                <NotificationsComponent
+                  open={openNotif}
+                  setOpen={setOpenNotif}
+                ></NotificationsComponent>
               </Badge>
             </IconButton>
             <IconButton

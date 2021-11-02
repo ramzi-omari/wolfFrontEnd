@@ -12,6 +12,7 @@ import walletReducer from "./Slices/walletSlice"
 import conversationReducer from "./Slices/conversationsSlice"
 import createConversationReducer from "./Slices/createConversationSlice"
 import authReducer from "./Slices/authSlice"
+import notificationsReducer from "./Slices/notificationSlice"
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
@@ -35,6 +36,7 @@ const store = configureStore({
     wallet: walletReducer,
     conversationsList: conversationReducer,
     createConver: createConversationReducer,
+    notificationList: notificationsReducer,
   },
   initialState,
 })

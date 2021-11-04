@@ -11,13 +11,13 @@ import {
   getTransactions,
 } from "../../actions/transactionsActions"
 import moment from "moment"
-import AlertDialog from "../../components/utile/AlertDialog"
+import AlertDialog from "../utile/AlertDialog"
 import { Rating } from "@material-ui/lab"
 import { createConversation } from "../../actions/ChatActions.js/createConversationAction"
 import { getConversations } from "../../actions/ChatActions.js/conversationActions"
-import Message from "../../components/utile/Message"
+import Message from "../utile/Message"
 import { createConversationsReset } from "../../Slices/createConversationSlice"
-import Loader from "../../components/utile/Loader"
+import Loader from "../utile/Loader"
 
 const useStyles = makeStyles((theme) => ({
   buttons: {

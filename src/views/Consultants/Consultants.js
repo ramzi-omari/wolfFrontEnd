@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import MemberCard from "../../components/MemberCard/MemberCard"
 import { Avatar, Grid, Paper, Typography } from "@material-ui/core"
 import { getUsersDetail } from "../../actions/getUsersAction"
 import Loader from "../../components/utile/Loader"
-
+import ListMembers from "../../components/ListMembers/ListMembers"
 import "./Consultants.css"
 
 const Consultants = () => {
@@ -55,11 +54,8 @@ const Consultants = () => {
               <h2>Users is empty</h2>
             ) : (
               <>
-                {Array.from(data).map((item, index) => (
-                  <Grid item xs={12} sm={6} md={6} key={index}>
-                    <MemberCard item={item}></MemberCard>
-                  </Grid>
-                ))}
+                <h6>click to show details</h6>
+                <ListMembers members={data}></ListMembers>
               </>
             )}
           </Grid>

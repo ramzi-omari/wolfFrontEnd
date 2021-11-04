@@ -134,7 +134,7 @@ export default function AppNavBar() {
   const history = useHistory()
 
   const userLogin = useSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  const { userInfo } = userLogin
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null)
@@ -143,6 +143,7 @@ export default function AppNavBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
   const handleProfileMenuOpen = (event) => {
+    setOpenNotif(false)
     setAnchorEl(event.currentTarget)
   }
 
@@ -153,6 +154,16 @@ export default function AppNavBar() {
   const handleMenuClose = () => {
     setAnchorEl(null)
     handleMobileMenuClose()
+  }
+  const handleRedirectProfile = () => {
+    setAnchorEl(null)
+    handleMobileMenuClose()
+    history.push("/Profil")
+  }
+  const handleRedirectTransaction = () => {
+    setAnchorEl(null)
+    handleMobileMenuClose()
+    history.push("/Wallet")
   }
 
   const handleMobileMenuOpen = (event) => {
@@ -168,10 +179,11 @@ export default function AppNavBar() {
       keepMounted
       transformOrigin={{ vertical: "top", horizontal: "right" }}
       open={isMenuOpen}
+      className={classes.menu}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleRedirectProfile}>Profile</MenuItem>
+      <MenuItem onClick={handleRedirectTransaction}>My transaction</MenuItem>
     </Menu>
   )
 
@@ -279,7 +291,12 @@ export default function AppNavBar() {
   }
 
   const notificationClick = () => {
+    handleMenuClose()
     setOpenNotif(!openNotif)
+  }
+
+  const mailClick = () => {
+    history.push("/Chat")
   }
 
   return (
@@ -344,8 +361,12 @@ export default function AppNavBar() {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
+            <IconButton
+              aria-label="show 4 new mails"
+              color="inherit"
+              onClick={mailClick}
+            >
+              <Badge badgeContent={0} color="secondary">
                 <MailIcon />
               </Badge>
             </IconButton>

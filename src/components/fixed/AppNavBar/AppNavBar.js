@@ -18,19 +18,11 @@ import MoreIcon from "@material-ui/icons/MoreVert"
 import { logout } from "../../../actions/usersActions"
 import ExitToAppIcon from "@material-ui/icons/ExitToApp"
 import "./AppNavBar.css"
-import { getConversations } from "../../../actions/ChatActions.js/conversationActions"
 import axios from "axios"
-import {
-  Avatar,
-  Box,
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-  Modal,
-} from "@material-ui/core"
+import { Box, Modal } from "@material-ui/core"
 import { Link, useHistory } from "react-router-dom"
 import NotificationsComponent from "../../Notifications/NotificationsComponent"
+import { getNotifications } from "../../../actions/notificationsActions"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -134,6 +126,10 @@ export default function AppNavBar() {
 
   const [openNotif, setOpenNotif] = useState(false)
 
+  const notificationList = useSelector((state) => state.notificationList)
+  const { notifications } = notificationList
+  const [notifLength, setNotifLength] = useState(0)
+
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -228,6 +224,19 @@ export default function AppNavBar() {
 
   useEffect(() => {}, [users])
 
+  useEffect(() => {
+    if (notifications) {
+      if (notifications.notifications) {
+        console.log("length", notifications.notifications.length)
+        setNotifLength(notifications.notifications.length)
+      }
+    }
+    const timer = setTimeout(() => {
+      dispatch(getNotifications())
+    }, 20000)
+    return () => clearTimeout(timer)
+  }, [notifications])
+
   const HandleSearch = (e) => {
     e.preventDefault()
     const config = {
@@ -255,16 +264,7 @@ export default function AppNavBar() {
     }
   }
 
-  // const HandleUserClick = (e) => {
-  //   e.preventDefault()
-  //   const user_id = e.currentTarget.getAttribute("data-id")
-  //   console.log("iddd", user_id)
-  //   setUsers([])
-  // }
-
   const onSuggestHandler = (text) => {
-    // setName(text.first_name + " " + text.last_name)
-    // setDestinataireID(text._id)
     setSearchText(text.first_name + " " + text.last_name)
     // LINK TO MEMBERS depending on text.type
     console.log("typ", text.type)
@@ -280,7 +280,6 @@ export default function AppNavBar() {
 
   const notificationClick = () => {
     setOpenNotif(!openNotif)
-    // dispatch(getNotifications())
   }
 
   return (
@@ -355,7 +354,7 @@ export default function AppNavBar() {
               color="inherit"
               onClick={notificationClick}
             >
-              <Badge badgeContent={17} color="secondary">
+              <Badge badgeContent={notifLength} color="secondary">
                 <NotificationsIcon />
                 <NotificationsComponent
                   open={openNotif}

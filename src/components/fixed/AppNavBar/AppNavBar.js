@@ -23,6 +23,7 @@ import { Box, Modal } from "@material-ui/core"
 import { Link, useHistory } from "react-router-dom"
 import NotificationsComponent from "../../Notifications/NotificationsComponent"
 import { getNotifications } from "../../../actions/notificationsActions"
+import { Tooltip } from "@mui/material"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -361,6 +362,19 @@ export default function AppNavBar() {
 
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <Tooltip title="My Solde">
+              <Typography
+                style={{
+                  margin: "auto",
+                  color: "#00d300c4",
+                  padding: " 8px",
+                  marginTop: "1vh",
+                }}
+                variant="h6"
+              >
+                {userInfo.user.wallet} DA
+              </Typography>
+            </Tooltip>
             <IconButton
               aria-label="show 4 new mails"
               color="inherit"

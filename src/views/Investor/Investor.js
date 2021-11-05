@@ -6,9 +6,12 @@ import ListMembers from "../../components/ListMembers/ListMembers"
 
 import "../Consultants/Consultants.css"
 import Loader from "../../components/utile/Loader"
+import { useLocation } from "react-router"
 
 const Entreprises = () => {
   const [data, setData] = useState("")
+  const [selectedUser, setSelectedUser] = useState("")
+
   const dispatch = useDispatch()
 
   const getInvestor = useSelector((state) => state.getInvestor)
@@ -25,6 +28,14 @@ const Entreprises = () => {
       setData(users.users)
     }
   }, [users.users])
+
+  const location = useLocation()
+
+  useEffect(() => {
+    if (location.state) {
+      setSelectedUser(location.state.userSelected)
+    }
+  }, [location])
 
   return (
     <div className="consultants">
@@ -56,7 +67,10 @@ const Entreprises = () => {
             ) : (
               <>
                 <h6>click to show details</h6>
-                <ListMembers members={data}></ListMembers>
+                <ListMembers
+                  selectedUser={selectedUser}
+                  members={data}
+                ></ListMembers>
               </>
             )}
           </Grid>

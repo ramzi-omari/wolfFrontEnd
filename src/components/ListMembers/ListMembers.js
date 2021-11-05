@@ -160,13 +160,20 @@ const columns = [
   },
 ]
 
-export default function ListMembers({ members }) {
+export default function ListMembers({ selectedUser, members }) {
   const classes = useStyles()
+  const [selectedMember, setSelectedMember] = useState(null)
 
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+  useEffect(() => {
+    if (members && selectedUser) {
+      setSelectedMember(members.filter((e) => e._id === selectedUser))
+    }
+  }, [members, selectedUser])
 
   const [open, setOpen] = useState(false)
   const [fullName, setFullName] = useState("")
@@ -219,7 +226,8 @@ export default function ListMembers({ members }) {
   return (
     <div style={{ height: 570, width: "100%" }}>
       <DataGrid
-        rows={members}
+        rows={selectedMember ? selectedMember : members}
+        // rows={members}
         columns={columns}
         getRowId={(row) => row._id}
         pageSize={5}
@@ -231,7 +239,6 @@ export default function ListMembers({ members }) {
 
       <Modal
         aria-labelledby="transition-modal-title"
-        // aria-describedby="transition-modal-description"
         className={classes.modal}
         open={open}
         onClose={handleClose}

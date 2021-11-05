@@ -283,7 +283,25 @@ export default function AppNavBar() {
     console.log("typ", text.type)
     setOpen(false)
     setUsers([])
-    history.push("/Consultants")
+
+    if (text.type === "INVESTOR") {
+      history.push({
+        pathname: "/Investor",
+        state: { userSelected: text._id },
+      })
+    } else {
+      if (text.type === "CONSULTANT") {
+        history.push({
+          pathname: "/Consultants",
+          state: { userSelected: text._id },
+        })
+      } else {
+        history.push({
+          pathname: "/Entreprises",
+          state: { userSelected: text._id },
+        })
+      }
+    }
   }
 
   const handleClose = () => {

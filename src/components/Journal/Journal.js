@@ -79,11 +79,16 @@ const Journal = () => {
                 <div className="post">
                   <div className="post__top">
                     <Avatar
-                      src="https://img.favpng.com/18/18/18/computer-icons-icon-design-avatar-png-favpng-X29r5WhWMXVYvNsYXkR4iBgwf.jpg"
+                      src={item.publisher && item.publisher.profilePictureUrl}
                       className="post__avatar"
                     />
                     <div className="post__topInfo">
-                      <h3>username</h3>
+                      <h3>
+                        {item.publisher &&
+                          item.publisher.last_name +
+                            " " +
+                            item.publisher.first_name}
+                      </h3>
                       <p>{moment(item.created_at).format("YYYY-MM-DD LT")}</p>
                     </div>
                   </div>
@@ -91,10 +96,7 @@ const Journal = () => {
                     <p>{item.content}</p>
                   </div>
                   <div className="post__image">
-                    <img
-                      src="https://images.unsplash.com/photo-1521575107034-e0fa0b594529?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cG9zdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80"
-                      alt=""
-                    />
+                    <img src={item.image} alt="" />
                   </div>
                   <div className="post__options">
                     <div

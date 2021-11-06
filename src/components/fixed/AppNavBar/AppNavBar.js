@@ -23,7 +23,7 @@ import { Box, Modal } from "@material-ui/core"
 import { Link, useHistory } from "react-router-dom"
 import NotificationsComponent from "../../Notifications/NotificationsComponent"
 import { getNotifications } from "../../../actions/notificationsActions"
-import { Tooltip } from "@mui/material"
+import Tooltip from "@material-ui/core/Tooltip"
 
 const useStyles = makeStyles((theme) => ({
   grow: {

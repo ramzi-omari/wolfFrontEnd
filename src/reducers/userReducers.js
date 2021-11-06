@@ -8,8 +8,15 @@ import {
   USER_REGISTER_SUCCESS,
 } from "../constants/userConstants"
 
+const userInfoFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null
+
 // HACENE login reducer depending on action type
-export const userLoginReducer = (state = {}, action) => {
+export const userLoginReducer = (
+  state = { userInfo: userInfoFromStorage },
+  action
+) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true }
